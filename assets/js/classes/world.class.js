@@ -1,6 +1,20 @@
 class World {
     ctx = null;
 
+    framerate = {
+        fps: 20,
+        msPerFrame: 0,
+        frame: 0,
+    }
+
+    time = {
+        msNow: null,
+        msPrev: window.performance.now(),
+        msPassed: null,
+        bufferTime: null,
+        paused: false,
+    }
+
     character = new Character(2, 40);
     enemies = [
         new Chicken(),
@@ -19,11 +33,27 @@ class World {
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
+        this.framerate.msPerFrame = 1000 / this.framerate.fps;
+        this.time.msPrev = window.performance.now();
+        setInterval(() => {
+            console.log(this.framerate.frame);
+        }, 1000);
         this.draw();
     }
 
     pause() {
         this.time.paused = !this.time.paused;
+    }
+
+    setUpTime() {
+        this.time.msNow = window.performance.now();
+        this.time.msPassed = this.time.msNow - this.time.msPrev;
+    }
+
+    updateTime() {
+        this.time.bufferTime = this.time.msPassed % this.framerate.msPerFrame;
+        this.time.msPrev = this.time.msNow - this.time.bufferTime;
+        this.framerate.frame++;
     }
 
 
@@ -32,14 +62,18 @@ class World {
             this.draw();
         });
 
-        
+        this.setUpTime();
+        if (this.time.msPassed < this.framerate.msPerFrame) return;
+        this.updateTime();
+
+        if (!this.time.paused) {
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             this.addObjectsToMap(this.clouds);
             this.addObjectsToMap(this.backgroundObjects);
             this.addObjectsToMap(this.enemies);
             this.addToMap(this.character);
-        
+        }
     }
 
 
