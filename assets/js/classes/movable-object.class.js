@@ -19,6 +19,7 @@ class MovableObject {
     appearance = {
         img: new Image(),
         currentImg: 0,
+        currentStyle: null,
         width: null,
         height: null,
         walking: [],
@@ -58,7 +59,7 @@ class MovableObject {
 
     getMaxSpeed() {
         try {
-            return this.abilities.run ? this.velocity.xMax * 1.5 : this.velocity.xMax;
+            return this.abilities.run ? this.velocity.xMax * 2 : this.velocity.xMax;
         } catch (error) {
             return this.velocity.xMax;
         }
