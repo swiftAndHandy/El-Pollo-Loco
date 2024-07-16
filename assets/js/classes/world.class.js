@@ -1,8 +1,10 @@
 class World {
     ctx = null;
 
+    gamepad = new Gamepad();
+
     framerate = {
-        fps: 20,
+        fps: 30,
         msPerFrame: 0,
         frame: 0,
     }
@@ -35,9 +37,9 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.framerate.msPerFrame = 1000 / this.framerate.fps;
         this.time.msPrev = window.performance.now();
-        setInterval(() => {
-            console.log(this.framerate.frame);
-        }, 1000);
+        // setInterval(() => {
+        //     console.log(this.framerate.frame);
+        // }, 1000);
         this.draw();
     }
 
@@ -64,15 +66,17 @@ class World {
 
         this.setUpTime();
         if (this.time.msPassed < this.framerate.msPerFrame) return;
-        this.updateTime();
-
         if (!this.time.paused) {
-            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.updateTime();
 
-            this.addObjectsToMap(this.clouds);
+            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.addObjectsToMap(this.backgroundObjects);
+            this.addObjectsToMap(this.clouds);
             this.addObjectsToMap(this.enemies);
             this.addToMap(this.character);
+            this.animate(this.clouds);
+
+            this.gamepad.checkGamepad();
         }
     }
 
@@ -86,4 +90,12 @@ class World {
     addToMap(mo) {
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
     }
+
+    animate(object) {
+        object.forEach(o => {
+            o.animate();
+        });
+    }
+
+
 }
