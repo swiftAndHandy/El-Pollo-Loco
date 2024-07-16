@@ -11,13 +11,15 @@ class Chicken extends MovableObject{
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.position.x = Math.random() * canvas.width + 200; 
         this.position.y = 352;
+        this.velocity.xMax = 0.5 + Math.random() * 0.5; this.acceleration.x = 0.1 + Math.random() * 0.25;
     }
 
     animate() {
         const animationFrame = this.appearance.currentImg % this.appearance.walking.length;
         this.appearance.img = this.appearance.walking[animationFrame];
-        if (world.framerate.frame % (world.framerate.fps / 10) == 0) {
+        if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
         }
+        this.moveLeft();
     }
 }

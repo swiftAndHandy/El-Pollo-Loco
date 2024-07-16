@@ -6,9 +6,14 @@ class MovableObject {
 
     velocity = {
         x: 0,
+        xMax: 0,
         y: 0,
-        xBase: null,
-        yBase: null,
+        yMax: 0,
+    }
+
+    acceleration = {
+        x: null,
+        y: null,
     }
 
     appearance = {
@@ -32,11 +37,40 @@ class MovableObject {
     };
 
     moveLeft() {
-        console.log('Moving left:' + (this.velocity.x = -this.velocity.xBase));
+        let maxSpeed = this.getMaxSpeed();
+        if (this.frameUpdateRequired()) {
+            this.velocity.x += this.acceleration.x;
+        }
+
+        this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+        this.position.x -= this.velocity.x;
     }
 
     moveRight() {
-        console.log('Moving right:' + (this.velocity.x = +this.velocity.xBase));
+        let maxSpeed = this.getMaxSpeed();
+        console.log(maxSpeed);
+        if (this.frameUpdateRequired()) {
+            this.velocity.x += this.acceleration.x;
+        }
+
+        this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+        this.position.x += this.velocity.x;
+    }
+
+    getMaxSpeed() {
+        try {
+            return this.abilities.run ? this.velocity.xMax * 1.5 : this.velocity.xMax;
+        } catch (error) {
+            return this.velocity.xMax;
+        }
+    }
+
+    stopMovement() {
+        this.velocity.x = 0;
+    }
+
+    frameUpdateRequired() {
+        return world.framerate.frame % (world.framerate.fps / 10) == 0
     }
 
     constructor(width, height) {

@@ -15,7 +15,7 @@ class Gamepad {
         });
     }
 
-    checkGamepad() {
+    checkInput() {
         if (this.controllerIndex != null) {
             const gamepad = navigator.getGamepads()[this.controllerIndex];
             gamepad && this.handleControllerInput(gamepad.buttons, gamepad.axes);
@@ -52,6 +52,14 @@ class Gamepad {
             // player.jumps.cooldown = false;
         }
 
+        if (buttons[2].pressed) {
+            console.log('You are running now!');
+            world.character.abilities.run = true;
+        } else {
+            world.character.abilities.run && console.log('You have stopped running.');
+            world.character.abilities.run = false;
+        }
+
         if (leftStickUpDown < -0.7) {
             world.character.jump();
         }
@@ -62,6 +70,7 @@ class Gamepad {
         } else if (leftStickLeftRight > 0.5) {
             world.character.moveRight();
         } else {
+            world.character.stopMovement();
         }
     }
 

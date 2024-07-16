@@ -5,8 +5,11 @@ class Character extends MovableObject {
         y: 222,
     }
 
-    cooldowns = {
-        jump: false,
+    abilities = {
+        jump: {
+            cooldown: false,
+        },
+        run: false,
     }
 
     WALKING_ANIMATION = [
@@ -18,21 +21,22 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/2_walk/W-26.png',
     ]
 
-    constructor(velocityX, velocityY) {
+    constructor() {
         super(100, 200).loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
-        this.velocity.xBase = velocityX;
-        this.velocity.yBase = velocityY;
+        this.velocity.xMax = 5; this.acceleration.x = 1;
+        this.velocity.yMax = 80; this.acceleration.y = 80;
     }
 
     jump() {
         console.log('Character jumps');
+        this.position.y -= this.velocity.y;
     }
 
     animate() {
         const animationFrame = this.appearance.currentImg % this.appearance.walking.length;
         this.appearance.img = this.appearance.walking[animationFrame];
-        if (world.framerate.frame % (world.framerate.fps / 10) == 0) {
+        if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
         }
     }

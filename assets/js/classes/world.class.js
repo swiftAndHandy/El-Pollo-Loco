@@ -1,6 +1,7 @@
 class World {
     ctx = null;
 
+    keyboard = new Keyboard();
     gamepad = new Gamepad();
 
     framerate = {
@@ -17,7 +18,7 @@ class World {
         paused: false,
     }
 
-    character = new Character(2, 40);
+    character = new Character();
     enemies = [
         new Chicken(),
         new Chicken(),
@@ -74,9 +75,12 @@ class World {
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.drawWorld();
             this.animateWorld();
-
-            this.gamepad.checkGamepad();
+            this.getInputs();
         }
+    }
+
+    getInputs() {
+        this.gamepad.checkInput();
     }
 
     drawWorld() {
