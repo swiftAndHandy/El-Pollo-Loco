@@ -48,7 +48,6 @@ class MovableObject {
 
     moveRight() {
         let maxSpeed = this.getMaxSpeed();
-        console.log(maxSpeed);
         if (this.frameUpdateRequired()) {
             this.velocity.x += this.acceleration.x;
         }
@@ -63,10 +62,6 @@ class MovableObject {
         } catch (error) {
             return this.velocity.xMax;
         }
-    }
-
-    stopMovement() {
-        this.velocity.x = 0;
     }
 
     frameUpdateRequired() {

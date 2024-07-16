@@ -81,6 +81,7 @@ class World {
 
     getInputs() {
         this.gamepad.checkInput();
+        this.keyboard.handleKeyboardInput();
     }
 
     drawWorld() {

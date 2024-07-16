@@ -1,6 +1,7 @@
 class Gamepad {
 
     controllerIndex = null;
+    directionBuffer = null;
 
     constructor() {
         window.addEventListener('gamepadconnected', (event) => {
@@ -66,11 +67,15 @@ class Gamepad {
 
 
         if (leftStickLeftRight < -0.5) {
+            this.directionBuffer = world.framerate.frame;
             world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
+            this.directionBuffer = world.framerate.frame;
             world.character.moveRight();
         } else {
-            world.character.stopMovement();
+            if (world.framerate.frame - this.directionBuffer >= world.framerate.fps / 10) {
+                world.character.stopMovement();
+            }
         }
     }
 

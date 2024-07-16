@@ -33,6 +33,10 @@ class Character extends MovableObject {
         this.position.y -= this.velocity.y;
     }
 
+    stopMovement() {
+        this.velocity.x = 0;
+    }
+
     animate() {
         const animationFrame = this.appearance.currentImg % this.appearance.walking.length;
         this.appearance.img = this.appearance.walking[animationFrame];
