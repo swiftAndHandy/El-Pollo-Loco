@@ -58,26 +58,38 @@ class World {
         this.framerate.frame++;
     }
 
-
-    draw() {
+    requestFrame() {
         window.requestAnimationFrame(() => {
             this.draw();
         });
+    }
 
+
+    draw() {
+        this.requestFrame();
         this.setUpTime();
         if (this.time.msPassed < this.framerate.msPerFrame) return;
         if (!this.time.paused) {
             this.updateTime();
-
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.addObjectsToMap(this.backgroundObjects);
-            this.addObjectsToMap(this.clouds);
-            this.addObjectsToMap(this.enemies);
-            this.addToMap(this.character);
-            this.animate(this.clouds);
+            this.drawWorld();
+            this.animateWorld();
 
             this.gamepad.checkGamepad();
         }
+    }
+
+    drawWorld() {
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.enemies);
+        this.addToMap(this.character);
+    }
+
+    animateWorld() {
+        this.animateObjects(this.clouds);
+        this.animate(this.character);
+        this.animateObjects(this.enemies);
     }
 
 
@@ -91,10 +103,14 @@ class World {
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
     }
 
-    animate(object) {
+    animateObjects(object) {
         object.forEach(o => {
             o.animate();
         });
+    }
+
+    animate(target) {
+        target.animate();
     }
 
 

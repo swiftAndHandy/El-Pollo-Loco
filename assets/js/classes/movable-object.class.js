@@ -5,12 +5,15 @@ class MovableObject {
     }
 
     velocity = {
-        x: null,
-        y: null
+        x: 0,
+        y: 0,
+        xBase: null,
+        yBase: null,
     }
 
     appearance = {
         img: new Image(),
+        currentImg: 0,
         width: null,
         height: null,
         walking: [],
@@ -29,11 +32,11 @@ class MovableObject {
     };
 
     moveLeft() {
-        console.log('Moving left');
+        console.log('Moving left:' + (this.velocity.x = -this.velocity.xBase));
     }
 
     moveRight() {
-        console.log('Moving right');
+        console.log('Moving right:' + (this.velocity.x = +this.velocity.xBase));
     }
 
     constructor(width, height) {

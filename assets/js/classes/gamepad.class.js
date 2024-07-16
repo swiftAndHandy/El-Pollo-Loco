@@ -58,11 +58,10 @@ class Gamepad {
 
 
         if (leftStickLeftRight < -0.5) {
-            // player.velocity.x = -4;
+            world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
-            // player.velocity.x = 4;
+            world.character.moveRight();
         } else {
-            // player.velocity.x = 0;
         }
     }
 
