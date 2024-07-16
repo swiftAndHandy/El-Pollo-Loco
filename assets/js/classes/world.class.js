@@ -80,8 +80,8 @@ class World {
     }
 
     getInputs() {
-        this.gamepad.checkInput();
-        this.keyboard.handleKeyboardInput();
+        const gamepadUsed = this.gamepad.checkInput();
+        this.keyboard.handleKeyboardInput(gamepadUsed);
     }
 
     drawWorld() {

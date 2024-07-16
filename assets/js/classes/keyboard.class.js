@@ -41,15 +41,19 @@ class Keyboard {
         }
     }
 
-    handleKeyboardInput() {
-        // if (this.keys.direction.at(-1) === 'KeyA') {
-        //     world.character.moveLeft();
-        // } else if (this.keys.direction.at(-1) === 'KeyD') {
-        //     world.character.moveRight();
-        // } else {
-        //     world.character.stopMovement();
-        // }
+    handleKeyboardInput(gamepadUsed) {
+        if (this.keys.direction.at(-1) === 'KeyA') {
+            world.character.moveLeft();
+        } else if (this.keys.direction.at(-1) === 'KeyD') {
+            world.character.moveRight();
+        } else {
+            if (!gamepadUsed && world.gamepad.unallowedLatency()) {
+                world.character.stopMovement();
+                console.log('stoppedByKeyboard');
+            } 
+        }
 
         world.character.abilities.run = this.keys.shift ? true : false; 
+
     }
 }

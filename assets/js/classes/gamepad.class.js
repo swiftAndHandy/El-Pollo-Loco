@@ -19,8 +19,22 @@ class Gamepad {
     checkInput() {
         if (this.controllerIndex != null) {
             const gamepad = navigator.getGamepads()[this.controllerIndex];
-            gamepad && this.handleControllerInput(gamepad.buttons, gamepad.axes);
+            if (gamepad) {
+                return this.handleControllerInput(gamepad.buttons, gamepad.axes);
+            }
+            return false;
+        } else {
+            return false;
         }
+    }
+
+    unallowedLatency() {
+        return world.framerate.frame - this.directionBuffer >= world.framerate.fps / 10;
+    }
+
+    setDirectionBuffer() {
+        this.directionBuffer = world.framerate.frame;
+        return true;
     }
 
 
@@ -44,6 +58,7 @@ class Gamepad {
      * * @param {Array} axes - and right- ([2] + [3]) controll-stick
      */
     handleControllerInput(buttons, axes) {
+        let inputDone = false;
         const leftStickLeftRight = axes[0];
         const leftStickUpDown = axes[1];
 
@@ -68,15 +83,20 @@ class Gamepad {
 
         if (leftStickLeftRight < -0.5) {
             this.directionBuffer = world.framerate.frame;
+            inputDone = this.setDirectionBuffer();
             world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
-            this.directionBuffer = world.framerate.frame;
+            inputDone = this.setDirectionBuffer();
             world.character.moveRight();
         } else {
-            if (world.framerate.frame - this.directionBuffer >= world.framerate.fps / 10) {
+            if (this.unallowedLatency() && world.keyboard.keys.direction.length === 0) {
                 world.character.stopMovement();
+            } else if (!this.unallowedLatency) {
+                inputDone = true;
             }
         }
+
+        return inputDone;
     }
 
 }
