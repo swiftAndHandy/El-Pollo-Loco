@@ -37,29 +37,30 @@ class MovableObject {
         });
     };
 
-    moveLeft() {
+    getCurrentVelocity() {
         let maxSpeed = this.getMaxSpeed();
+
         if (this.frameUpdateRequired()) {
             this.velocity.x += this.acceleration.x;
         }
-
         this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+    }
+
+    moveLeft() {
+        this.getCurrentVelocity();
         this.position.x -= this.velocity.x;
+        this.appearance.currentStyle = 'walking';
     }
 
     moveRight() {
-        let maxSpeed = this.getMaxSpeed();
-        if (this.frameUpdateRequired()) {
-            this.velocity.x += this.acceleration.x;
-        }
-
-        this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+        this.getCurrentVelocity();
         this.position.x += this.velocity.x;
+        this.appearance.currentStyle = 'walking';
     }
 
     getMaxSpeed() {
         try {
-            return this.abilities.run ? this.velocity.xMax * 2 : this.velocity.xMax;
+            return this.abilities.run ? this.velocity.xMax * this.abilities.runBonus : this.velocity.xMax;
         } catch (error) {
             return this.velocity.xMax;
         }

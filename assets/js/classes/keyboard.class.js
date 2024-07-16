@@ -20,7 +20,7 @@ class Keyboard {
 
     setInput(event) {
         if (event.code === 'KeyA' || event.code === 'KeyD') {
-            if(this.keys.direction.indexOf(event.code) === -1) {
+            if (this.keys.direction.indexOf(event.code) === -1) {
                 this.keys.direction.push(event.code);
             }
         }
@@ -42,18 +42,17 @@ class Keyboard {
     }
 
     handleKeyboardInput(gamepadUsed) {
-        if (this.keys.direction.at(-1) === 'KeyA') {
-            world.character.moveLeft();
-        } else if (this.keys.direction.at(-1) === 'KeyD') {
-            world.character.moveRight();
-        } else {
-            if (!gamepadUsed && world.gamepad.unallowedLatency()) {
-                world.character.stopMovement();
-                console.log('stoppedByKeyboard');
-            } 
+        if (!gamepadUsed) {
+            if (this.keys.direction.at(-1) === 'KeyA') {
+                world.character.moveLeft();
+            } else if (this.keys.direction.at(-1) === 'KeyD') {
+                world.character.moveRight();
+            } else {
+                if (world.gamepad.unallowedLatency()) {
+                    world.character.stopMovement();
+                }
+            }
+            world.character.abilities.run = this.keys.shift ? true : false;
         }
-
-        world.character.abilities.run = this.keys.shift ? true : false; 
-
     }
 }

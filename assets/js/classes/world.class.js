@@ -4,8 +4,10 @@ class World {
     keyboard = new Keyboard();
     gamepad = new Gamepad();
 
+    speedLimiter = 30;
+
     framerate = {
-        fps: 30,
+        fps: 60, 
         msPerFrame: 0,
         frame: 0,
     }
@@ -38,6 +40,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.framerate.msPerFrame = 1000 / this.framerate.fps;
         this.time.msPrev = window.performance.now();
+        this.speedLimiter = this.framerate.fps / this.speedLimiter;
         // setInterval(() => {
         //     console.log(this.framerate.frame);
         // }, 1000);
@@ -81,7 +84,7 @@ class World {
 
     getInputs() {
         const gamepadUsed = this.gamepad.checkInput();
-        this.keyboard.handleKeyboardInput(gamepadUsed);
+        !gamepadUsed && this.keyboard.handleKeyboardInput();
     }
 
     drawWorld() {

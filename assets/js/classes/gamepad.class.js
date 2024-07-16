@@ -20,16 +20,16 @@ class Gamepad {
         if (this.controllerIndex != null) {
             const gamepad = navigator.getGamepads()[this.controllerIndex];
             if (gamepad) {
-                return this.handleControllerInput(gamepad.buttons, gamepad.axes);
+                this.handleControllerInput(gamepad.buttons, gamepad.axes);
             }
-            return false;
+            return true;
         } else {
             return false;
         }
     }
 
     unallowedLatency() {
-        return world.framerate.frame - this.directionBuffer >= world.framerate.fps / 10;
+        return world.framerate.frame - this.directionBuffer >= world.framerate.fps;
     }
 
     setDirectionBuffer() {
@@ -58,7 +58,6 @@ class Gamepad {
      * * @param {Array} axes - and right- ([2] + [3]) controll-stick
      */
     handleControllerInput(buttons, axes) {
-        let inputDone = false;
         const leftStickLeftRight = axes[0];
         const leftStickUpDown = axes[1];
 
@@ -69,10 +68,8 @@ class Gamepad {
         }
 
         if (buttons[2].pressed) {
-            console.log('You are running now!');
             world.character.abilities.run = true;
         } else {
-            world.character.abilities.run && console.log('You have stopped running.');
             world.character.abilities.run = false;
         }
 
@@ -83,20 +80,17 @@ class Gamepad {
 
         if (leftStickLeftRight < -0.5) {
             this.directionBuffer = world.framerate.frame;
-            inputDone = this.setDirectionBuffer();
+            this.setDirectionBuffer();
             world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
-            inputDone = this.setDirectionBuffer();
+            this.setDirectionBuffer();
             world.character.moveRight();
         } else {
-            if (this.unallowedLatency() && world.keyboard.keys.direction.length === 0) {
+            if (this.unallowedLatency()) {
                 world.character.stopMovement();
-            } else if (!this.unallowedLatency) {
-                inputDone = true;
             }
+            world.character.appearance.currentStyle = 'idle';
         }
-
-        return inputDone;
     }
 
 }
