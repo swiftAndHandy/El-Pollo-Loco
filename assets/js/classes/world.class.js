@@ -54,14 +54,13 @@ class World {
     pause() {
         if (!this.time.preventPause) {
             this.time.paused = !this.time.paused;
-            // this.time.preventPause = true;
-                console.log('pause reallowed');
         }
+        return this.time.paused;
     }
 
     checkForEndOfPause() {
         const gamepadUsed = this.gamepad.checkInput();
-        !gamepadUsed && this.keyboard.checkPauseButton();
+        !gamepadUsed && this.keyboard.handlePauseMenu();
     }
 
     setUpTime() {

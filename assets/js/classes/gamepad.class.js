@@ -26,7 +26,7 @@ class Gamepad {
             this.gamepad = navigator.getGamepads()[this.controllerIndex];
             if (this.gamepad && !world.time.paused) {
                 this.handleControllerInput(this.gamepad.buttons, this.gamepad.axes);
-                this.setPausePrevention(this.gamepad);
+                this.setPausePrevention();
             } else if (this.gamepad && world.time.paused) {
                 this.gamepad.buttons[9].pressed && world.pause();
                 this.setPausePrevention();

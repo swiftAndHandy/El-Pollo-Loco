@@ -5,6 +5,7 @@ class Keyboard {
         shift: false,
         enter: false,
         space: false,
+        esc: false,
     }
 
 
@@ -18,7 +19,15 @@ class Keyboard {
         });
     }
 
+    setPausePrevention() {
+        world.time.preventPause = !this.Keyboard.keys.esc ? false : true;
+    }
+
     setInput(event) {
+        if (event.code === 'Escape') {
+            this.keys.esc = true;
+        }
+
         if (event.code === 'KeyA' || event.code === 'KeyD') {
             if (this.keys.direction.indexOf(event.code) === -1) {
                 this.keys.direction.push(event.code);
@@ -28,9 +37,17 @@ class Keyboard {
         if (event.key === 'Shift') {
             this.keys.shift = true;
         }
+
+        if (event.code === 'KeyW' || event.code === 'Space') {
+            this.keys.space = true;
+        }
     }
 
     removeInput(event) {
+        if (event.code === 'Escape') {
+            this.keys.esc = false;
+        }
+
         if (event.code === 'KeyA' || event.code === 'KeyD') {
             let index = this.keys.direction.indexOf(event.code);
             this.keys.direction.splice(index, 1);
@@ -39,10 +56,16 @@ class Keyboard {
         if (event.key === 'Shift') {
             this.keys.shift = false;
         }
+
+        if (event.code === 'KeyW' || event.code === 'Space') {
+            this.keys.space = false;
+        }
     }
 
     handleKeyboardInput(gamepadUsed) {
         if (!gamepadUsed) {
+            this.handlePauseMenu();
+
             if (this.keys.direction.at(-1) === 'KeyA') {
                 world.character.moveLeft();
             } else if (this.keys.direction.at(-1) === 'KeyD') {
@@ -52,7 +75,35 @@ class Keyboard {
                     world.character.stopMovement();
                 }
             }
+
             world.character.abilities.run = this.keys.shift ? true : false;
+
+            this.handeJumping();
+        }
+    }
+
+    setPausePrevention() {
+        world.time.preventPause = !this.keys.esc ? false : true;
+    }
+
+
+    /**
+     * Pauses/Unpauses the Game by Pressing ESC
+     */
+    handlePauseMenu() {
+        if (this.keys.esc) {
+            if (!world.time.preventPause) {
+                world.pause();
+                this.setPausePrevention();
+            }
+        } else {
+            this.setPausePrevention();
+        }
+    }
+
+    handeJumping() {
+        if (this.keys.space) {
+            world.character.jump();
         }
     }
 }
