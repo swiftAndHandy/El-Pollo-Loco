@@ -5,7 +5,7 @@ class Character extends MovableObject {
     position = {
         x: 50,
         y: 222,
-    }
+    };
 
     abilities = {
         jump: {
@@ -13,50 +13,71 @@ class Character extends MovableObject {
         },
         run: false,
         runBonus: 1.5,
-    }
+    };
 
     sounds = {
         walking: null,
         snoring: new Audio(),
-    }
+    };
 
     WALKING_ANIMATION = [
-        'assets/img/2_character_pepe/2_walk/W-21.png',
-        'assets/img/2_character_pepe/2_walk/W-22.png',
-        'assets/img/2_character_pepe/2_walk/W-23.png',
-        'assets/img/2_character_pepe/2_walk/W-24.png',
-        'assets/img/2_character_pepe/2_walk/W-25.png',
-        'assets/img/2_character_pepe/2_walk/W-26.png',
-    ]
+        './assets/img/2_character_pepe/2_walk/W-21.png',
+        './assets/img/2_character_pepe/2_walk/W-22.png',
+        './assets/img/2_character_pepe/2_walk/W-23.png',
+        './assets/img/2_character_pepe/2_walk/W-24.png',
+        './assets/img/2_character_pepe/2_walk/W-25.png',
+        './assets/img/2_character_pepe/2_walk/W-26.png',
+    ];
 
     IDLE_ANIMATION = [
-        'assets/img/2_character_pepe/1_idle/idle/I-1.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-2.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-3.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-4.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-5.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-6.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-7.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-8.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-9.png',
-        'assets/img/2_character_pepe/1_idle/idle/I-10.png',
-    ]
+        './assets/img/2_character_pepe/1_idle/idle/frame_001.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_002.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_003.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_004.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_005.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_006.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_007.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_008.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_009.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_010.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_011.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_012.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_013.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_014.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_015.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_016.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_017.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_018.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_019.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_007.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_006.png',
+        './assets/img/2_character_pepe/1_idle/idle/frame_005.png',
+    ];
 
     LONG_IDLE_ANIMATION = [
-        'assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
-        'assets/img/2_character_pepe/1_idle/long_idle/I-20.png',
-    ]
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_001.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_002.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_003.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_004.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_005.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_006.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_007.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_008.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_009.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_010.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_011.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_012.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_013.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_014.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_015.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_016.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_017.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_018.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/frame_019.png',
+    ];
 
     constructor() {
-        super(100, 200).loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
+        super(100, 200);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.idle = []; this.cacheImage('idle', this.IDLE_ANIMATION); delete this.IDLE_ANIMATION;
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
