@@ -51,7 +51,7 @@ class Gamepad {
         }
         if (world.character.appearance.currentStyle === 'walking') {
             world.character.startIdle();
-            world.character.appearance.currentStyle = 'idle';
+            world.character.setAppearanceTo('idle', 0);
         };
     }
 

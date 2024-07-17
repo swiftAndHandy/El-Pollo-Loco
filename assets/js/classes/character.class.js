@@ -83,11 +83,15 @@ class Character extends MovableObject {
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 40; this.acceleration.y = 40;
-        this.appearance.currentStyle = 'idle';
+        this.setAppearanceTo('idle');
     }
 
     startIdle() {
         this.idleStartedAtFrame = world.framerate.frame;
+    }
+
+    isntIdeling() {
+        return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle'
     }
 
     jump() {
@@ -97,8 +101,8 @@ class Character extends MovableObject {
 
     stopMovement() {
         this.velocity.x = 0;
-        if (this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle') {
-            this.appearance.currentStyle = 'idle';
+        if (this.isntIdeling()) {
+            this.setAppearanceTo('idle', 0);
         }
     }
 
@@ -110,7 +114,7 @@ class Character extends MovableObject {
         const animationType = this.appearance.currentStyle;
         if (this.timeToEnterLongIdle()) {
             if (this.appearance.currentStyle !== 'longIdle') {
-                this.appearance.currentStyle = 'longIdle';
+                this.setAppearanceTo('longIdle');
             }
         }
 

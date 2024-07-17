@@ -50,6 +50,7 @@ class MovableObject {
         this.getCurrentVelocity();
         this.position.x -= this.velocity.x;
         this.appearance.currentStyle = 'walking';
+        this.setAppearanceTo('walking');
     }
 
     moveRight() {
@@ -73,5 +74,10 @@ class MovableObject {
     constructor(width, height) {
         this.appearance.width = width;
         this.appearance.height = height;
+    }
+
+    setAppearanceTo(style, atFrame = -1) {
+        this.appearance.currentStyle = style;
+        this.appearance.currentImg = atFrame >= 0 ? atFrame : this.appearance.currentImg;
     }
 }
