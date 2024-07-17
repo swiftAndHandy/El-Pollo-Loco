@@ -8,7 +8,8 @@ class World {
 
     camera = {
         x: 0,
-        y: null,
+        y: 0,
+        offset: 50,
     };
 
     framerate = {
@@ -111,12 +112,12 @@ class World {
     }
 
     drawWorld() {
-        this.updateCamera(); this.ctx.translate(this.camera.x, 0);
+        this.updateCamera(); this.ctx.translate(this.camera.x + this.camera.offset, 0);
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-        this.updateCamera(); this.ctx.translate(-this.camera.x, 0);
+        this.updateCamera(); this.ctx.translate(-this.camera.x - this.camera.offset, 0);
     }
 
     animateWorld() {
