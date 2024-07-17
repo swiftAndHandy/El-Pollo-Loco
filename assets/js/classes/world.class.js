@@ -7,7 +7,7 @@ class World {
     speedLimiter = 30;
 
     framerate = {
-        fps: 60, 
+        fps: 60,
         msPerFrame: 0,
         frame: 0,
     }
@@ -18,6 +18,7 @@ class World {
         msPassed: null,
         bufferTime: null,
         paused: false,
+        preventPause: false,
     }
 
     character = new Character();
@@ -44,11 +45,23 @@ class World {
         // setInterval(() => {
         //     console.log(this.framerate.frame);
         // }, 1000);
+        // setInterval(() => {
+        //     console.log(this.time.preventPause);
+        // }, 1);
         this.draw();
     }
 
     pause() {
-        this.time.paused = !this.time.paused;
+        if (!this.time.preventPause) {
+            this.time.paused = !this.time.paused;
+            // this.time.preventPause = true;
+                console.log('pause reallowed');
+        }
+    }
+
+    checkForEndOfPause() {
+        const gamepadUsed = this.gamepad.checkInput();
+        !gamepadUsed && this.keyboard.checkPauseButton();
     }
 
     setUpTime() {
@@ -79,6 +92,8 @@ class World {
             this.drawWorld();
             this.animateWorld();
             this.getInputs();
+        } else {
+            this.checkForEndOfPause();
         }
     }
 

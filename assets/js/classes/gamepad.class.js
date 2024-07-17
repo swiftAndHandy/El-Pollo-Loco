@@ -2,11 +2,12 @@ class Gamepad {
 
     controllerIndex = null;
     directionBuffer = null;
+    gamepad = null;
 
     constructor() {
         window.addEventListener('gamepadconnected', (event) => {
-            const gamepad = event.gamepad;
-            this.controllerIndex = gamepad.index;
+            this.gamepad = event.gamepad;
+            this.controllerIndex = this.gamepad.index;
             console.log('connected');
         });
 
@@ -16,16 +17,28 @@ class Gamepad {
         });
     }
 
+    /**
+     * 
+     * @returns {boolean} - true if a controller is active, otherwise false
+     */
     checkInput() {
         if (this.controllerIndex != null) {
-            const gamepad = navigator.getGamepads()[this.controllerIndex];
-            if (gamepad) {
-                this.handleControllerInput(gamepad.buttons, gamepad.axes);
+            this.gamepad = navigator.getGamepads()[this.controllerIndex];
+            if (this.gamepad && !world.time.paused) {
+                this.handleControllerInput(this.gamepad.buttons, this.gamepad.axes);
+                this.setPausePrevention(this.gamepad);
+            } else if (this.gamepad && world.time.paused) {
+                this.gamepad.buttons[9].pressed && world.pause();
+                this.setPausePrevention();
             }
             return true;
         } else {
             return false;
         }
+    }
+
+    setPausePrevention() {
+        world.time.preventPause = !this.gamepad.buttons[9].pressed ? false : true;
     }
 
     /**
@@ -38,7 +51,7 @@ class Gamepad {
         }
         if (world.character.appearance.currentStyle === 'walking') {
             world.character.startIdle();
-            world.character.appearance.currentStyle = 'idle'
+            world.character.appearance.currentStyle = 'idle';
         };
     }
 
@@ -75,6 +88,8 @@ class Gamepad {
         const leftStickLeftRight = axes[0];
         const leftStickUpDown = axes[1];
 
+        buttons[9].pressed && world.pause();
+
         this.handleJumping(buttons, leftStickUpDown);
         this.handleRunning(buttons);
 
@@ -87,7 +102,7 @@ class Gamepad {
      * @param {Number} leftStickUpDown - Position of the left Controll stick on up/down-Axis
      */
     handleJumping(buttons, leftStickUpDown) {
-        if (buttons[0]['pressed']) {
+        if (buttons[0].pressed) {
             world.character.jump();
         } else if (leftStickUpDown >= -0.7) {
             
