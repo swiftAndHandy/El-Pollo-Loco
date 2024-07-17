@@ -7,7 +7,7 @@ class World {
     speedLimiter = 30;
 
     camera = {
-        x: null,
+        x: 0,
         y: null,
     };
 
@@ -86,7 +86,7 @@ class World {
     }
 
     updateCamera() {
-        
+        this.camera.x = this.character.position.x;
     }
 
 
@@ -97,7 +97,6 @@ class World {
         if (!this.time.paused) {
             this.updateTime();
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.updateCamera();
             this.drawWorld();
             this.animateWorld();
             this.getInputs();
@@ -112,10 +111,12 @@ class World {
     }
 
     drawWorld() {
+        this.updateCamera(); this.ctx.translate(this.camera.x, 0);
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+        this.updateCamera(); this.ctx.translate(-this.camera.x, 0);
     }
 
     animateWorld() {
