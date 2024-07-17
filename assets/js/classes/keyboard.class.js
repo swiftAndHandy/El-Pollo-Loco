@@ -68,8 +68,10 @@ class Keyboard {
 
             if (this.keys.direction.at(-1) === 'KeyA') {
                 world.character.moveLeft();
+                world.character.appearance.mirrored = true;
             } else if (this.keys.direction.at(-1) === 'KeyD') {
                 world.character.moveRight();
+                world.character.appearance.mirrored = false;
             } else {
                 if (world.gamepad.unallowedLatency()) {
                     world.character.stopMovement();

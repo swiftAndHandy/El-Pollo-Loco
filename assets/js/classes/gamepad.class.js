@@ -6,7 +6,7 @@ class Gamepad {
 
     constructor() {
         window.addEventListener('gamepadconnected', (event) => {
-            gamepad = event.gamepad;
+            gamepad = event.gamepad; this.gamepad = event.gamepad;
             this.controllerIndex = gamepad.index;
             console.log('connected');
         });
@@ -102,7 +102,7 @@ class Gamepad {
         this.handleJumping(buttons, leftStickUpDown);
         this.handleRunning(buttons);
 
-        this.handleWalking(leftStickLeftRight);
+        this.handleWalking(leftStickLeftRight, buttons);
     }
 
     /**
@@ -130,13 +130,14 @@ class Gamepad {
         }
     }
 
-    handleWalking(leftStickLeftRight) {
-        if (leftStickLeftRight < -0.5) {
-            this.directionBuffer = world.framerate.frame;
+    handleWalking(leftStickLeftRight, buttons) {
+        if (leftStickLeftRight < -0.5 || buttons[14].pressed) {
             this.setDirectionBuffer();
+            world.character.appearance.mirrored = true;
             world.character.moveLeft();
-        } else if (leftStickLeftRight > 0.5) {
+        } else if (leftStickLeftRight > 0.5 || buttons[15].pressed) {
             this.setDirectionBuffer();
+            world.character.appearance.mirrored = false;
             world.character.moveRight();
         } else {
             this.noDirectionInput();

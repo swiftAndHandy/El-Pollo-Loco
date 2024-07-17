@@ -6,6 +6,11 @@ class World {
 
     speedLimiter = 30;
 
+    camera = {
+        x: null,
+        y: null,
+    };
+
     framerate = {
         fps: 60,
         msPerFrame: 0,
@@ -80,6 +85,10 @@ class World {
         });
     }
 
+    updateCamera() {
+        
+    }
+
 
     draw() {
         this.requestFrame();
@@ -88,6 +97,7 @@ class World {
         if (!this.time.paused) {
             this.updateTime();
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.updateCamera();
             this.drawWorld();
             this.animateWorld();
             this.getInputs();
@@ -122,7 +132,17 @@ class World {
     }
 
     addToMap(mo) {
+        if (mo.appearance.mirrored) {
+            this.ctx.save();
+            this.ctx.translate(mo.appearance.width, 0);
+            this.ctx.scale(-1, 1);
+            mo.position.x *= -1;
+        }
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
+        if (mo.appearance.mirrored) {
+            mo.position.x *= - 1;
+            this.ctx.restore();
+        }
     }
 
     animateObjects(object) {
