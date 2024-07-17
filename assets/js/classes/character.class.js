@@ -91,7 +91,7 @@ class Character extends MovableObject {
     }
 
     isntIdeling() {
-        return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle'
+        return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle';
     }
 
     jump() {
@@ -106,24 +106,30 @@ class Character extends MovableObject {
         }
     }
 
+    checkForLongIdle(animationType) {
+        if (this.timeToEnterLongIdle()) {
+            if (animationType !== 'longIdle') {
+                this.setAppearanceTo('longIdle');
+            }
+        }
+    }
+
     timeToEnterLongIdle() {
         return (world.framerate.frame - this.idleStartedAtFrame) > (world.framerate.fps * 10);
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
-        if (this.timeToEnterLongIdle()) {
-            if (this.appearance.currentStyle !== 'longIdle') {
-                this.setAppearanceTo('longIdle');
-            }
-        }
+        this.checkForLongIdle(animationType);
 
         const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;
         this.appearance.img = this.appearance[animationType][animationFrame];
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
         }
-        if (this.appearance.currentStyle !== 'idle' && this.currentStyle !== 'longIdle') {
+
+
+        if (animationType !== 'idle' && animationType !== 'longIdle') {
             this.startIdle();
         }
 

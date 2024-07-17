@@ -20,6 +20,7 @@ class MovableObject {
         img: new Image(),
         currentImg: 0,
         currentStyle: 'walking',
+        mirrored: false,
         width: null,
         height: null,
         walking: [],
@@ -49,14 +50,13 @@ class MovableObject {
     moveLeft() {
         this.getCurrentVelocity();
         this.position.x -= this.velocity.x;
-        this.appearance.currentStyle = 'walking';
         this.setAppearanceTo('walking');
     }
 
     moveRight() {
         this.getCurrentVelocity();
         this.position.x += this.velocity.x;
-        this.appearance.currentStyle = 'walking';
+        this.setAppearanceTo('walking');
     }
 
     getMaxSpeed() {

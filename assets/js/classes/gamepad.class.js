@@ -6,8 +6,8 @@ class Gamepad {
 
     constructor() {
         window.addEventListener('gamepadconnected', (event) => {
-            this.gamepad = event.gamepad;
-            this.controllerIndex = this.gamepad.index;
+            gamepad = event.gamepad;
+            this.controllerIndex = gamepad.index;
             console.log('connected');
         });
 
@@ -23,12 +23,12 @@ class Gamepad {
      */
     checkInput() {
         if (this.controllerIndex != null) {
-            this.gamepad = navigator.getGamepads()[this.controllerIndex];
-            if (this.gamepad && !world.time.paused) {
-                this.handleControllerInput(this.gamepad.buttons, this.gamepad.axes);
+            gamepad = navigator.getGamepads()[this.controllerIndex];
+            if (gamepad && !world.time.paused) {
+                this.handleControllerInput(gamepad.buttons, gamepad.axes);
                 this.setPausePrevention();
-            } else if (this.gamepad && world.time.paused) {
-                this.gamepad.buttons[9].pressed && world.pause();
+            } else if (gamepad && world.time.paused) {
+                gamepad.buttons[9].pressed && world.pause();
                 this.setPausePrevention();
             }
             return true;
@@ -38,7 +38,7 @@ class Gamepad {
     }
 
     setPausePrevention() {
-        world.time.preventPause = !this.gamepad.buttons[9].pressed ? false : true;
+        world.time.preventPause = !gamepad.buttons[9].pressed ? false : true;
     }
 
     /**
@@ -53,6 +53,15 @@ class Gamepad {
             world.character.startIdle();
             world.character.setAppearanceTo('idle', 0);
         };
+    }
+
+    triggerRumble(delay, duration, weakMagnitude, strongMagnitude) {
+        gamepad.vibrationActuator.playEffect('dual-rumble', {
+            startDelay: delay, 
+            duration: duration, 
+            weakMagnitude: weakMagnitude, 
+            strongMagnitude: strongMagnitude
+        });
     }
 
     unallowedLatency() {
