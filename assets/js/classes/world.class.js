@@ -86,7 +86,7 @@ class World {
     }
 
     updateCamera() {
-        this.camera.x = this.character.position.x;
+        this.camera.x = -this.character.position.x;
     }
 
 
