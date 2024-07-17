@@ -62,7 +62,7 @@ class Gamepad {
         const leftStickUpDown = axes[1];
 
         if (buttons[0]['pressed']) {
-            world.character.jump();
+            world.character.jump(); world.setLastInput();
         } else if (leftStickUpDown >= -0.7) {
             // player.jumps.cooldown = false;
         }
@@ -80,16 +80,18 @@ class Gamepad {
 
         if (leftStickLeftRight < -0.5) {
             this.directionBuffer = world.framerate.frame;
+            world.setLastInput();
             this.setDirectionBuffer();
             world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
+            world.setLastInput();
             this.setDirectionBuffer();
             world.character.moveRight();
         } else {
             if (this.unallowedLatency()) {
                 world.character.stopMovement();
             }
-            world.character.appearance.currentStyle = 'idle';
+            if (world.character.appearance.currentStyle == 'walking') { world.character.appearance.currentStyle = 'idle' };
         }
     }
 

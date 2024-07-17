@@ -19,7 +19,7 @@ class MovableObject {
     appearance = {
         img: new Image(),
         currentImg: 0,
-        currentStyle: null,
+        currentStyle: 'walking',
         width: null,
         height: null,
         walking: [],
