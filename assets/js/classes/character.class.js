@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 
-    lastFrameOfMovement = 0;
+    idleStartedAtFrame = 0;
 
     position = {
         x: 50,
@@ -12,7 +12,7 @@ class Character extends MovableObject {
             cooldown: false,
         },
         run: false,
-        runBonus: 1.3,
+        runBonus: 1.5,
     }
 
     sounds = {
@@ -65,6 +65,10 @@ class Character extends MovableObject {
         this.appearance.currentStyle = 'idle';
     }
 
+    startIdle() {
+        this.idleStartedAtFrame = world.framerate.frame;
+    }
+
     jump() {
         console.log('Character jumps');
         this.position.y -= this.velocity.y;
@@ -72,31 +76,32 @@ class Character extends MovableObject {
 
     stopMovement() {
         this.velocity.x = 0;
-        this.appearance.currentStyle = this.appearance.currentStyle == 'longIdle' ? 'longIdle' : 'idle';
-        this.startedIdleAtFrame = world.framerate.frame;
+        if (this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle') {
+            this.appearance.currentStyle = 'idle';
+        }
     }
 
     timeToEnterLongIdle() {
-        return (world.framerate.frame - this.lastFrameOfMovement) > (world.framerate.fps * 10);
+        return (world.framerate.frame - this.idleStartedAtFrame) > (world.framerate.fps * 10);
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
         if (this.timeToEnterLongIdle()) {
             if (this.appearance.currentStyle !== 'longIdle') {
-                console.log('longidle');
                 this.appearance.currentStyle = 'longIdle';
             }
         }
-        // if (this.appearance.currentStyle === 'walking') {
+
         const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;
         this.appearance.img = this.appearance[animationType][animationFrame];
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
         }
-        // } else if(this.appearance.currentStyle === 'idle') {
+        if (this.appearance.currentStyle !== 'idle' && this.currentStyle !== 'longIdle') {
+            this.startIdle();
+        }
 
-        // }
     }
 
 }

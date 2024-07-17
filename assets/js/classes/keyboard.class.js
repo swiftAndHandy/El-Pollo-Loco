@@ -22,7 +22,6 @@ class Keyboard {
         if (event.code === 'KeyA' || event.code === 'KeyD') {
             if (this.keys.direction.indexOf(event.code) === -1) {
                 this.keys.direction.push(event.code);
-                world.setLastInput();
             }
         }
 

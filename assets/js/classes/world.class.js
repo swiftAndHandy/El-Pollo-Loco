@@ -47,10 +47,6 @@ class World {
         this.draw();
     }
 
-    setLastInput() {
-        this.character.lastFrameOfMovement = this.framerate.frame;
-    }
-
     pause() {
         this.time.paused = !this.time.paused;
     }

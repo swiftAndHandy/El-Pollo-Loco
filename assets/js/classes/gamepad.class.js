@@ -28,8 +28,22 @@ class Gamepad {
         }
     }
 
+    /**
+     * If character isn't walking left/right don't stop the movement immediately, but start the idle Animation,
+     * Maybe needs to be global if further animations are added and 
+     */
+    noDirectionInput() {
+        if (this.unallowedLatency()) {
+            world.character.stopMovement();
+        }
+        if (world.character.appearance.currentStyle === 'walking') {
+            world.character.startIdle();
+            world.character.appearance.currentStyle = 'idle'
+        };
+    }
+
     unallowedLatency() {
-        return world.framerate.frame - this.directionBuffer >= world.framerate.fps;
+        return world.framerate.frame - this.directionBuffer >= world.framerate.fps / 10;
     }
 
     setDirectionBuffer() {
@@ -61,17 +75,8 @@ class Gamepad {
         const leftStickLeftRight = axes[0];
         const leftStickUpDown = axes[1];
 
-        if (buttons[0]['pressed']) {
-            world.character.jump(); world.setLastInput();
-        } else if (leftStickUpDown >= -0.7) {
-            // player.jumps.cooldown = false;
-        }
-
-        if (buttons[2].pressed) {
-            world.character.abilities.run = true;
-        } else {
-            world.character.abilities.run = false;
-        }
+        this.handleWalking(buttons, axes);
+        this.handleJumping(buttons);
 
         if (leftStickUpDown < -0.7) {
             world.character.jump();
@@ -80,18 +85,29 @@ class Gamepad {
 
         if (leftStickLeftRight < -0.5) {
             this.directionBuffer = world.framerate.frame;
-            world.setLastInput();
             this.setDirectionBuffer();
             world.character.moveLeft();
         } else if (leftStickLeftRight > 0.5) {
-            world.setLastInput();
             this.setDirectionBuffer();
             world.character.moveRight();
         } else {
-            if (this.unallowedLatency()) {
-                world.character.stopMovement();
-            }
-            if (world.character.appearance.currentStyle == 'walking') { world.character.appearance.currentStyle = 'idle' };
+            this.noDirectionInput();
+        }
+    }
+
+    handleWalking(buttons, leftStickUpDown) {
+        if (buttons[0]['pressed']) {
+            world.character.jump();
+        } else if (leftStickUpDown >= -0.7) {
+            // player.jumps.cooldown = false;
+        }
+    }
+
+    handleJumping(buttons) {
+        if (buttons[2].pressed) {
+            world.character.abilities.run = true;
+        } else {
+            world.character.abilities.run = false;
         }
     }
 
