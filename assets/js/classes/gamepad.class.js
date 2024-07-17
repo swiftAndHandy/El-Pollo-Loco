@@ -75,14 +75,38 @@ class Gamepad {
         const leftStickLeftRight = axes[0];
         const leftStickUpDown = axes[1];
 
-        this.handleWalking(buttons, axes);
-        this.handleJumping(buttons);
+        this.handleJumping(buttons, leftStickUpDown);
+        this.handleRunning(buttons);
 
-        if (leftStickUpDown < -0.7) {
+        this.handleWalking(leftStickLeftRight);
+    }
+
+    /**
+     * 
+     * @param {Array} buttons - an Array that contains all buttons of the gamepad.
+     * @param {Number} leftStickUpDown - Position of the left Controll stick on up/down-Axis
+     */
+    handleJumping(buttons, leftStickUpDown) {
+        if (buttons[0]['pressed']) {
             world.character.jump();
+        } else if (leftStickUpDown >= -0.7) {
+            
         }
+    }
 
+    /**
+     * 
+     * @param {Array} buttons - an Array that contains all buttons of the gamepad.
+     */
+    handleRunning(buttons) {
+        if (buttons[2].pressed) {
+            world.character.abilities.run = true;
+        } else {
+            world.character.abilities.run = false;
+        }
+    }
 
+    handleWalking(leftStickLeftRight) {
         if (leftStickLeftRight < -0.5) {
             this.directionBuffer = world.framerate.frame;
             this.setDirectionBuffer();
@@ -92,22 +116,6 @@ class Gamepad {
             world.character.moveRight();
         } else {
             this.noDirectionInput();
-        }
-    }
-
-    handleWalking(buttons, leftStickUpDown) {
-        if (buttons[0]['pressed']) {
-            world.character.jump();
-        } else if (leftStickUpDown >= -0.7) {
-            // player.jumps.cooldown = false;
-        }
-    }
-
-    handleJumping(buttons) {
-        if (buttons[2].pressed) {
-            world.character.abilities.run = true;
-        } else {
-            world.character.abilities.run = false;
         }
     }
 

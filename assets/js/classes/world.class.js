@@ -90,8 +90,8 @@ class World {
     drawWorld() {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.enemies);
         this.addToMap(this.character);
+        this.addObjectsToMap(this.enemies);
     }
 
     animateWorld() {
