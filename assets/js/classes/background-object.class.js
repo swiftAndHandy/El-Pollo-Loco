@@ -2,9 +2,9 @@ class BackgroundObject extends MovableObject {
 
     scrollSpeed = null;
 
-    constructor(imagePath, scrollSpeed) {
+    constructor(imagePath, scrollSpeed, screen = 0) {
         super(canvas.width, canvas.height).loadImage(imagePath)
-        this.position.x = 0;
+        this.position.x = screen * (canvasWidth - 1);
         this.position.y = 0;
         this.scrollSpeed = scrollSpeed;
     }

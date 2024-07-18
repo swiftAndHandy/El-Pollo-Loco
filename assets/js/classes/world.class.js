@@ -28,6 +28,9 @@ class World {
     }
 
     character = new Character();
+    // enemies = level1.enemies;
+    // clouds = level1.clouds;
+    // backgroundObjects = level1.backgroundObjects;
     enemies = [
         new Chicken(),
         new Chicken(),
@@ -38,9 +41,23 @@ class World {
     ];
     backgroundObjects = [
         new BackgroundObject('assets/img/5_background/layers/air.png', 1),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', -0.4),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', -0.25),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
+
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, -1),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 0),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, 1),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 2),    
+
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, -2),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 0.2, -1),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 0),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 0.2, 1),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 2),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 3),
+
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 0, -1),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 0),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 0, 1),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 2),
     ];
 
     constructor(canvas) {
