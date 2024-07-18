@@ -38,8 +38,8 @@ class MovableObject {
         });
     };
 
-    getCurrentVelocity() {
-        let maxSpeed = this.getMaxSpeed();
+    getCurrentVelocityX() {
+        let maxSpeed = this.getMaxSpeedX();
 
         if (this.frameUpdateRequired()) {
             this.velocity.x += this.acceleration.x;
@@ -47,23 +47,40 @@ class MovableObject {
         this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
     }
 
+    getCurrentVelocityY() {
+        let maxSpeed = this.getMaxSpeedY();
+
+        if (this.frameUpdateRequired()) {
+            this.velocity.y += this.acceleration.y;
+        }
+        this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
+    }
+
     moveLeft() {
-        this.getCurrentVelocity();
+        this.getCurrentVelocityX();
         this.position.x -= this.velocity.x;
         this.setAppearanceTo('walking');
     }
 
     moveRight() {
-        this.getCurrentVelocity();
+        this.getCurrentVelocityX();
         this.position.x += this.velocity.x;
         this.setAppearanceTo('walking');
     }
 
-    getMaxSpeed() {
+    getMaxSpeedX() {
         try {
-            return this.abilities.run ? this.velocity.xMax * this.abilities.runBonus : this.velocity.xMax;
+            return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
         } catch (error) {
             return this.velocity.xMax;
+        }
+    }
+
+    getMaxSpeedY() {
+        try {
+            return this.abilities.run ? this.velocity.yMax * this.abilities.runBonusY : this.velocity.yMax;
+        } catch (error) {
+            return this.velocity.yMax;
         }
     }
 

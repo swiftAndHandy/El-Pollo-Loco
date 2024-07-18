@@ -3,7 +3,7 @@ class Character extends MovableObject {
     idleStartedAtFrame = 0;
 
     position = {
-        x: 50,
+        x: 150,
         y: 222,
     };
 
@@ -12,7 +12,8 @@ class Character extends MovableObject {
             cooldown: false,
         },
         run: false,
-        runBonus: 1.5,
+        runBonusX: 1.5,
+        runBonusY: 1.5,
     };
 
     sounds = {

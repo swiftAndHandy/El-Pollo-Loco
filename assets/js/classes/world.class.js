@@ -9,7 +9,7 @@ class World {
     camera = {
         x: 0,
         y: 0,
-        offset: 50,
+        offset: 150,
     };
 
     framerate = {
@@ -37,10 +37,10 @@ class World {
         new Cloud(),
     ];
     backgroundObjects = [
-        new BackgroundObject('assets/img/5_background/layers/air.png'),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png'),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png'),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png'),
+        new BackgroundObject('assets/img/5_background/layers/air.png', 1),
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', -0.4),
+        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', -0.25),
+        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
     ];
 
     constructor(canvas) {
@@ -99,8 +99,8 @@ class World {
             this.updateTime();
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.drawWorld();
-            this.animateWorld();
             this.getInputs();
+            this.animateWorld();
         } else {
             this.checkForEndOfPause();
         }
@@ -123,6 +123,7 @@ class World {
     animateWorld() {
         this.animateObjects(this.clouds);
         this.animate(this.character);
+        this.animateObjects(this.backgroundObjects);
         this.animateObjects(this.enemies);
     }
 
