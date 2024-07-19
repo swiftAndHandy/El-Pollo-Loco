@@ -28,10 +28,8 @@ class World {
     }
 
     character = new Character();
-    enemies = level1.enemies;
-    clouds = level1.clouds;
-    backgroundObjects = level1.backgroundObjects;
 
+    level = level1;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -105,20 +103,20 @@ class World {
 
     drawWorld() {
         this.updateCamera(1);
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
         this.updateCamera(0);
     }
 
     animateWorld() {
-        this.animateObjects(this.clouds);
+        this.animateObjects(this.level.clouds);
         this.animate(this.character);
         if (this.character.position.x + this.character.velocity.x > 0) {
-            this.animateObjects(this.backgroundObjects);
+            this.animateObjects(this.level.backgroundObjects);
         }
-        this.animateObjects(this.enemies);
+        this.animateObjects(this.level.enemies);
 
     }
 

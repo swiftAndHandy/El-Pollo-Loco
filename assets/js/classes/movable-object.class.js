@@ -49,10 +49,10 @@ class MovableObject {
             this.velocity.x += this.acceleration.x;
         }
         this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
-        if ((this.velocity.x > this.position.x - level1.levelStart) && this.appearance.mirrored) {
-            this.velocity.x = this.position.x - level1.levelStart;
-        } else if ((this.velocity.x > level1.levelEnd - this.position.x) && !this.appearance.mirrored) {
-            this.velocity.x = level1.levelEnd - this.position.x;
+        if ((this.velocity.x > this.position.x - world.level.levelStart) && this.appearance.mirrored) {
+            this.velocity.x = this.position.x - world.level.levelStart;
+        } else if ((this.velocity.x > world.level.levelEnd - this.position.x) && !this.appearance.mirrored) {
+            this.velocity.x = world.level.levelEnd - this.position.x;
         }
     }
 
