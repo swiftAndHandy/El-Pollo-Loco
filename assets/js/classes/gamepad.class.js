@@ -43,7 +43,7 @@ class Gamepad {
 
     /**
      * If character isn't walking left/right don't stop the movement immediately, but start the idle Animation,
-     * Maybe needs to be global if further animations are added and 
+     * Update Players Position by using velocity.
      */
     noDirectionInput() {
         if (this.unallowedLatency()) {
@@ -53,13 +53,18 @@ class Gamepad {
             world.character.startIdle();
             world.character.setAppearanceTo('idle', 0);
         };
+        if (!world.character.appearance.mirrored) {
+            world.character.position.x += world.character.velocity.x;
+        } else if (world.character.appearance.mirrored) {
+            world.character.position.x -= world.character.velocity.x;
+        }
     }
 
     triggerRumble(delay, duration, weakMagnitude, strongMagnitude) {
         gamepad.vibrationActuator.playEffect('dual-rumble', {
-            startDelay: delay, 
-            duration: duration, 
-            weakMagnitude: weakMagnitude, 
+            startDelay: delay,
+            duration: duration,
+            weakMagnitude: weakMagnitude,
             strongMagnitude: strongMagnitude
         });
     }
@@ -114,7 +119,7 @@ class Gamepad {
         if (buttons[0].pressed) {
             world.character.jump();
         } else if (leftStickUpDown >= -0.7) {
-            
+
         }
     }
 
@@ -140,6 +145,7 @@ class Gamepad {
             world.character.appearance.mirrored = false;
             world.character.moveRight();
         } else {
+            world.character.getCurrentVelocityX();
             this.noDirectionInput();
         }
     }
