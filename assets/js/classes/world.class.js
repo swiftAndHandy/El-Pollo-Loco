@@ -115,8 +115,11 @@ class World {
     animateWorld() {
         this.animateObjects(this.clouds);
         this.animate(this.character);
-        this.animateObjects(this.backgroundObjects);
+        if (this.character.position.x + this.character.velocity.x > 0) {
+            this.animateObjects(this.backgroundObjects);
+        }
         this.animateObjects(this.enemies);
+
     }
 
 

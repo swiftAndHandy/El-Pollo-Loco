@@ -1,6 +1,7 @@
 class Character extends MovableObject {
 
     idleStartedAtFrame = 0;
+    isCharacter = true;
 
     position = {
         x: 150,
@@ -128,7 +129,6 @@ class Character extends MovableObject {
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
         }
-
 
         if (animationType !== 'idle' && animationType !== 'longIdle') {
             this.startIdle();

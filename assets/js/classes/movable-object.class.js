@@ -43,13 +43,17 @@ class MovableObject {
         });
     };
 
-    getCurrentVelocityX() {
+    getCurrentVelocityX(direction) {
         let maxSpeed = this.getMaxSpeedX();
-
         if (this.frameUpdateRequired()) {
             this.velocity.x += this.acceleration.x;
         }
         this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+        if ((this.velocity.x > this.position.x - level1.levelStart) && this.appearance.mirrored) {
+            this.velocity.x = this.position.x - level1.levelStart;
+        } else if ((this.velocity.x > level1.levelEnd - this.position.x) && !this.appearance.mirrored) {
+            this.velocity.x = level1.levelEnd - this.position.x;
+        }
     }
 
     getCurrentVelocityY() {
@@ -59,12 +63,17 @@ class MovableObject {
             this.velocity.y += this.acceleration.y;
         }
         this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
+        
     }
 
     moveLeft() {
         this.getCurrentVelocityX();
         this.position.x -= this.velocity.x;
         this.setAppearanceTo('walking');
+        if (this.isCharacter && this.position.x < 0) {
+            this.position.x = 0;
+            this.velocity.x = 0;
+        }
     }
 
     moveRight() {
