@@ -4,7 +4,7 @@ class World {
     keyboard = new Keyboard();
     gamepad = new Gamepad();
 
-    speedLimiter = 30;
+    // speedLimiter = 30;
 
     camera = {
         x: 0,
@@ -28,49 +28,19 @@ class World {
     }
 
     character = new Character();
-    // enemies = level1.enemies;
-    // clouds = level1.clouds;
-    // backgroundObjects = level1.backgroundObjects;
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-    ];
-    clouds = [
-        new Cloud(),
-    ];
-    backgroundObjects = [
-        new BackgroundObject('assets/img/5_background/layers/air.png', 1),
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
 
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, -1),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 0),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, 1),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 2),    
-
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, -2),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 0.2, -1),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 0),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 0.2, 1),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 2),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, 3),
-
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 0, -1),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 0),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 0, 1),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 2),
-    ];
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.framerate.msPerFrame = 1000 / this.framerate.fps;
         this.time.msPrev = window.performance.now();
-        this.speedLimiter = this.framerate.fps / this.speedLimiter;
+        // this.speedLimiter = this.framerate.fps / this.speedLimiter;
         // setInterval(() => {
         //     console.log(this.framerate.frame);
         // }, 1000);
-        // setInterval(() => {
-        //     console.log(this.time.preventPause);
-        // }, 1);
         this.draw();
     }
 
@@ -103,8 +73,13 @@ class World {
         });
     }
 
-    updateCamera() {
+    updateCamera(state) {
         this.camera.x = -this.character.position.x;
+        if (state === 1) {
+            this.ctx.translate(this.camera.x + this.camera.offset, 0);
+        } else if (state === 0) {
+            this.ctx.translate(-this.camera.x - this.camera.offset, 0);
+        }
     }
 
 
@@ -129,12 +104,12 @@ class World {
     }
 
     drawWorld() {
-        this.updateCamera(); this.ctx.translate(this.camera.x + this.camera.offset, 0);
+        this.updateCamera(1);
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-        this.updateCamera(); this.ctx.translate(-this.camera.x - this.camera.offset, 0);
+        this.updateCamera(0);
     }
 
     animateWorld() {

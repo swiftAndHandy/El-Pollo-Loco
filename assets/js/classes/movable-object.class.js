@@ -26,6 +26,11 @@ class MovableObject {
         walking: [],
     }
 
+    constructor(width, height) {
+        this.appearance.width = width;
+        this.appearance.height = height;
+    }
+
     loadImage(path) {
         this.appearance.img.src = path;
     }
@@ -86,11 +91,6 @@ class MovableObject {
 
     frameUpdateRequired() {
         return world.framerate.frame % (world.framerate.fps / 10) == 0
-    }
-
-    constructor(width, height) {
-        this.appearance.width = width;
-        this.appearance.height = height;
     }
 
     setAppearanceTo(style, atFrame = -1) {
