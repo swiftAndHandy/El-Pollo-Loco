@@ -18,8 +18,8 @@ class Character extends MovableObject {
     };
 
     sounds = {
-        walking: null,
-        snoring: new Audio(),
+        walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5}),
+        snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 0.75 }),
     };
 
     WALKING_ANIMATION = [
@@ -116,6 +116,22 @@ class Character extends MovableObject {
         }
     }
 
+    playSound() {
+        this.appearance.currentStyle == 'longIdle' ? this.sounds.snoring.play() : this.sounds.snoring.pause();
+        if (this.appearance.currentStyle == 'walking') {
+            this.sounds.walking.play();
+            world.character.sounds.walking.playbackRate = this.abilities.run ? this.abilities.runBonusX : 1;
+        } else {
+            this.sounds.walking.pause();
+        }
+        
+    };
+
+    /**
+     * Compares the frames to check the duration the play isn't doing any input. 
+     * The Number at the end represents the seconds to enter longIdle.
+     * @returns {boolean}
+     */
     timeToEnterLongIdle() {
         return (world.framerate.frame - this.idleStartedAtFrame) > (world.framerate.fps * 10);
     }
@@ -134,6 +150,7 @@ class Character extends MovableObject {
             this.startIdle();
         }
 
+        this.playSound();
     }
 
 }

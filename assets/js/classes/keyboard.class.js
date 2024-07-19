@@ -23,6 +23,10 @@ class Keyboard {
         world.time.preventPause = !this.Keyboard.keys.esc ? false : true;
     }
 
+    /**
+     * 
+     * @param {KeyboardEvent} event 
+     */
     setInput(event) {
         if (event.code === 'Escape') {
             this.keys.esc = true;
