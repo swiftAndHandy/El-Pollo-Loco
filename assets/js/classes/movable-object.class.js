@@ -70,10 +70,6 @@ class MovableObject {
         this.getCurrentVelocityX();
         this.position.x -= this.velocity.x;
         this.setAppearanceTo('walking');
-        if (this.isCharacter && this.position.x < 0) {
-            this.position.x = 0;
-            this.velocity.x = 0;
-        }
     }
 
     moveRight() {
