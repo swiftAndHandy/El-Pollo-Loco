@@ -148,10 +148,19 @@ class MovableObject {
 
     /**
      * checks conditions and only allows an image update, when the target animation speed is fitted.
+     * If the current MO has the running ability and does use it while walking, speed up the animation.
      * @returns {boolean} 
      */
     frameUpdateRequired() {
-        return world.framerate.frame % (world.framerate.fps / 7.5) == 0
+        try {
+            if (this.abilities.run && this.appearance.currentStyle === 'walking') {
+                return world.framerate.frame % (world.framerate.fps / 10) == 0;
+            } else {
+                return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+            }
+        } catch {
+            return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+        }
     }
 
     /**

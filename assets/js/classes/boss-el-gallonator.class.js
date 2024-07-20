@@ -31,7 +31,7 @@ class ElGallonatorBoss extends MovableObject{
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.alerta = []; this.appearance.currentStyle = 'alerta';
         this.cacheImage('alerta', this.ALERT_ANIMATION); delete this.ALERT_ANIMATION;
-        this.position.x = 700; this.position.y = 160;
+        this.position.x = 3200; this.position.y = 160;
         this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
     }
 
