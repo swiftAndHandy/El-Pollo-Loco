@@ -18,7 +18,7 @@ class Character extends MovableObject {
     };
 
     sounds = {
-        walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5}),
+        walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5 }),
         snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 1 }),
     };
 
@@ -96,11 +96,17 @@ class Character extends MovableObject {
         return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle';
     }
 
+    /**
+     * Allows die MO to jump.
+     */
     jump() {
         console.log('Character jumps');
         this.position.y -= this.velocity.y;
     }
 
+    /**
+     * stops the movement by reducing velocity. Sets Appearance to idle.
+     */
     stopMovement() {
         this.velocity.x = 0;
         if (this.isntIdeling()) {
@@ -108,6 +114,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * If the Character isn't in longIdle allready (to prevent )
+     * @param {string} animationType - current Animation thats displayed on the character
+     */
     checkForLongIdle(animationType) {
         if (this.timeToEnterLongIdle()) {
             if (animationType !== 'longIdle') {
@@ -117,14 +127,18 @@ class Character extends MovableObject {
     }
 
     playSound() {
-        this.appearance.currentStyle == 'longIdle' ? this.sounds.snoring.play() : this.sounds.snoring.pause();
-        if (this.appearance.currentStyle == 'walking') {
-            this.sounds.walking.play();
+        if (this.requiredSound('longIdle')) {
+            this.startSFX('snoring');
+        } else {
+            this.stopSFX('snoring');
+        }
+
+        if (this.requiredSound('walking')) {
+            this.startSFX('walking');
             world.character.sounds.walking.playbackRate = this.abilities.run ? this.abilities.runBonusX : 1;
         } else {
-            this.sounds.walking.pause();
+            this.stopSFX('walking');
         }
-        
     };
 
     /**
@@ -140,11 +154,7 @@ class Character extends MovableObject {
         const animationType = this.appearance.currentStyle;
         this.checkForLongIdle(animationType);
 
-        const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;
-        this.appearance.img = this.appearance[animationType][animationFrame];
-        if (this.frameUpdateRequired()) {
-            this.appearance.currentImg++;
-        }
+        this.playAnimation(animationType);
 
         if (animationType !== 'idle' && animationType !== 'longIdle') {
             this.startIdle();

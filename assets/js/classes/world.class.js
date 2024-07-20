@@ -27,6 +27,10 @@ class World {
         preventPause: false,
     }
 
+    audio = {
+        currentlyPlayed: [],
+    }
+
     character = new Character();
 
     level = level1;
@@ -42,11 +46,30 @@ class World {
         this.draw();
     }
 
+
+    /**
+     * toggles pause, if the pause-button is not blocked.
+     * @returns {boolean}
+     */
     pause() {
         if (!this.time.preventPause) {
             this.time.paused = !this.time.paused;
+            this.time.paused ? this.pauseAudio() : this.replayAudio();
         }
+
         return this.time.paused;
+    }
+
+    pauseAudio() {
+        this.audio.currentlyPlayed.forEach(audioElement => {
+            audioElement.pause();
+        });
+    }
+
+    replayAudio() {
+        this.audio.currentlyPlayed.forEach(audioElement => {
+            audioElement.play();
+        });
     }
 
     checkForEndOfPause() {

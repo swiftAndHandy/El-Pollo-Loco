@@ -43,7 +43,42 @@ class MovableObject {
         });
     };
 
-    getCurrentVelocityX(direction) {
+    /**
+     * checks if the current style is the targetStyle and the world is not paused.
+     * @param {string} targetSound - string that contains the sound, that is required in the current situation.
+     * @returns {boolean} - true, if the sound should become played, otherwise false
+     */
+    requiredSound(targetSound) {
+        return this.appearance.currentStyle === `${targetSound}` && !world.time.paused;
+    }
+
+    /**
+     * starts a specific audio, if it's not played allready. pushes it to an array,
+     * that contains all currently played sounds, to use them when world gets paused.
+     * @param {string} sound - name of the required sound
+     */
+    startSFX(sound) {
+        this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
+        this.sounds[sound].play();
+    }
+
+    /**
+     * stops the specific sound and removes it from world.audio[].
+     * @param {string} sound - name of the sound-type, that should be stopped.
+     */
+    stopSFX(sound) {
+        const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
+        indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
+        this.sounds[sound].pause();
+    }
+
+    /**
+     * Sets the MOs velocity to the required value and limits it to the maxX-Speed.
+     * The last if-statement is only for the character, since enemys can't walk to the right and 
+     * they are not mirrored, when they walk left. It's only to restrict the characters movement and limit
+     * the maps size.
+     */
+    getCurrentVelocityX() {
         let maxSpeed = this.getMaxSpeedX();
         if (this.frameUpdateRequired()) {
             this.velocity.x += this.acceleration.x;
@@ -56,6 +91,9 @@ class MovableObject {
         }
     }
 
+    /**
+     * Sets the MOs velocity to the required value and limits it to the maxY-Speed.
+     */
     getCurrentVelocityY() {
         let maxSpeed = this.getMaxSpeedY();
 
@@ -63,21 +101,31 @@ class MovableObject {
             this.velocity.y += this.acceleration.y;
         }
         this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
-        
+
     }
 
+    /**
+     * required methods, if the target is moving to the left side.
+     */
     moveLeft() {
         this.getCurrentVelocityX();
         this.position.x -= this.velocity.x;
         this.setAppearanceTo('walking');
     }
 
+    /**
+     * required methods, if the target is moving to the right side.
+     */
     moveRight() {
         this.getCurrentVelocityX();
         this.position.x += this.velocity.x;
         this.setAppearanceTo('walking');
     }
 
+    /**
+     * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
+     * @returns {number}
+     */
     getMaxSpeedX() {
         try {
             return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
@@ -86,6 +134,10 @@ class MovableObject {
         }
     }
 
+    /**
+     * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
+     * @returns {number}
+     */
     getMaxSpeedY() {
         try {
             return this.abilities.run ? this.velocity.yMax * this.abilities.runBonusY : this.velocity.yMax;
@@ -94,12 +146,33 @@ class MovableObject {
         }
     }
 
+    /**
+     * checks conditions and only allows an image update, when the target animation speed is fitted.
+     * @returns {boolean} 
+     */
     frameUpdateRequired() {
-        return world.framerate.frame % (world.framerate.fps / 10) == 0
+        return world.framerate.frame % (world.framerate.fps / 7.5) == 0
     }
 
+    /**
+     * @param {string} style - style that should be set for the movable object
+     * @param {number} atFrame - can be any valid number of the array that is related to style. if it's not set, no special frame
+     *                         is required. In this case, the counting is going straight forward.
+     */
     setAppearanceTo(style, atFrame = -1) {
         this.appearance.currentStyle = style;
         this.appearance.currentImg = atFrame >= 0 ? atFrame : this.appearance.currentImg;
+    }
+
+    /**
+     * Updates the image to the required one, for the target animation
+     * @param {string} animationType containing this.appearance.currentStyle
+     */
+    playAnimation(animationType) {
+        const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;
+        this.appearance.img = this.appearance[animationType][animationFrame];
+        if (this.frameUpdateRequired()) {
+            this.appearance.currentImg++;
+        }
     }
 }
