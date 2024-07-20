@@ -1,10 +1,11 @@
-class Gamepad {
+class Gamepad extends InputDevice {
 
     controllerIndex = null;
     directionBuffer = null;
     gamepad = null;
 
     constructor() {
+        super();
         window.addEventListener('gamepadconnected', (event) => {
             gamepad = event.gamepad; this.gamepad = event.gamepad;
             this.controllerIndex = gamepad.index;
@@ -111,15 +112,17 @@ class Gamepad {
     }
 
     /**
-     * 
+     * Let the character jump by pressing the jump button. When the character has jumped,
+     * block rejump until the button got released.
      * @param {Array} buttons - an Array that contains all buttons of the gamepad.
      * @param {Number} leftStickUpDown - Position of the left Controll stick on up/down-Axis
      */
     handleJumping(buttons, leftStickUpDown) {
-        if (buttons[0].pressed) {
+        if (buttons[0].pressed && !this.buttonsWithCooldown.jump) {
             world.character.jump();
-        } else if (leftStickUpDown >= -0.7) {
-
+            this.buttonsWithCooldown.jump = true;
+        } else if (leftStickUpDown >= -0.7 && !buttons[0].pressed) {
+            this.buttonsWithCooldown.jump = false;
         }
     }
 

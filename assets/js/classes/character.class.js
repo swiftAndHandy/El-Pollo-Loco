@@ -19,7 +19,7 @@ class Character extends MovableObject {
 
     sounds = {
         walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5}),
-        snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 0.75 }),
+        snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 1 }),
     };
 
     WALKING_ANIMATION = [

@@ -1,4 +1,4 @@
-class Keyboard {
+class Keyboard extends InputDevice {
 
     keys = {
         direction: [],
@@ -10,6 +10,7 @@ class Keyboard {
 
 
     constructor() {
+        super();
         document.addEventListener('keydown', (event) => {
             this.setInput(event);
         });
@@ -62,7 +63,7 @@ class Keyboard {
         }
 
         if (event.code === 'KeyW' || event.code === 'Space') {
-            this.keys.space = false;
+            this.keys.space = false; this.buttonsWithCooldown.jump = false;
         }
     }
 
@@ -108,8 +109,8 @@ class Keyboard {
     }
 
     handeJumping() {
-        if (this.keys.space) {
-            world.character.jump();
+        if (this.keys.space && !this.buttonsWithCooldown.jump) {
+            world.character.jump(); this.buttonsWithCooldown.jump = true;
         }
     }
 }
