@@ -5,7 +5,9 @@ class Character extends MovableObject {
 
     position = {
         x: 150,
-        y: 222,
+        y: 225,
+        touchesGround: 225, 
+        peak: 80,
     };
 
     abilities = {
@@ -84,7 +86,7 @@ class Character extends MovableObject {
         this.appearance.idle = []; this.cacheImage('idle', this.IDLE_ANIMATION); delete this.IDLE_ANIMATION;
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
-        this.velocity.yMax = 40; this.acceleration.y = 40;
+        this.velocity.yMax = 40; this.acceleration.y = 2;
         this.setAppearanceTo('idle');
     }
 
@@ -161,6 +163,7 @@ class Character extends MovableObject {
         }
 
         this.playSound();
+        this.getCurrentVelocityY();
     }
 
 }

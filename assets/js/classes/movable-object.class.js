@@ -2,6 +2,8 @@ class MovableObject {
     position = {
         x: null,
         y: null,
+        touchesGround: 0,
+        peak: 0,
     }
 
     velocity = {
@@ -14,6 +16,8 @@ class MovableObject {
     acceleration = {
         x: null,
         y: null,
+        isFalling: false,
+        isJumping: false,
     }
 
     appearance = {
@@ -26,14 +30,17 @@ class MovableObject {
         walking: [],
     }
 
+
     constructor(width, height) {
         this.appearance.width = width;
         this.appearance.height = height;
     }
 
+
     loadImage(path) {
         this.appearance.img.src = path;
     }
+
 
     cacheImage(targetAnimation, arr) {
         arr.forEach(frame => {
@@ -101,7 +108,27 @@ class MovableObject {
             this.velocity.y += this.acceleration.y;
         }
         this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
+        this.applyGravity();
+    }
+    
 
+    isFalling() {
+        if (this.position.y <= this.position.peak) {
+            this.acceleration.isFalling = true;
+        } else if (this.position.y >= this.position.touchesGround){
+            this.acceleration.isFalling = false;
+        }
+    }
+
+    applyGravity() {
+        this.isFalling();
+        this.velocity.y = this.acceleration.isFalling ? this.velocity.y : 0;
+        if (this.acceleration.isFalling) {
+            this.position.y += this.velocity.y;
+            this.position.y = this.position.y > this.position.touchesGround ? this.position.touchesGround : this.position.y;
+        } else if (this.position.touchesGround) {
+            this.position.y -= this.velocity.y;
+        }
     }
 
     /**
