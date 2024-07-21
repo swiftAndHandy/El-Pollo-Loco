@@ -129,15 +129,14 @@ class MovableObject {
     isFalling(mo = 'character') {
         if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
             this.acceleration.isFalling = true;
+            this.setAppearanceTo('falling', 0);
             this.acceleration.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             mo === 'character' && this.allowJumping();
+            this.acceleration.isFalling && this.setAppearanceTo('landing');
             this.acceleration.isFalling = false;
             this.position.bouncingPeak = 0;
         }
-        // else if (this.acceleration.isJumping) {
-        //     console.log('bla');
-        // }
     }
 
     /**
@@ -209,7 +208,7 @@ class MovableObject {
     }
 
     lastFrameOfAnimation() {
-        return this.appearance.currentImg === this.appearance[this.appearance.currentStyle].length
+        return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
     }
 
     /**

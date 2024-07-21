@@ -101,8 +101,14 @@ class Character extends MovableObject {
     ];
 
     FALL_ANIMATION = [
-        ''
+        './assets/img/2_character_pepe/3_jump/J-36.png',
     ];
+
+    LANDING_ANIMATION = [
+        './assets/img/2_character_pepe/3_jump/J-37.png',
+        './assets/img/2_character_pepe/3_jump/J-38.png',
+        './assets/img/2_character_pepe/3_jump/J-39.png',
+    ]
 
     constructor() {
         super(100, 200);
@@ -111,6 +117,8 @@ class Character extends MovableObject {
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
         this.appearance.startJump = []; this.cacheImage('startJump', this.JUMP_START_ANIMATION); delete this.JUMP_START_ANIMATION;
         this.appearance.jumping = []; this.cacheImage('jumping', this.JUMP_ANIMATION); delete this.JUMP_ANIMATION;
+        this.appearance.falling = []; this.cacheImage('falling', this.FALL_ANIMATION); delete this.FALL_ANIMATION;
+        this.appearance.landing = []; this.cacheImage('landing', this.LANDING_ANIMATION); delete this.LANDING_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75;
         this.setAppearanceTo('idle');
@@ -125,7 +133,8 @@ class Character extends MovableObject {
         if (this.acceleration.isFalling) {
             world.keyboard.buttonsWithCooldown.jump = false;
             this.acceleration.isJumping = false;
-            this.setAppearanceTo('idle');
+            this.endSpecialAnimations();
+            // this.setAppearanceTo('idle');
         }
     }
 
