@@ -26,6 +26,7 @@ class Character extends MovableObject {
         jumping: [
             Object.assign(new Audio('../assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('../assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('../assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
         ]
     };
 
@@ -93,6 +94,9 @@ class Character extends MovableObject {
     ];
 
     JUMP_ANIMATION = [
+        './assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
         './assets/img/2_character_pepe/3_jump/J-35.png',
     ];
 

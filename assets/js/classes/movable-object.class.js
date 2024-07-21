@@ -80,9 +80,9 @@ class MovableObject {
      * @param {string} sound - name of the sound-type, that should be stopped.
      */
     stopSFX(sound) {
-            const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
-            indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
-            this.sounds[sound].pause();
+        const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
+        indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
+        this.sounds[sound].pause();
     }
 
     /**
@@ -109,11 +109,16 @@ class MovableObject {
      */
     getCurrentVelocityY() {
         let maxSpeed = this.getMaxSpeedY();
-
-        if (this.frameUpdateRequired()) {
-            this.velocity.y += this.acceleration.y;
+        if (this.acceleration.isJumping) {
+            if (this.frameUpdateRequired()) {
+                this.velocity.y += this.acceleration.y;
+            }
+        } else {
+            if (this.frameUpdateRequired()) {
+                this.velocity.y += this.acceleration.y;
+            }
+            this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
         }
-        this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
         this.applyGravity();
     }
 
@@ -124,11 +129,15 @@ class MovableObject {
     isFalling(mo = 'character') {
         if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
             this.acceleration.isFalling = true;
+            this.acceleration.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             mo === 'character' && this.allowJumping();
             this.acceleration.isFalling = false;
             this.position.bouncingPeak = 0;
         }
+        // else if (this.acceleration.isJumping) {
+        //     console.log('bla');
+        // }
     }
 
     /**
@@ -136,11 +145,13 @@ class MovableObject {
      */
     applyGravity() {
         this.isFalling();
-        this.velocity.y = this.acceleration.isFalling ? this.velocity.y : 0;
+        this.velocity.y = this.acceleration.isFalling || this.acceleration.isJumping ? this.velocity.y : 0;
         if (this.acceleration.isFalling) {
             this.position.y += this.velocity.y;
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
-        } else if (this.position.ground) {
+        } else if (this.acceleration.isJumping) {
+            this.position.y -= this.velocity.y * 3;
+        } else if (this.position.y == this.position.ground) {
             this.position.y -= this.velocity.y;
         }
     }
@@ -149,6 +160,7 @@ class MovableObject {
     isTouchingGround() {
         return this.position.y > this.position.ground;
     }
+
 
     /**
      * required methods, if the target is moving to the left side.
@@ -174,7 +186,6 @@ class MovableObject {
     */
     jump() {
         if (!this.acceleration.isJumping) {
-            this.acceleration.isJumping = true;
             this.setAppearanceTo('startJump', 0);
             world.audio.playRandomVariant(this.sounds.jumping, this);
         }
@@ -187,6 +198,8 @@ class MovableObject {
         if (this.appearance.currentStyle === 'startJump') {
             if (this.lastFrameOfAnimation()) {
                 this.setAppearanceTo('jumping', 0);
+                this.acceleration.isJumping = true;
+
             }
         } else if (this.appearance.currentStyle === 'landing') {
             if (this.lastFrameOfAnimation()) {
