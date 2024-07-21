@@ -4,6 +4,7 @@ class World {
     keyboard = new Keyboard();
     gamepad = new Gamepad();
 
+
     camera = {
         x: 0,
         y: 0,
@@ -26,10 +27,7 @@ class World {
         preventPause: false,
     }
 
-    audio = {
-        currentlyPlayed: [],
-    }
-
+    audio = new Audioplayer();
     character = new Character();
 
     level = level1;

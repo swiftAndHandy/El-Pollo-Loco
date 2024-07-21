@@ -6,7 +6,7 @@ class Character extends MovableObject {
     position = {
         x: 150,
         y: 225,
-        ground: 225, 
+        ground: 225,
         peak: 80,
         bouncingPeak: 0,
     };
@@ -23,6 +23,10 @@ class Character extends MovableObject {
     sounds = {
         walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5 }),
         snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 1 }),
+        jumping: [
+            Object.assign(new Audio('../assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('../assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
+        ]
     };
 
     WALKING_ANIMATION = [
@@ -91,12 +95,21 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/3_jump/J-34.png',
     ];
 
+    JUMP_ANIMATION = [
+        'assets/img/2_character_pepe/3_jump/J-35.png',
+    ];
+
+    FALL_ANIMATION = [
+        ''
+    ];
+
     constructor() {
         super(100, 200);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.idle = []; this.cacheImage('idle', this.IDLE_ANIMATION); delete this.IDLE_ANIMATION;
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
         this.appearance.startJump = []; this.cacheImage('startJump', this.JUMP_START_ANIMATION); delete this.JUMP_START_ANIMATION;
+        this.appearance.jumping = []; this.cacheImage('jumping', this.JUMP_ANIMATION); delete this.JUMP_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75;
         this.setAppearanceTo('idle');
@@ -108,7 +121,11 @@ class Character extends MovableObject {
 
 
     allowJumping() {
-        world.keyboard.buttonsWithCooldown.jump = false;
+        if (this.acceleration.isFalling) {
+            world.keyboard.buttonsWithCooldown.jump = false;
+            this.acceleration.isJumping = false;
+            this.setAppearanceTo('idle');
+        }
     }
 
     /**

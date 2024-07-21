@@ -120,9 +120,9 @@ class MovableObject {
         if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
             this.acceleration.isFalling = true;
         } else if (this.position.y >= this.position.ground) {
+            mo === 'character' && this.allowJumping();
             this.acceleration.isFalling = false;
             this.position.bouncingPeak = 0;
-            mo === 'character' && this.allowJumping();
         }
     }
 
@@ -168,8 +168,30 @@ class MovableObject {
     * Allows die MO to jump.
     */
     jump() {
-        this.acceleration.isJumping = true;
-        this.setAppearanceTo('startJump', 0);
+        if (!this.acceleration.isJumping) {
+            this.acceleration.isJumping = true;
+            this.setAppearanceTo('startJump', 0);
+            world.audio.playRandomVariant(this.sounds.jumping);
+        }
+    }
+
+    /**
+     * 
+     */
+    endSpecialAnimations() {
+        if (this.appearance.currentStyle === 'startJump') {
+            if (this.lastFrameOfAnimation()) {
+                this.setAppearanceTo('jumping', 0);
+            }
+        } else if (this.appearance.currentStyle === 'landing') {
+            if (this.lastFrameOfAnimation()) {
+                this.setAppearanceTo('idle', 0);
+            }
+        }
+    }
+
+    lastFrameOfAnimation(){
+        return this.appearance.currentImg === this.appearance[this.appearance.currentStyle].length
     }
 
     /**
@@ -232,6 +254,7 @@ class MovableObject {
         this.appearance.img = this.appearance[animationType][animationFrame];
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
+            this.endSpecialAnimations()
         }
     }
 }
