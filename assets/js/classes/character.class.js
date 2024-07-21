@@ -6,8 +6,9 @@ class Character extends MovableObject {
     position = {
         x: 150,
         y: 225,
-        touchesGround: 225, 
+        ground: 225, 
         peak: 80,
+        bouncingPeak: 0,
     };
 
     abilities = {
@@ -80,13 +81,20 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/1_idle/long_idle/frame_019.png',
     ];
 
+    JUMP_START_ANIMATION = [
+        'assets/img/2_character_pepe/3_jump/J-31.png',
+        'assets/img/2_character_pepe/3_jump/J-32.png',
+        'assets/img/2_character_pepe/3_jump/J-33.png',
+    ];
+
     constructor() {
         super(100, 200);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.idle = []; this.cacheImage('idle', this.IDLE_ANIMATION); delete this.IDLE_ANIMATION;
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
+        this.appearance.startJump = []; this.cacheImage('startJump', this.JUMP_START_ANIMATION); delete this.JUMP_START_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
-        this.velocity.yMax = 40; this.acceleration.y = 2;
+        this.velocity.yMax = 20; this.acceleration.y = 1.75;
         this.setAppearanceTo('idle');
     }
 
@@ -94,16 +102,16 @@ class Character extends MovableObject {
         this.idleStartedAtFrame = world.framerate.frame;
     }
 
-    isntIdeling() {
-        return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle';
+
+    allowJumping() {
+        world.keyboard.buttonsWithCooldown.jump = false;
     }
 
     /**
-     * Allows die MO to jump.
+     * @returns {boolean} - true if character isn't idleing, otherwise false
      */
-    jump() {
-        console.log('Character jumps');
-        this.position.y -= this.velocity.y;
+    isntIdeling() {
+        return this.appearance.currentStyle !== 'longIdle' && this.appearance.currentStyle !== 'idle';
     }
 
     /**

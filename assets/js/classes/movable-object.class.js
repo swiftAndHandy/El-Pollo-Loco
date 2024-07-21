@@ -2,8 +2,9 @@ class MovableObject {
     position = {
         x: null,
         y: null,
-        touchesGround: 0,
+        ground: 0,
         peak: 0,
+        bouncingPeak: 0,
     }
 
     velocity = {
@@ -110,25 +111,38 @@ class MovableObject {
         this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
         this.applyGravity();
     }
-    
 
-    isFalling() {
-        if (this.position.y <= this.position.peak) {
+
+    /**
+     * @param {string} [mo='character'] - character applies specific rules for inputs
+     */
+    isFalling(mo = 'character') {
+        if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
             this.acceleration.isFalling = true;
-        } else if (this.position.y >= this.position.touchesGround){
+        } else if (this.position.y >= this.position.ground) {
             this.acceleration.isFalling = false;
+            this.position.bouncingPeak = 0;
+            mo === 'character' && this.allowJumping();
         }
     }
 
+    /**
+     * applys gravity on the mo, based on falling (or jumping).
+     */
     applyGravity() {
         this.isFalling();
         this.velocity.y = this.acceleration.isFalling ? this.velocity.y : 0;
         if (this.acceleration.isFalling) {
             this.position.y += this.velocity.y;
-            this.position.y = this.position.y > this.position.touchesGround ? this.position.touchesGround : this.position.y;
-        } else if (this.position.touchesGround) {
+            this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
+        } else if (this.position.ground) {
             this.position.y -= this.velocity.y;
         }
+    }
+
+
+    isTouchingGround() {
+        return this.position.y > this.position.ground;
     }
 
     /**
@@ -137,7 +151,7 @@ class MovableObject {
     moveLeft() {
         this.getCurrentVelocityX();
         this.position.x -= this.velocity.x;
-        this.setAppearanceTo('walking');
+        return this;
     }
 
     /**
@@ -146,7 +160,16 @@ class MovableObject {
     moveRight() {
         this.getCurrentVelocityX();
         this.position.x += this.velocity.x;
-        this.setAppearanceTo('walking');
+        return this;
+    }
+
+
+    /**
+    * Allows die MO to jump.
+    */
+    jump() {
+        console.log('This MO jumps');
+        this.position.y -= this.velocity.y;
     }
 
     /**

@@ -43,7 +43,7 @@ class Keyboard extends InputDevice {
             this.keys.shift = true;
         }
 
-        if (event.code === 'KeyW' || event.code === 'Space') {
+        if (event.code === 'Space') {
             this.keys.space = true;
         }
     }
@@ -62,8 +62,8 @@ class Keyboard extends InputDevice {
             this.keys.shift = false;
         }
 
-        if (event.code === 'KeyW' || event.code === 'Space') {
-            this.keys.space = false; this.buttonsWithCooldown.jump = false;
+        if (event.code === 'Space') {
+            this.keys.space = false;
         }
     }
 
@@ -72,11 +72,13 @@ class Keyboard extends InputDevice {
             this.handlePauseMenu();
 
             if (this.keys.direction.at(-1) === 'KeyA') {
-                world.character.moveLeft();
-                world.character.appearance.mirrored = true;
+                const character = world.character.moveLeft();
+                this.noImportantStyle() && character.setAppearanceTo('walking');
+                character.appearance.mirrored = true;
             } else if (this.keys.direction.at(-1) === 'KeyD') {
-                world.character.moveRight();
-                world.character.appearance.mirrored = false;
+                const character = world.character.moveRight();
+                this.noImportantStyle() && character.setAppearanceTo('walking');
+                character.appearance.mirrored = false;
             } else {
                 if (world.gamepad.unallowedLatency()) {
                     world.character.stopMovement();
@@ -111,6 +113,7 @@ class Keyboard extends InputDevice {
     handeJumping() {
         if (this.keys.space && !this.buttonsWithCooldown.jump) {
             world.character.jump(); this.buttonsWithCooldown.jump = true;
+            console.log('cant jump');
         }
     }
 }
