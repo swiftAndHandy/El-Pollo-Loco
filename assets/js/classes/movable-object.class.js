@@ -66,8 +66,13 @@ class MovableObject {
      * @param {string} sound - name of the required sound
      */
     startSFX(sound) {
-        this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
-        this.sounds[sound].play();
+        try {
+            this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
+            this.sounds[sound].play();
+        } catch (error) {
+            sound.play();
+            world.audio.currentlyPlayed.push(sound);
+        }
     }
 
     /**
@@ -75,9 +80,9 @@ class MovableObject {
      * @param {string} sound - name of the sound-type, that should be stopped.
      */
     stopSFX(sound) {
-        const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
-        indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
-        this.sounds[sound].pause();
+            const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
+            indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
+            this.sounds[sound].pause();
     }
 
     /**
@@ -171,7 +176,7 @@ class MovableObject {
         if (!this.acceleration.isJumping) {
             this.acceleration.isJumping = true;
             this.setAppearanceTo('startJump', 0);
-            world.audio.playRandomVariant(this.sounds.jumping);
+            world.audio.playRandomVariant(this.sounds.jumping, this);
         }
     }
 
@@ -190,7 +195,7 @@ class MovableObject {
         }
     }
 
-    lastFrameOfAnimation(){
+    lastFrameOfAnimation() {
         return this.appearance.currentImg === this.appearance[this.appearance.currentStyle].length
     }
 

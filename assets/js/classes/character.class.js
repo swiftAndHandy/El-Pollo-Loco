@@ -86,17 +86,14 @@ class Character extends MovableObject {
     ];
 
     JUMP_START_ANIMATION = [
-        'assets/img/2_character_pepe/3_jump/J-31.png',
-        'assets/img/2_character_pepe/3_jump/J-31.png',
-        'assets/img/2_character_pepe/3_jump/J-32.png',
-        'assets/img/2_character_pepe/3_jump/J-32.png',
-        'assets/img/2_character_pepe/3_jump/J-33.png',
-        'assets/img/2_character_pepe/3_jump/J-33.png',
-        'assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-31.png',
+        './assets/img/2_character_pepe/3_jump/J-32.png',
+        './assets/img/2_character_pepe/3_jump/J-33.png',
+        './assets/img/2_character_pepe/3_jump/J-34.png',
     ];
 
     JUMP_ANIMATION = [
-        'assets/img/2_character_pepe/3_jump/J-35.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
     ];
 
     FALL_ANIMATION = [

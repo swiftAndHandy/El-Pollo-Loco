@@ -1,9 +1,14 @@
 class Audioplayer {
     currentlyPlayed = [];
 
-    playRandomVariant(soundArray) {
+    /**
+     * 
+     * @param {*} soundArray 
+     * @param {object} target - must be this of the object
+     */
+    playRandomVariant(soundArray, target) {
         const index = Math.floor(Math.random() * soundArray.length);
-        soundArray[index].play();
+        target.startSFX(soundArray[index]);
     }
 }
 
