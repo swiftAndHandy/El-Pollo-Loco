@@ -107,6 +107,7 @@ class Character extends MovableObject {
     LANDING_ANIMATION = [
         './assets/img/2_character_pepe/3_jump/J-37.png',
         './assets/img/2_character_pepe/3_jump/J-38.png',
+        './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png',
     ]
 
@@ -120,7 +121,7 @@ class Character extends MovableObject {
         this.appearance.falling = []; this.cacheImage('falling', this.FALL_ANIMATION); delete this.FALL_ANIMATION;
         this.appearance.landing = []; this.cacheImage('landing', this.LANDING_ANIMATION); delete this.LANDING_ANIMATION;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
-        this.velocity.yMax = 20; this.acceleration.y = 1.75;
+        this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
         this.setAppearanceTo('idle');
     }
 

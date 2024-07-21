@@ -10,6 +10,16 @@ class Audioplayer {
         const index = Math.floor(Math.random() * soundArray.length);
         target.startSFX(soundArray[index]);
     }
+
+    clearJumpSounds() {
+        world.character.sounds.jumping.forEach(audioFile => {
+            const index = this.currentlyPlayed.indexOf(audioFile);
+            if (index >= 0) {
+                this.currentlyPlayed.splice(index, 1);
+            }
+        });
+        this.currentlyPlayed
+    }
 }
 
 

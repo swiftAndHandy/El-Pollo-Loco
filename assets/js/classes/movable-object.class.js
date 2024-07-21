@@ -12,6 +12,7 @@ class MovableObject {
         xMax: 0,
         y: 0,
         yMax: 0,
+        jumpSpeed: 0,
     }
 
     acceleration = {
@@ -92,15 +93,19 @@ class MovableObject {
      * the maps size.
      */
     getCurrentVelocityX() {
-        let maxSpeed = this.getMaxSpeedX();
-        if (this.frameUpdateRequired()) {
-            this.velocity.x += this.acceleration.x;
-        }
-        this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
-        if ((this.velocity.x > this.position.x - world.level.levelStart) && this.appearance.mirrored) {
-            this.velocity.x = this.position.x - world.level.levelStart;
-        } else if ((this.velocity.x > world.level.levelEnd - this.position.x) && !this.appearance.mirrored) {
-            this.velocity.x = world.level.levelEnd - this.position.x;
+        if (this.appearance.currentStyle !== 'landing') {
+            let maxSpeed = this.getMaxSpeedX();
+            if (this.frameUpdateRequired()) {
+                this.velocity.x += this.acceleration.x;
+            }
+            this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
+            if ((this.velocity.x > this.position.x - world.level.levelStart) && this.appearance.mirrored) {
+                this.velocity.x = this.position.x - world.level.levelStart;
+            } else if ((this.velocity.x > world.level.levelEnd - this.position.x) && !this.appearance.mirrored) {
+                this.velocity.x = world.level.levelEnd - this.position.x;
+            }
+        } else {
+            this.velocity.x = 0;
         }
     }
 
@@ -111,7 +116,8 @@ class MovableObject {
         let maxSpeed = this.getMaxSpeedY();
         if (this.acceleration.isJumping) {
             if (this.frameUpdateRequired()) {
-                this.velocity.y += this.acceleration.y;
+                this.velocity.y -= this.acceleration.y * 2;
+                this.velocity.y = this.velocity.y < 3 ? 3 : this.velocity.y;
             }
         } else {
             if (this.frameUpdateRequired()) {
@@ -133,7 +139,7 @@ class MovableObject {
             this.acceleration.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             mo === 'character' && this.allowJumping();
-            this.acceleration.isFalling && this.setAppearanceTo('landing');
+            this.acceleration.isFalling && this.setAppearanceTo('landing', 0);
             this.acceleration.isFalling = false;
             this.position.bouncingPeak = 0;
         }
@@ -146,10 +152,10 @@ class MovableObject {
         this.isFalling();
         this.velocity.y = this.acceleration.isFalling || this.acceleration.isJumping ? this.velocity.y : 0;
         if (this.acceleration.isFalling) {
-            this.position.y += this.velocity.y;
+            this.position.y += this.velocity.y * 0.8;
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
         } else if (this.acceleration.isJumping) {
-            this.position.y -= this.velocity.y * 3;
+            this.position.y -= this.velocity.y;
         } else if (this.position.y == this.position.ground) {
             this.position.y -= this.velocity.y;
         }
@@ -191,13 +197,16 @@ class MovableObject {
     }
 
     /**
-     * 
+     * Ends important special animations like the start of a jump, 
+     * landing scene and damage-appearance.
      */
     endSpecialAnimations() {
         if (this.appearance.currentStyle === 'startJump') {
             if (this.lastFrameOfAnimation()) {
                 this.setAppearanceTo('jumping', 0);
                 this.acceleration.isJumping = true;
+                this.velocity.y = this.velocity.jumpSpeed;
+                world.audio.clearJumpSounds();
 
             }
         } else if (this.appearance.currentStyle === 'landing') {
@@ -207,6 +216,10 @@ class MovableObject {
         }
     }
 
+
+    /**
+     * @returns {boolean} - true, if the current frame of the animation is the last one.
+     */
     lastFrameOfAnimation() {
         return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
     }
