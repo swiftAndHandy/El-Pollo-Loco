@@ -83,8 +83,12 @@ class Character extends MovableObject {
 
     JUMP_START_ANIMATION = [
         'assets/img/2_character_pepe/3_jump/J-31.png',
+        'assets/img/2_character_pepe/3_jump/J-31.png',
+        'assets/img/2_character_pepe/3_jump/J-32.png',
         'assets/img/2_character_pepe/3_jump/J-32.png',
         'assets/img/2_character_pepe/3_jump/J-33.png',
+        'assets/img/2_character_pepe/3_jump/J-33.png',
+        'assets/img/2_character_pepe/3_jump/J-34.png',
     ];
 
     constructor() {
@@ -120,7 +124,7 @@ class Character extends MovableObject {
     stopMovement() {
         this.velocity.x = 0;
         if (this.isntIdeling()) {
-            this.setAppearanceTo('idle', 0);
+            world.keyboard.noImportantStyle() && this.setAppearanceTo('idle', 0);
         }
     }
 

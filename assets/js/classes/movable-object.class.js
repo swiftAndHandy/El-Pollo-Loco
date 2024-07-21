@@ -168,8 +168,8 @@ class MovableObject {
     * Allows die MO to jump.
     */
     jump() {
-        console.log('This MO jumps');
-        this.position.y -= this.velocity.y;
+        this.acceleration.isJumping = true;
+        this.setAppearanceTo('startJump', 0);
     }
 
     /**
