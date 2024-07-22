@@ -27,7 +27,8 @@ class Character extends MovableObject {
             Object.assign(new Audio('../assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('../assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('../assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
-        ]
+        ],
+        cutscene: Object.assign(new Audio('../assets/audio/pepe/gallonator.mp3'), { loop: false, volume: 1 }),
     };
 
     ANIMATION = new CharacterAnimations;
@@ -110,7 +111,7 @@ class Character extends MovableObject {
      */
     checkForLongIdle(animationType) {
         if (this.timeToEnterLongIdle()) {
-            if (animationType !== 'longIdle') {
+            if (animationType !== 'longIdle' && world.keyboard.noImportantStyle()) { //here
                 this.setAppearanceTo('longIdle');
             }
         }

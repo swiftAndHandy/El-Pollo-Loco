@@ -147,7 +147,7 @@ class World {
             this.getInputs();
             this.animateWorld();
         } else if (this.camera.cutscenePlays) {
-
+            // this.Audioplayer
         } else {
             this.checkForEndOfPause();
         }

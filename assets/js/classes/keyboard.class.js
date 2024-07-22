@@ -113,7 +113,6 @@ class Keyboard extends InputDevice {
     handeJumping() {
         if (this.keys.space && !this.buttonsWithCooldown.jump) {
             world.character.jump(); this.buttonsWithCooldown.jump = true;
-            console.log('cant jump');
         }
     }
 }
