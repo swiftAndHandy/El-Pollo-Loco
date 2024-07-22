@@ -38,6 +38,15 @@ class MovableObject {
         this.appearance.height = height;
     }
 
+    drawHitbox(ctx) {
+        if (this instanceof Character || this instanceof Enemy) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.position.x, this.position.y, this.appearance.width, this.appearance.height);
+            ctx.stroke();
+        }
+    }
 
     loadImage(path) {
         this.appearance.img.src = path;
@@ -119,7 +128,7 @@ class MovableObject {
                 this.velocity.y -= this.acceleration.y * 2;
                 this.velocity.y = this.velocity.y < 3 ? 3 : this.velocity.y;
             }
-        } else {
+        } else if (this.acceleration.isFalling) {
             if (this.frameUpdateRequired()) {
                 this.velocity.y += this.acceleration.y;
             }
@@ -162,8 +171,11 @@ class MovableObject {
     }
 
 
+    /**
+     * @returns {boolean} - true if the mo stands on ground (or below)
+     */
     isTouchingGround() {
-        return this.position.y > this.position.ground;
+        return this.position.y >= this.position.ground;
     }
 
 
@@ -196,26 +208,6 @@ class MovableObject {
         }
     }
 
-    /**
-     * Ends important special animations like the start of a jump, 
-     * landing scene and damage-appearance.
-     */
-    endSpecialAnimations() {
-        if (this.appearance.currentStyle === 'startJump') {
-            if (this.lastFrameOfAnimation()) {
-                this.setAppearanceTo('jumping', 0);
-                this.acceleration.isJumping = true;
-                this.velocity.y = this.velocity.jumpSpeed;
-                world.audio.clearJumpSounds();
-
-            }
-        } else if (this.appearance.currentStyle === 'landing') {
-            if (this.lastFrameOfAnimation()) {
-                this.setAppearanceTo('idle', 0);
-            }
-        }
-    }
-
 
     /**
      * @returns {boolean} - true, if the current frame of the animation is the last one.
@@ -229,11 +221,10 @@ class MovableObject {
      * @returns {number}
      */
     getMaxSpeedX() {
-        try {
+        if (this instanceof Character) {
             return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
-        } catch (error) {
-            return this.velocity.xMax;
         }
+        return this.velocity.xMax;
     }
 
     /**
@@ -241,11 +232,10 @@ class MovableObject {
      * @returns {number}
      */
     getMaxSpeedY() {
-        try {
+        if (this instanceof Character) {
             return this.abilities.run ? this.velocity.yMax * this.abilities.runBonusY : this.velocity.yMax;
-        } catch (error) {
-            return this.velocity.yMax;
         }
+        return this.velocity.yMax;
     }
 
     /**
@@ -254,13 +244,13 @@ class MovableObject {
      * @returns {boolean} 
      */
     frameUpdateRequired() {
-        try {
+        if (this instanceof Character) {
             if (this.abilities.run && this.appearance.currentStyle === 'walking') {
                 return world.framerate.frame % (world.framerate.fps / 10) == 0;
             } else {
                 return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
             }
-        } catch {
+        } else {
             return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
         }
     }
@@ -284,7 +274,9 @@ class MovableObject {
         this.appearance.img = this.appearance[animationType][animationFrame];
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
-            this.endSpecialAnimations()
+            if (this instanceof Character) {
+                this.endSpecialAnimations();
+            }
         }
     }
 }

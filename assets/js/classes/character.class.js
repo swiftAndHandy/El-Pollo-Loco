@@ -30,112 +30,60 @@ class Character extends MovableObject {
         ]
     };
 
-    WALKING_ANIMATION = [
-        './assets/img/2_character_pepe/2_walk/W-21.png',
-        './assets/img/2_character_pepe/2_walk/W-22.png',
-        './assets/img/2_character_pepe/2_walk/W-23.png',
-        './assets/img/2_character_pepe/2_walk/W-24.png',
-        './assets/img/2_character_pepe/2_walk/W-25.png',
-        './assets/img/2_character_pepe/2_walk/W-26.png',
-    ];
-
-    IDLE_ANIMATION = [
-        './assets/img/2_character_pepe/1_idle/idle/frame_001.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_002.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_003.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_004.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_005.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_006.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_007.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_008.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_009.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_010.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_011.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_012.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_013.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_014.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_015.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_016.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_017.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_018.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_019.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_007.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_006.png',
-        './assets/img/2_character_pepe/1_idle/idle/frame_005.png',
-    ];
-
-    LONG_IDLE_ANIMATION = [
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_001.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_002.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_003.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_004.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_005.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_006.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_007.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_008.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_009.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_010.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_011.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_012.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_013.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_014.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_015.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_016.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_017.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_018.png',
-        './assets/img/2_character_pepe/1_idle/long_idle/frame_019.png',
-    ];
-
-    JUMP_START_ANIMATION = [
-        './assets/img/2_character_pepe/3_jump/J-31.png',
-        './assets/img/2_character_pepe/3_jump/J-32.png',
-        './assets/img/2_character_pepe/3_jump/J-33.png',
-        './assets/img/2_character_pepe/3_jump/J-34.png',
-    ];
-
-    JUMP_ANIMATION = [
-        './assets/img/2_character_pepe/3_jump/J-34.png',
-        './assets/img/2_character_pepe/3_jump/J-35.png',
-        './assets/img/2_character_pepe/3_jump/J-35.png',
-        './assets/img/2_character_pepe/3_jump/J-35.png',
-    ];
-
-    FALL_ANIMATION = [
-        './assets/img/2_character_pepe/3_jump/J-36.png',
-    ];
-
-    LANDING_ANIMATION = [
-        './assets/img/2_character_pepe/3_jump/J-37.png',
-        './assets/img/2_character_pepe/3_jump/J-38.png',
-        './assets/img/2_character_pepe/3_jump/J-38.png',
-        './assets/img/2_character_pepe/3_jump/J-39.png',
-    ]
+    ANIMATION = new CharacterAnimations;
 
     constructor() {
         super(100, 200);
-        this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
-        this.appearance.idle = []; this.cacheImage('idle', this.IDLE_ANIMATION); delete this.IDLE_ANIMATION;
-        this.appearance.longIdle = []; this.cacheImage('longIdle', this.LONG_IDLE_ANIMATION); delete this.LONG_IDLE_ANIMATION;
-        this.appearance.startJump = []; this.cacheImage('startJump', this.JUMP_START_ANIMATION); delete this.JUMP_START_ANIMATION;
-        this.appearance.jumping = []; this.cacheImage('jumping', this.JUMP_ANIMATION); delete this.JUMP_ANIMATION;
-        this.appearance.falling = []; this.cacheImage('falling', this.FALL_ANIMATION); delete this.FALL_ANIMATION;
-        this.appearance.landing = []; this.cacheImage('landing', this.LANDING_ANIMATION); delete this.LANDING_ANIMATION;
+        this.cacheImage('walking', this.ANIMATION.WALKING); delete this.ANIMATION.WALKING;
+        this.appearance.idle = []; this.cacheImage('idle', this.ANIMATION.IDLE); delete this.ANIMATION.IDLE;
+        this.appearance.longIdle = []; this.cacheImage('longIdle', this.ANIMATION.LONG_IDLE); delete this.ANIMATION.LONG_IDLE;
+        this.appearance.startJump = []; this.cacheImage('startJump', this.ANIMATION.JUMP_START); delete this.ANIMATION.JUMP_START;
+        this.appearance.jumping = []; this.cacheImage('jumping', this.ANIMATION.JUMP); delete this.ANIMATION.JUMP;
+        this.appearance.falling = []; this.cacheImage('falling', this.ANIMATION.FALL); delete this.ANIMATION.FALL;
+        this.appearance.landing = []; this.cacheImage('landing', this.ANIMATION.LANDING); delete this.ANIMATION.LANDING;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
         this.setAppearanceTo('idle');
     }
 
+
+    /**
+     * saves the frame, at which idle started to keep track of long-idle
+     */
     startIdle() {
         this.idleStartedAtFrame = world.framerate.frame;
     }
 
 
+    /**
+     * 
+     */
     allowJumping() {
         if (this.acceleration.isFalling) {
-            world.keyboard.buttonsWithCooldown.jump = false;
-            this.acceleration.isJumping = false;
             this.endSpecialAnimations();
-            // this.setAppearanceTo('idle');
+        }
+    }
+
+
+    /**
+     * Ends important special animations like the start of a jump, 
+     * landing scene and damage-appearance.
+     */
+    endSpecialAnimations() {
+        if (this.appearance.currentStyle === 'startJump') {
+            if (this.lastFrameOfAnimation()) {
+                this.setAppearanceTo('jumping', 0);
+                this.acceleration.isJumping = true;
+                this.velocity.y = this.velocity.jumpSpeed;
+                world.audio.clearJumpSounds();
+
+            }
+        } else if (this.appearance.currentStyle === 'landing') {
+            if (this.lastFrameOfAnimation()) {
+                world.keyboard.buttonsWithCooldown.jump = false;
+                this.acceleration.isJumping = false;
+                this.setAppearanceTo('idle');
+            }
         }
     }
 

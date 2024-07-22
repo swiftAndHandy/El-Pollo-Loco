@@ -202,22 +202,32 @@ class World {
         })
     }
 
+
+    /**
+     * @param {object} mo - a single mobile-object
+     * @param {boolean} flip - true if flip should start, false if a existing flip needs to be stopped
+     */
+    flipImage(mo, flip) {
+        if (mo.appearance.mirrored && flip) {
+            this.ctx.save();
+            this.ctx.translate(mo.appearance.width, 0);
+            this.ctx.scale(-1, 1);
+            mo.position.x *= -1;
+        } else if (mo.appearance.mirrored && !flip) {
+            mo.position.x *= - 1;
+            this.ctx.restore();
+        }
+    }
+
     /**
      * Draws mo on canvas. If the object is mirrored, transform it with scale(-1, 1) and translate to object to keep it on the correct place.
      * @param {Object} mo - a single Object, e. g. BackgroundObject/Character/Enemies, that needs to be drawn on canvas.
      */
     addToMap(mo) {
-        if (mo.appearance.mirrored) {
-            this.ctx.save();
-            this.ctx.translate(mo.appearance.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.position.x *= -1;
-        }
+        this.flipImage(mo, true);
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
-        if (mo.appearance.mirrored) {
-            mo.position.x *= - 1;
-            this.ctx.restore();
-        }
+        mo.drawHitbox(this.ctx);
+        this.flipImage(mo, false);
     }
 
 
