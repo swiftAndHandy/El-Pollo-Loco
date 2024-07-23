@@ -12,12 +12,12 @@ class Chicken extends Enemy {
         this.position.x = Math.random() * canvasWidth + 200; 
         this.position.y = 350;
         this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
+        this.hitboxes.push(new Hitbox());
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
         this.moveLeft();
-        this.hitboxes.push(new Hitbox())
     }
 }

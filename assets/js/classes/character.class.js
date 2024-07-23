@@ -44,7 +44,7 @@ class Character extends MovableObject {
         this.appearance.landing = []; this.cacheImage('landing', this.ANIMATION.LANDING); delete this.ANIMATION.LANDING;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
-        this.hitboxes.push(new Hitbox(this.appearance.width/5, this.appearance.height/2, this.appearance.width/2, this.appearance.height/2));
+        this.hitboxes.push(new Hitbox(this.appearance.width/5, this.appearance.height/2, this.appearance.width/2, this.appearance.height/1.75));
         this.setAppearanceTo('idle');
     }
 
