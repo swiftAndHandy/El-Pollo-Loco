@@ -70,26 +70,28 @@ class MovableObject {
 
 
     /**
-     * 
+     * This function compares the hitboxes of the current movableobject with the hitboxes
+     * of the provided object to determine if there is any overlap, indicating a collision.
+     * @param {Object} obj - The object to check for collisions with.
+     * @returns {boolean} - Returns true if a collision is detected, otherwise false.
      */
     isColliding(obj) {
         return this.hitboxes.some(hitbox => {
-            const rightArea = this.position.x + hitbox.x + this.appearance.width - hitbox.width;
             const leftArea = this.position.x + hitbox.x;
+            const rightArea = leftArea + this.appearance.width - hitbox.width;
             const topArea = this.position.y + hitbox.y;
             const bottomArea = topArea + this.appearance.height - hitbox.height;
-            if ((rightArea) >= obj.position.x && leftArea <= (obj.position.x + obj.appearance.width) &&
-                topArea <= obj.position.y + obj.appearance.height 
-                && bottomArea >= obj.position.y) {
-                return true;
-            }
-            return false;
+            return obj.hitboxes.some(objHitbox => {
+                const objLeftArea = obj.position.x + objHitbox.x;
+                const objRightArea = objLeftArea + obj.appearance.width - objHitbox.width;
+                const objTopArea = obj.position.y + objHitbox.y;
+                const objBottomArea = objTopArea + obj.appearance.height - objHitbox.height;
+                if (rightArea >= objLeftArea && leftArea <= objRightArea && topArea <= objBottomArea && bottomArea >= objTopArea) {
+                    return true;
+                }
+                return false;
+            });
         });
-        // return false;
-        // return (this.position.x + this.appearance.width) >= obj.position.x && this.position.x <= (obj.position.x + obj.appearance.width)
-        // && (this.position.y + this.offsetY + this.appearance.height) >= obj.position.y 
-        // && (this.position.y + this.offsetY) <= (obj.position.y + obj.appearance.height)
-        //&& obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
     }
 
 
