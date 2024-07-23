@@ -146,11 +146,24 @@ class World {
             this.drawWorld();
             this.getInputs();
             this.animateWorld();
+            this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
             // this.Audioplayer
         } else {
             this.checkForEndOfPause();
         }
+    }
+
+
+    /**
+     * 
+     */
+    checkCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy)) {
+                console.log('Collision with character', enemy);
+            }
+        });
     }
 
 

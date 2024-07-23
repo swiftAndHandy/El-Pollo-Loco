@@ -32,6 +32,8 @@ class MovableObject {
         walking: [],
     }
 
+    hitboxes = [];
+
 
     constructor(width, height) {
         this.appearance.width = width;
@@ -43,7 +45,12 @@ class MovableObject {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
-            ctx.rect(this.position.x, this.position.y, this.appearance.width, this.appearance.height);
+            this.hitboxes.forEach(hitbox => {
+                ctx.rect(this.position.x + hitbox.x,
+                    this.position.y + hitbox.y,
+                    this.appearance.width - hitbox.width,
+                    this.appearance.height - hitbox.height);
+            });
             ctx.stroke();
         }
     }
@@ -60,6 +67,31 @@ class MovableObject {
             this.appearance[targetAnimation].push(img);
         });
     };
+
+
+    /**
+     * 
+     */
+    isColliding(obj) {
+        return this.hitboxes.some(hitbox => {
+            const rightArea = this.position.x + hitbox.x + this.appearance.width - hitbox.width;
+            const leftArea = this.position.x + hitbox.x;
+            const topArea = this.position.y + hitbox.y;
+            const bottomArea = topArea + this.appearance.height - hitbox.height;
+            if ((rightArea) >= obj.position.x && leftArea <= (obj.position.x + obj.appearance.width) &&
+                topArea <= obj.position.y + obj.appearance.height 
+                && bottomArea >= obj.position.y) {
+                return true;
+            }
+            return false;
+        });
+        // return false;
+        // return (this.position.x + this.appearance.width) >= obj.position.x && this.position.x <= (obj.position.x + obj.appearance.width)
+        // && (this.position.y + this.offsetY + this.appearance.height) >= obj.position.y 
+        // && (this.position.y + this.offsetY) <= (obj.position.y + obj.appearance.height)
+        //&& obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    }
+
 
     /**
      * checks if the current style is the targetStyle and the world is not paused.

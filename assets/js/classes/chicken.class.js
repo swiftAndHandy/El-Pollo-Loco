@@ -18,5 +18,6 @@ class Chicken extends Enemy {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
         this.moveLeft();
+        this.hitboxes.push(new Hitbox())
     }
 }
