@@ -146,7 +146,7 @@ class World {
             this.drawWorld();
             this.getInputs();
             this.animateWorld();
-            this.checkCollisions();
+            this.framerate.frame % (this.framerate.fps/(this.framerate.fps*0.1)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
             // this.Audioplayer
         } else {
