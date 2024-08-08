@@ -72,13 +72,13 @@ class Keyboard extends InputDevice {
             this.handlePauseMenu();
 
             if (this.keys.direction.at(-1) === 'KeyA') {
-                const character = world.player.moveLeft();
-                this.noImportantStyle() && character.setAppearanceTo('walking');
-                character.appearance.mirrored = true;
+                const player = world.player.moveLeft();
+                this.noImportantStyle() && player.setAppearanceTo('walking');
+                player.appearance.mirrored = true;
             } else if (this.keys.direction.at(-1) === 'KeyD') {
-                const character = world.player.moveRight();
-                this.noImportantStyle() && character.setAppearanceTo('walking');
-                character.appearance.mirrored = false;
+                const player = world.player.moveRight();
+                this.noImportantStyle() && player.setAppearanceTo('walking');
+                player.appearance.mirrored = false;
             } else {
                 if (world.gamepad.unallowedLatency()) {
                     world.player.stopMovement();

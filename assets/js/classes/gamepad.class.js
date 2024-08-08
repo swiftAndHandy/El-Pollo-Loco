@@ -141,14 +141,14 @@ class Gamepad extends InputDevice {
     handleWalking(leftStickLeftRight, buttons) {
         if (leftStickLeftRight < -0.5 || buttons[14].pressed) {
             this.setDirectionBuffer();
-            const character = world.player.moveLeft();
-            this.noImportantStyle() && character.setAppearanceTo('walking');
-            character.appearance.mirrored = true;
+            const player = world.player.moveLeft();
+            this.noImportantStyle() && player.setAppearanceTo('walking');
+            player.appearance.mirrored = true;
         } else if (leftStickLeftRight > 0.5 || buttons[15].pressed) {
             this.setDirectionBuffer();
-            const character = world.player.moveRight();
-            this.noImportantStyle() && character.setAppearanceTo('walking');
-            character.appearance.mirrored = false;
+            const player = world.player.moveRight();
+            this.noImportantStyle() && player.setAppearanceTo('walking');
+            player.appearance.mirrored = false;
         } else {
             world.player.getCurrentVelocityX();
             this.noDirectionInput();

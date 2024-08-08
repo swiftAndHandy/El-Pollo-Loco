@@ -61,11 +61,11 @@ class Physics {
     isFalling(mo = 'character') {
         if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
             this.acceleration.isFalling = true;
-            this.setAppearanceTo('falling', 0);
+            !this.isDead && this.setAppearanceTo('falling', 0);
             this.acceleration.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             mo === 'character' && this.allowJumping();
-            if (this.acceleration.isFalling) {
+            if (this.acceleration.isFalling && !this.isDead) {
                 this.setAppearanceTo('landing', 0);
                 this.acceleration.isFalling = false;
                 this.position.bouncingPeak = 0;

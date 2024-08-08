@@ -92,4 +92,10 @@ class CharacterAnimations {
     ENDSCREEN = [
         './assets/img/2_character_pepe/5_dead/D-57.png',
     ];
+
+    DAMAGED = [
+        './assets/img/2_character_pepe/4_hurt/H-41.png',
+        './assets/img/2_character_pepe/4_hurt/H-42.png',
+        './assets/img/2_character_pepe/4_hurt/H-43.png',
+    ];
 }

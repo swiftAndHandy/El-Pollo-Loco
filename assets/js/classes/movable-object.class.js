@@ -108,8 +108,10 @@ class MovableObject extends Physics {
      * required methods, if the target is moving to the left side.
      */
     moveLeft() {
-        this.getCurrentVelocityX();
-        this.position.x -= this.velocity.x;
+        if (!this.isDead) {
+            this.getCurrentVelocityX();
+            this.position.x -= this.velocity.x;
+        }
         return this;
     }
 
@@ -117,8 +119,10 @@ class MovableObject extends Physics {
      * required methods, if the target is moving to the right side.
      */
     moveRight() {
-        this.getCurrentVelocityX();
-        this.position.x += this.velocity.x;
+        if (!this.isDead) {
+            this.getCurrentVelocityX();
+            this.position.x += this.velocity.x;
+        }
         return this;
     }
 
@@ -127,7 +131,7 @@ class MovableObject extends Physics {
     * Allows die MO to jump.
     */
     jump() {
-        if (!this.acceleration.isJumping) {
+        if (!this.acceleration.isJumping && !this.isDead) {
             this.setAppearanceTo('startJump', 0);
             world.audio.playRandomVariant(this.sounds.jumping, this);
         }

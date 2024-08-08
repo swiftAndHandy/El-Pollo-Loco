@@ -20,6 +20,7 @@ class Character extends MovableObject {
 
     isDying() {
         if (!this.isDead) {
+            this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
             this.isDead = true;
         }

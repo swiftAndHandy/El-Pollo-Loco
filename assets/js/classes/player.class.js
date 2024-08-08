@@ -43,6 +43,7 @@ class Player extends Character {
         this.appearance.jumping = []; this.cacheImage('jumping', this.ANIMATION.JUMP); delete this.ANIMATION.JUMP;
         this.appearance.falling = []; this.cacheImage('falling', this.ANIMATION.FALL); delete this.ANIMATION.FALL;
         this.appearance.landing = []; this.cacheImage('landing', this.ANIMATION.LANDING); delete this.ANIMATION.LANDING;
+        this.appearance.damaged = []; this.cacheImage('damaged', this.ANIMATION.DAMAGED); delete this.ANIMATION.DAMAGED;
         this.appearance.dead = []; this.cacheImage('dead', this.ANIMATION.DEAD); delete this.ANIMATION.DEAD;
         this.appearance.endscreen = []; this.cacheImage('endscreen', this.ANIMATION.ENDSCREEN); delete this.ANIMATION.ENDSCREEN;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
@@ -68,7 +69,6 @@ class Player extends Character {
             this.endSpecialAnimations();
         }
     }
-
 
     /**
      * Ends important special animations like the start of a jump, 
