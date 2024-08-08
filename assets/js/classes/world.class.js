@@ -156,12 +156,13 @@ class World {
 
 
     /**
-     * 
+     * Checks for collisions, needs adjustments to allow check for coins and other stuff
      */
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (world.player.isColliding(enemy)) {
-                console.log('Collision with character', enemy);
+            if (this.player.isColliding(enemy)) {
+                this.player.reciveDamage(5);
+                console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
             }
         });
     }
