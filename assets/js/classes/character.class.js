@@ -6,7 +6,7 @@ class Character extends MovableObject {
     }
 
     constructor(width, height) {
-        super(width, height)
+        super(width, height);
     }
 
     reciveDamage(value) {

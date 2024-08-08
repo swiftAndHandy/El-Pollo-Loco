@@ -45,7 +45,7 @@ class Player extends Character {
         this.appearance.landing = []; this.cacheImage('landing', this.ANIMATION.LANDING); delete this.ANIMATION.LANDING;
         this.appearance.damaged = []; this.cacheImage('damaged', this.ANIMATION.DAMAGED); delete this.ANIMATION.DAMAGED;
         this.appearance.dead = []; this.cacheImage('dead', this.ANIMATION.DEAD); delete this.ANIMATION.DEAD;
-        this.appearance.endscreen = []; this.cacheImage('endscreen', this.ANIMATION.ENDSCREEN); delete this.ANIMATION.ENDSCREEN;
+        this.appearance.hidden = []; this.cacheImage('hidden', this.ANIMATION.HIDDEN); delete this.ANIMATION.HIDDEN;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
         this.hitboxes.push(new Hitbox(this.appearance.width / 5, this.appearance.height / 2, this.appearance.width / 2, this.appearance.height / 1.75));
@@ -77,7 +77,7 @@ class Player extends Character {
     endSpecialAnimations() {
         if (this.lastFrameOfAnimation()) {
             if (this.appearance.currentStyle === 'dead') {
-                this.setAppearanceTo('endscreen');
+                this.setAppearanceTo('hidden');
             } else if (this.appearance.currentStyle === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
                 this.acceleration.isJumping = true;

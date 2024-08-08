@@ -89,7 +89,7 @@ class CharacterAnimations {
         './assets/img/2_character_pepe/5_dead/D-56.png',
     ];
 
-    ENDSCREEN = [
+    HIDDEN = [
         './assets/img/2_character_pepe/5_dead/D-57.png',
     ];
 

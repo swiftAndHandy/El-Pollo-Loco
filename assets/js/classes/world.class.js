@@ -146,7 +146,7 @@ class World {
             this.drawWorld();
             this.getInputs();
             this.animateWorld();
-            this.framerate.frame % (this.framerate.fps/(this.framerate.fps*0.1)) === 0 && this.checkCollisions();
+            this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.1)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
             // this.Audioplayer
         } else {
@@ -160,9 +160,14 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (this.player.isColliding(enemy)) {
-                this.player.reciveDamage(5);
-                console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
+            if (this.player.isColliding(enemy) && !enemy.isDead) {
+                if (this.player.appearance.currentStyle !== 'falling') {
+                    this.player.reciveDamage(5);
+                    console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
+                } else {
+                    console.log('you killed the chicken', enemy);
+                    enemy.reciveDamage(100);
+                }
             }
         });
     }
