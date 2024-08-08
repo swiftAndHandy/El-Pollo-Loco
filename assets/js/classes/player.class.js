@@ -43,9 +43,11 @@ class Player extends Character {
         this.appearance.jumping = []; this.cacheImage('jumping', this.ANIMATION.JUMP); delete this.ANIMATION.JUMP;
         this.appearance.falling = []; this.cacheImage('falling', this.ANIMATION.FALL); delete this.ANIMATION.FALL;
         this.appearance.landing = []; this.cacheImage('landing', this.ANIMATION.LANDING); delete this.ANIMATION.LANDING;
+        this.appearance.dead = []; this.cacheImage('dead', this.ANIMATION.DEAD); delete this.ANIMATION.DEAD;
+        this.appearance.endscreen = []; this.cacheImage('endscreen', this.ANIMATION.ENDSCREEN); delete this.ANIMATION.ENDSCREEN;
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
         this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
-        this.hitboxes.push(new Hitbox(this.appearance.width/5, this.appearance.height/2, this.appearance.width/2, this.appearance.height/1.75));
+        this.hitboxes.push(new Hitbox(this.appearance.width / 5, this.appearance.height / 2, this.appearance.width / 2, this.appearance.height / 1.75));
         this.setAppearanceTo('idle');
     }
 
@@ -73,16 +75,15 @@ class Player extends Character {
      * landing scene and damage-appearance.
      */
     endSpecialAnimations() {
-        if (this.appearance.currentStyle === 'startJump') {
-            if (this.lastFrameOfAnimation()) {
+        if (this.lastFrameOfAnimation()) {
+            if (this.appearance.currentStyle === 'dead') {
+                this.setAppearanceTo('endscreen');
+            } else if (this.appearance.currentStyle === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
                 this.acceleration.isJumping = true;
                 this.velocity.y = this.velocity.jumpSpeed;
                 world.audio.clearJumpSounds();
-
-            }
-        } else if (this.appearance.currentStyle === 'landing') {
-            if (this.lastFrameOfAnimation()) {
+            } else if (this.appearance.currentStyle === 'landing') {
                 world.keyboard.buttonsWithCooldown.jump = false;
                 this.acceleration.isJumping = false;
                 this.setAppearanceTo('idle');
@@ -147,7 +148,11 @@ class Player extends Character {
         const animationType = this.appearance.currentStyle;
         this.checkForLongIdle(animationType);
 
-        this.playAnimation(animationType);
+        if (this.isDead) {
+            this.playAnimation(animationType);
+        } else if (true) {
+            this.playAnimation(animationType);
+        }
 
         if (animationType !== 'idle' && animationType !== 'longIdle') {
             this.startIdle();

@@ -1,4 +1,6 @@
 class Character extends MovableObject {
+    isDead = false;
+
     stats = {
         health: 100,
     }
@@ -8,9 +10,18 @@ class Character extends MovableObject {
     }
 
     reciveDamage(value) {
-        this.stats.health -= value;
-        if (this.stats.health < 0) {
-            this.stats.health = 0;
+        if (!this.isDead) {
+            this.stats.health -= value;
+            if (this.stats.health <= 0) {
+                this.isDying();
+            }
+        }
+    }
+
+    isDying() {
+        if (!this.isDead) {
+            this.setAppearanceTo('dead', 0);
+            this.isDead = true;
         }
     }
 }

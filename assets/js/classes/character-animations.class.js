@@ -79,4 +79,17 @@ class CharacterAnimations {
         './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png',
     ];
+
+    DEAD = [
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-52.png',
+        './assets/img/2_character_pepe/5_dead/D-53.png',
+        './assets/img/2_character_pepe/5_dead/D-54.png',
+        './assets/img/2_character_pepe/5_dead/D-55.png',
+        './assets/img/2_character_pepe/5_dead/D-56.png',
+    ];
+
+    ENDSCREEN = [
+        './assets/img/2_character_pepe/5_dead/D-57.png',
+    ];
 }
