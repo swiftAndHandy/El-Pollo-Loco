@@ -48,16 +48,16 @@ class Gamepad extends InputDevice {
      */
     noDirectionInput() {
         if (this.unallowedLatency()) {
-            world.character.stopMovement();
+            world.player.stopMovement();
         }
-        if (world.character.appearance.currentStyle === 'walking') {
-            world.character.startIdle();
-            world.character.setAppearanceTo('idle', 0);
+        if (world.player.appearance.currentStyle === 'walking') {
+            world.player.startIdle();
+            world.player.setAppearanceTo('idle', 0);
         };
-        if (!world.character.appearance.mirrored) {
-            world.character.position.x += world.character.velocity.x;
-        } else if (world.character.appearance.mirrored) {
-            world.character.position.x -= world.character.velocity.x;
+        if (!world.player.appearance.mirrored) {
+            world.player.position.x += world.player.velocity.x;
+        } else if (world.player.appearance.mirrored) {
+            world.player.position.x -= world.player.velocity.x;
         }
     }
 
@@ -119,7 +119,7 @@ class Gamepad extends InputDevice {
      */
     handleJumping(buttons, leftStickUpDown) {
         if (buttons[0].pressed && !this.buttonsWithCooldown.jump) {
-            world.character.jump();
+            world.player.jump();
             this.buttonsWithCooldown.jump = true;
         } else if (leftStickUpDown >= -0.7 && !buttons[0].pressed) {
             this.buttonsWithCooldown.jump = false;
@@ -132,25 +132,25 @@ class Gamepad extends InputDevice {
      */
     handleRunning(buttons) {
         if (buttons[2].pressed) {
-            world.character.abilities.run = true;
+            world.player.abilities.run = true;
         } else {
-            world.character.abilities.run = false;
+            world.player.abilities.run = false;
         }
     }
 
     handleWalking(leftStickLeftRight, buttons) {
         if (leftStickLeftRight < -0.5 || buttons[14].pressed) {
             this.setDirectionBuffer();
-            const character = world.character.moveLeft();
+            const character = world.player.moveLeft();
             this.noImportantStyle() && character.setAppearanceTo('walking');
             character.appearance.mirrored = true;
         } else if (leftStickLeftRight > 0.5 || buttons[15].pressed) {
             this.setDirectionBuffer();
-            const character = world.character.moveRight();
+            const character = world.player.moveRight();
             this.noImportantStyle() && character.setAppearanceTo('walking');
             character.appearance.mirrored = false;
         } else {
-            world.character.getCurrentVelocityX();
+            world.player.getCurrentVelocityX();
             this.noDirectionInput();
         }
     }

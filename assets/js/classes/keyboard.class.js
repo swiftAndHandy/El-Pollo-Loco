@@ -72,20 +72,20 @@ class Keyboard extends InputDevice {
             this.handlePauseMenu();
 
             if (this.keys.direction.at(-1) === 'KeyA') {
-                const character = world.character.moveLeft();
+                const character = world.player.moveLeft();
                 this.noImportantStyle() && character.setAppearanceTo('walking');
                 character.appearance.mirrored = true;
             } else if (this.keys.direction.at(-1) === 'KeyD') {
-                const character = world.character.moveRight();
+                const character = world.player.moveRight();
                 this.noImportantStyle() && character.setAppearanceTo('walking');
                 character.appearance.mirrored = false;
             } else {
                 if (world.gamepad.unallowedLatency()) {
-                    world.character.stopMovement();
+                    world.player.stopMovement();
                 }
             }
 
-            world.character.abilities.run = this.keys.shift ? true : false;
+            world.player.abilities.run = this.keys.shift ? true : false;
 
             this.handeJumping();
         }
@@ -112,7 +112,7 @@ class Keyboard extends InputDevice {
 
     handeJumping() {
         if (this.keys.space && !this.buttonsWithCooldown.jump) {
-            world.character.jump(); this.buttonsWithCooldown.jump = true;
+            world.player.jump(); this.buttonsWithCooldown.jump = true;
         }
     }
 }

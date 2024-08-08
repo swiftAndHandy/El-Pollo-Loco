@@ -28,7 +28,7 @@ class World {
     }
 
     audio = new Audioplayer();
-    character = new Character();
+    player = new Player();
 
     level = level1;
 
@@ -123,7 +123,7 @@ class World {
      * @param {number} state - 1 updates the camera, 0 sets it back to normal.
      */
     updateCamera(state) {
-        this.camera.x = -this.character.position.x;
+        this.camera.x = -world.player.position.x;
         if (state === 1) {
             this.ctx.translate(this.camera.x + this.camera.offset, 0);
         } else if (state === 0) {
@@ -160,7 +160,7 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
+            if (world.player.isColliding(enemy)) {
                 console.log('Collision with character', enemy);
             }
         });
@@ -184,7 +184,7 @@ class World {
         this.updateCamera(1);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addToMap(this.character);
+        this.addToMap(world.player);
         this.addObjectsToMap(this.level.enemies);
         this.updateCamera(0);
     }
@@ -196,8 +196,8 @@ class World {
      */
     animateWorld() {
         this.animateObjects(this.level.clouds);
-        this.animate(this.character);
-        if (this.character.position.x + this.character.velocity.x > 0) {
+        this.animate(world.player);
+        if (world.player.position.x + world.player.velocity.x > 0) {
             this.animateObjects(this.level.backgroundObjects);
         }
         this.animateObjects(this.level.enemies);

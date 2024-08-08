@@ -15,7 +15,7 @@ class InputDevice {
             'idle', 
             'walking',
         ];
-        return allowedStyles.includes(world.character.appearance.currentStyle);
+        return allowedStyles.includes(world.player.appearance.currentStyle);
     }
 
 }

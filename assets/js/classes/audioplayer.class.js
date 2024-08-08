@@ -12,7 +12,7 @@ class Audioplayer {
     }
 
     clearJumpSounds() {
-        world.character.sounds.jumping.forEach(audioFile => {
+        world.player.sounds.jumping.forEach(audioFile => {
             const index = this.currentlyPlayed.indexOf(audioFile);
             if (index >= 0) {
                 this.currentlyPlayed.splice(index, 1);

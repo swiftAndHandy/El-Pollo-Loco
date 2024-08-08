@@ -1,3 +1,3 @@
-class Enemy extends MovableObject {
+class Enemy extends Character {
     
 }

@@ -24,10 +24,10 @@ class BackgroundObject extends MovableObject {
      * Scrolls the background related to the players position.
      */
     animate() {
-        if (world.character.appearance.mirrored) {
-            this.position.x -= world.character.velocity.x * this.scrollSpeed;
+        if (world.player.appearance.mirrored) {
+            this.position.x -= world.player.velocity.x * this.scrollSpeed;
         } else {
-            this.position.x += world.character.velocity.x * this.scrollSpeed;
+            this.position.x += world.player.velocity.x * this.scrollSpeed;
         }
     }
 }
