@@ -18,6 +18,14 @@ class Character extends MovableObject {
         }
     }
 
+    bounce() {
+        this.acceleration.isFalling = false;
+        this.acceleration.isJumping = true; 
+        this.position.bouncePeak = 60;  
+        this.position.y = 150;
+        this.velocity.y = 8;
+    }
+
     isDying() {
         if (!this.isDead) {
             this.velocity.x = 0;

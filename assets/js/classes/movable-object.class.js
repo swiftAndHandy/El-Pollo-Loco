@@ -4,7 +4,7 @@ class MovableObject extends Physics {
         y: null,
         ground: 0,
         peak: 0,
-        bouncingPeak: 0,
+        bouncePeak: 0,
     }
 
     velocity = {

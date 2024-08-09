@@ -8,7 +8,7 @@ class Player extends Character {
         y: 225,
         ground: 225,
         peak: 80,
-        bouncingPeak: 0,
+        bouncePeak: 0,
     };
 
     abilities = {

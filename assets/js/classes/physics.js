@@ -59,7 +59,7 @@ class Physics {
      * @param {string} [mo='character'] - character applies specific rules for inputs
      */
     isFalling(mo = 'character') {
-        if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncingPeak) {
+        if (this.position.y <= this.position.peak || this.position.y <= this.position.bouncePeak) {
             this.acceleration.isFalling = true;
             !this.isDead && this.setAppearanceTo('falling', 0);
             this.acceleration.isJumping = false;
@@ -68,7 +68,7 @@ class Physics {
             if (this.acceleration.isFalling && !this.isDead) {
                 this.setAppearanceTo('landing', 0);
                 this.acceleration.isFalling = false;
-                this.position.bouncingPeak = 0;
+                this.position.bouncePeak = 0;
                 this.startSFX('landing');
             }
         }
