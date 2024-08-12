@@ -118,12 +118,18 @@ class Gamepad extends InputDevice {
      * @param {Number} leftStickUpDown - Position of the left Controll stick on up/down-Axis
      */
     handleJumping(buttons, leftStickUpDown) {
-        if (buttons[0].pressed && !this.buttonsWithCooldown.jump) {
+        if (buttons[0].pressed && !this.buttonsWithCooldown.jump && this.jumpIsntBlocked()) {
             world.player.jump();
             this.buttonsWithCooldown.jump = true;
         } else if (leftStickUpDown >= -0.7 && !buttons[0].pressed) {
             this.buttonsWithCooldown.jump = false;
         }
+    }
+
+    jumpIsntBlocked() {
+        return world.player.appearance.currentStyle !== 'startJump' 
+        && world.player.appearance.currentStyle !== 'falling' 
+        && world.player.appearance.currentStyle !== 'landing'
     }
 
     /**

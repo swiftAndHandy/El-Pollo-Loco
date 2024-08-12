@@ -1,7 +1,6 @@
 class Player extends Character {
 
     idleStartedAtFrame = 0;
-    isCharacter = true;
 
     position = {
         x: 150,
@@ -27,6 +26,11 @@ class Player extends Character {
             Object.assign(new Audio('../assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('../assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('../assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
+        ],
+        damaged: [
+            Object.assign(new Audio('../assets/audio/pepe/damaged1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('../assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('../assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
         ],
         landing: Object.assign(new Audio('../assets/audio/pepe/hit_ground.mp3'), { loop: false, volume: 0.3 }),
         dying: Object.assign(new Audio('../assets/audio/pepe/dying.mp3'), { loop: false, volume: 0.5 }),
@@ -66,7 +70,7 @@ class Player extends Character {
      * 
      */
     allowJumping() {
-        if (this.acceleration.isFalling) {
+        if (this.abilities.isFalling) {
             this.endSpecialAnimations();
         }
     }
@@ -81,12 +85,12 @@ class Player extends Character {
                 this.setAppearanceTo('hidden');
             } else if (this.appearance.currentStyle === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
-                this.acceleration.isJumping = true;
+                this.abilities.isJumping = true;
                 this.velocity.y = this.velocity.jumpSpeed;
                 world.audio.clearJumpSounds();
             } else if (this.appearance.currentStyle === 'landing') {
                 world.keyboard.buttonsWithCooldown.jump = false;
-                this.acceleration.isJumping = false;
+                this.abilities.isJumping = false;
                 this.setAppearanceTo('idle');
             }
         }

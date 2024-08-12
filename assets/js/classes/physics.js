@@ -35,11 +35,11 @@ class Physics {
     */
     applyGravity() {
         this.isFalling();
-        this.velocity.y = this.acceleration.isFalling || this.acceleration.isJumping ? this.velocity.y : 0;
-        if (this.acceleration.isFalling) {
+        this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
+        if (this.abilities.isFalling) {
             this.position.y += this.velocity.y * 0.8;
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
-        } else if (this.acceleration.isJumping) {
+        } else if (this.abilities.isJumping) {
             this.position.y -= this.velocity.y;
         } else if (this.position.y == this.position.ground) {
             this.position.y -= this.velocity.y;
@@ -60,14 +60,14 @@ class Physics {
      */
     isFalling(mo = 'character') {
         if (this.position.y <= this.abilities.jump.peak || this.position.y <= this.abilities.jump.bouncePeak) {
-            this.acceleration.isFalling = true;
+            this.abilities.isFalling = true;
             !this.isDead && this.setAppearanceTo('falling', 0);
-            this.acceleration.isJumping = false;
+            this.abilities.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             mo === 'character' && this.allowJumping();
-            if (this.acceleration.isFalling && !this.isDead) {
+            if (this.abilities.isFalling && !this.isDead) {
                 this.setAppearanceTo('landing', 0);
-                this.acceleration.isFalling = false;
+                this.abilities.isFalling = false;
                 this.abilities.jump.bouncePeak = 0;
                 this.startSFX('landing');
             }
@@ -103,12 +103,12 @@ class Physics {
      */
     getCurrentVelocityY() {
         let maxSpeed = this.getMaxSpeedY();
-        if (this.acceleration.isJumping) {
+        if (this.abilities.isJumping) {
             if (this.frameUpdateRequired()) {
                 this.velocity.y -= this.acceleration.y * 2;
                 this.velocity.y = this.velocity.y < 3 ? 3 : this.velocity.y;
             }
-        } else if (this.acceleration.isFalling) {
+        } else if (this.abilities.isFalling) {
             if (this.frameUpdateRequired()) {
                 this.velocity.y += this.acceleration.y;
             }

@@ -9,6 +9,8 @@ class MovableObject extends Physics {
         jump: {
             peak: 0,
             bouncePeak: 0,
+            isFalling: false,
+            isJumping: false,
         }
     }
 
@@ -23,8 +25,6 @@ class MovableObject extends Physics {
     acceleration = {
         x: null,
         y: null,
-        isFalling: false,
-        isJumping: false,
     }
 
     appearance = {
@@ -136,7 +136,7 @@ class MovableObject extends Physics {
     * Allows die MO to jump.
     */
     jump() {
-        if (!this.acceleration.isJumping && !this.isDead) {
+        if (!this.abilities.isJumping && !this.isDead) {
             this.setAppearanceTo('startJump', 0);
             world.audio.playRandomVariant(this.sounds.jumping, this);
         }
@@ -210,6 +210,7 @@ class MovableObject extends Physics {
             this.appearance.currentImg++;
             if (this instanceof Player) {
                 this.endSpecialAnimations();
+                this.endIFrames();
             }
         }
     }
