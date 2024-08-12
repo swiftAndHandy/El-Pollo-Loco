@@ -41,6 +41,14 @@ class Player extends Character {
 
     constructor() {
         super(100, 200);
+        this.bufferAnimations();
+        this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
+        this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
+        this.hitboxes.push(new Hitbox(this.appearance.width / 5, this.appearance.height / 2, this.appearance.width / 2, this.appearance.height / 1.75));
+        this.setAppearanceTo('idle');
+    }
+
+    bufferAnimations() {
         this.cacheImage('walking', this.ANIMATION.WALKING); delete this.ANIMATION.WALKING;
         this.appearance.idle = []; this.cacheImage('idle', this.ANIMATION.IDLE); delete this.ANIMATION.IDLE;
         this.appearance.longIdle = []; this.cacheImage('longIdle', this.ANIMATION.LONG_IDLE); delete this.ANIMATION.LONG_IDLE;
@@ -51,12 +59,7 @@ class Player extends Character {
         this.appearance.damaged = []; this.cacheImage('damaged', this.ANIMATION.DAMAGED); delete this.ANIMATION.DAMAGED;
         this.appearance.dead = []; this.cacheImage('dead', this.ANIMATION.DEAD); delete this.ANIMATION.DEAD;
         this.appearance.hidden = []; this.cacheImage('hidden', this.ANIMATION.HIDDEN); delete this.ANIMATION.HIDDEN;
-        this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
-        this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 13;
-        this.hitboxes.push(new Hitbox(this.appearance.width / 5, this.appearance.height / 2, this.appearance.width / 2, this.appearance.height / 1.75));
-        this.setAppearanceTo('idle');
     }
-
 
     /**
      * saves the frame, at which idle started to keep track of long-idle

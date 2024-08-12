@@ -36,6 +36,7 @@ class World {
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
+        this.ctx.font = '36px UIElements'
         this.framerate.msPerFrame = 1000 / this.framerate.fps;
         this.time.msPrev = window.performance.now();
         // setInterval(() => {
@@ -164,7 +165,7 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.player.isColliding(enemy) && !enemy.isDead) {
                 if (this.player.appearance.currentStyle !== 'falling') {
-                    this.player.reciveDamage(5);
+                    this.player.reciveDamage(1);
                     console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
                 } else {
                     console.log('you killed the chicken', enemy);
