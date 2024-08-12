@@ -166,7 +166,7 @@ class World {
                     console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
                 } else {
                     console.log('you killed the chicken', enemy);
-                    this.player.bounce();
+                    this.player.bounce(enemy);
                     enemy.reciveDamage(100);
                 }
             }

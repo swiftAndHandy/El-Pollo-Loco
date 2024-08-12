@@ -7,13 +7,13 @@ class Player extends Character {
         x: 150,
         y: 225,
         ground: 225,
-        peak: 80,
-        bouncePeak: 0,
     };
 
     abilities = {
         jump: {
             cooldown: false,
+            peak: 80,
+            bouncePeak: 0,
         },
         run: false,
         runBonusX: 1.5,
@@ -29,6 +29,7 @@ class Player extends Character {
             Object.assign(new Audio('../assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
         ],
         landing: Object.assign(new Audio('../assets/audio/pepe/hit_ground.mp3'), { loop: false, volume: 0.3 }),
+        dying: Object.assign(new Audio('../assets/audio/pepe/dying.mp3'), { loop: false, volume: 0.5 }),
         cutscene: Object.assign(new Audio('../assets/audio/pepe/gallonator.mp3'), { loop: false, volume: 1 }),
     };
 

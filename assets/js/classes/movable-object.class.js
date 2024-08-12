@@ -3,8 +3,13 @@ class MovableObject extends Physics {
         x: null,
         y: null,
         ground: 0,
-        peak: 0,
-        bouncePeak: 0,
+    }
+
+    abilities = {
+        jump: {
+            peak: 0,
+            bouncePeak: 0,
+        }
     }
 
     velocity = {

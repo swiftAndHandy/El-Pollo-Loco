@@ -10,11 +10,15 @@ class Chicken extends Enemy {
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
 
+    sounds = {
+        dying: Object.assign(new Audio('../assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.5 }),
+    }; 
+
     constructor() {
         super(70,70);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.dead = []; this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
-        this.position.x = Math.random() * canvasWidth + 200; 
+        this.position.x = Math.random() * canvasWidth + 300; 
         this.position.y = 350;
         this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
         this.hitboxes.push(new Hitbox(5, 0, 20, 10));
