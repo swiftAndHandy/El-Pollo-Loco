@@ -59,6 +59,9 @@ class Character extends MovableObject {
             this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
             this.startSFX('dying');
+            if (this instanceof Chicken) {
+                world.audio.clearChickenScream(world.audio.currentlyPlayed.length);
+            }
             this.isDead = true;
         }
     }

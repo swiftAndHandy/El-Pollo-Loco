@@ -4,6 +4,8 @@ class World {
     keyboard = new Keyboard();
     gamepad = new Gamepad();
 
+    UIElements = new UIElements();
+
 
     camera = {
         x: 0,
@@ -182,7 +184,6 @@ class World {
         !gamepadUsed && this.keyboard.handleKeyboardInput();
     }
 
-
     /**
      * Draws various objects to the canvas after updating the camera position. 
      * Set the camera back after drawing.
@@ -191,8 +192,9 @@ class World {
         this.updateCamera(1);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addToMap(world.player);
+        this.addToMap(this.player);
         this.addObjectsToMap(this.level.enemies);
+        this.UIElements.update();
         this.updateCamera(0);
     }
 
