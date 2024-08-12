@@ -59,7 +59,7 @@ class Physics {
      * @param {string} [mo='character'] - character applies specific rules for inputs
      */
     isFalling(mo = 'character') {
-        if (this.position.y <= this.abilities.jump.peak || this.position.y <= this.abilities.jump.bouncePeak) {
+        if (this.position.y <= this.abilities.jump.peak || this.position.y <= this.abilities.jump.bouncePeak || this.isAirstucked()) {
             this.abilities.isFalling = true;
             !this.isDead && this.setAppearanceTo('falling', 0);
             this.abilities.isJumping = false;
@@ -72,6 +72,14 @@ class Physics {
                 this.startSFX('landing');
             }
         }
+    }
+
+    /**
+     * When the player is damaged during a jump and bounce right after, he could become airstucked. this check is preventing this behaviour.
+     * @returns {boolean}
+     */
+    isAirstucked() {
+        return this.position.y < this.position.ground && (this.appearance.currentStyle !== 'falling' && this.appearance.currentStyle !== 'jumping' && this.appearance.currentStyle !== 'startJump');
     }
 
 

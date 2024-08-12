@@ -11,7 +11,7 @@ class Player extends Character {
     abilities = {
         jump: {
             cooldown: false,
-            peak: 80,
+            peak: 60,
             bouncePeak: 0,
         },
         run: false,
