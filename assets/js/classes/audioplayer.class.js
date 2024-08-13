@@ -22,9 +22,7 @@ class Audioplayer {
     }
 
     clearChickenScream(atIndex) {
-        setTimeout(() => {
             this.currentlyPlayed.splice(atIndex - 1, 1);
-        }, 200);
     }
 }
 

@@ -6,6 +6,10 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new Chick(),
+        new Chick(),
+        new Chick(),
+        new Chick(),
         new ElGallonatorBoss(),
     ],
     [
@@ -39,4 +43,5 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 4),
     ],
     3000,
+    10
 );

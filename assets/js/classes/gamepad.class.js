@@ -62,12 +62,14 @@ class Gamepad extends InputDevice {
     }
 
     triggerRumble(delay, duration, weakMagnitude, strongMagnitude) {
-        gamepad.vibrationActuator.playEffect('dual-rumble', {
-            startDelay: delay,
-            duration: duration,
-            weakMagnitude: weakMagnitude,
-            strongMagnitude: strongMagnitude
-        });
+        if (this.controllerIndex !== null) {
+            gamepad.vibrationActuator.playEffect('dual-rumble', {
+                startDelay: delay,
+                duration: duration,
+                weakMagnitude: weakMagnitude,
+                strongMagnitude: strongMagnitude
+            });
+        }
     }
 
     unallowedLatency() {
@@ -127,9 +129,9 @@ class Gamepad extends InputDevice {
     }
 
     jumpIsntBlocked() {
-        return world.player.appearance.currentStyle !== 'startJump' 
-        && world.player.appearance.currentStyle !== 'falling' 
-        && world.player.appearance.currentStyle !== 'landing'
+        return world.player.appearance.currentStyle !== 'startJump'
+            && world.player.appearance.currentStyle !== 'falling'
+            && world.player.appearance.currentStyle !== 'landing'
     }
 
     /**

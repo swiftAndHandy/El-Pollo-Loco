@@ -1,28 +1,8 @@
-class MovableObject extends Physics {
+class CollectableItem {
+    item = null;
+    index = null;
+
     position = {
-        x: null,
-        y: null,
-        ground: 0,
-    }
-
-    abilities = {
-        jump: {
-            peak: 0,
-            bouncePeak: 0,
-            isFalling: false,
-            isJumping: false,
-        }
-    }
-
-    velocity = {
-        x: 0,
-        xMax: 0,
-        y: 0,
-        yMax: 0,
-        jumpSpeed: 0,
-    }
-
-    acceleration = {
         x: null,
         y: null,
     }
@@ -30,24 +10,25 @@ class MovableObject extends Physics {
     appearance = {
         img: new Image(),
         currentImg: 0,
-        currentStyle: 'walking',
-        mirrored: false,
         width: null,
         height: null,
-        walking: [],
     }
 
     hitboxes = [];
 
 
-    constructor(width, height) {
-        super();
-        this.appearance.width = width;
-        this.appearance.height = height;
+    constructor(item) {
+        if (item === 'coin') {
+            this.appearance.width = width;
+            this.appearance.height = height;
+        } else if (item === 'bottle') {
+            this.appearance.width = width;
+            this.appearance.height = height;
+        }
+        this.hitboxes.push(new Hitbox());
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Player || this instanceof Enemy) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -58,7 +39,6 @@ class MovableObject extends Physics {
                     this.appearance.height - hitbox.height);
             });
             ctx.stroke();
-        }
     }
 
     loadImage(path) {
@@ -109,38 +89,7 @@ class MovableObject extends Physics {
         this.sounds[sound].pause();
     }
 
-    /**
-     * required methods, if the target is moving to the left side.
-     */
-    moveLeft() {
-        if (!this.isDead) {
-            this.getCurrentVelocityX();
-            this.position.x -= this.velocity.x;
-        }
-        return this;
-    }
 
-    /**
-     * required methods, if the target is moving to the right side.
-     */
-    moveRight() {
-        if (!this.isDead) {
-            this.getCurrentVelocityX();
-            this.position.x += this.velocity.x;
-        }
-        return this;
-    }
-
-
-    /**
-    * Allows die MO to jump.
-    */
-    jump() {
-        if (!this.abilities.isJumping && !this.isDead && !this.iFrames.active) {
-            this.setAppearanceTo('startJump', 0);
-            world.audio.playRandomVariant(this.sounds.jumping, this);
-        }
-    }
 
 
     /**
@@ -148,28 +97,6 @@ class MovableObject extends Physics {
      */
     lastFrameOfAnimation() {
         return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
-    }
-
-    /**
-     * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
-     * @returns {number}
-     */
-    getMaxSpeedX() {
-        if (this instanceof Player) {
-            return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
-        }
-        return this.velocity.xMax;
-    }
-
-    /**
-     * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
-     * @returns {number}
-     */
-    getMaxSpeedY() {
-        if (this instanceof Player) {
-            return this.abilities.run ? this.velocity.yMax * this.abilities.runBonusY : this.velocity.yMax;
-        }
-        return this.velocity.yMax;
     }
 
     /**
@@ -187,16 +114,6 @@ class MovableObject extends Physics {
         } else {
             return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
         }
-    }
-
-    /**
-     * @param {string} style - style that should be set for the movable object
-     * @param {number} atFrame - can be any valid number of the array that is related to style. if it's not set, no special frame
-     *                         is required. In this case, the counting is going straight forward.
-     */
-    setAppearanceTo(style, atFrame = -1) {
-        this.appearance.currentStyle = style;
-        this.appearance.currentImg = atFrame >= 0 ? atFrame : this.appearance.currentImg;
     }
 
     /**

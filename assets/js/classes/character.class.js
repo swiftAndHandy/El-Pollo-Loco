@@ -20,6 +20,11 @@ class Character extends MovableObject {
     reciveDamage(value) {
         if (!this.isDead && !this.iFrames.active) {
             this.stats.health -= value;
+            if (this instanceof Player) {
+                world.gamepad.triggerRumble(0, 200, 0.5, 0.5);
+            } else if (this instanceof Enemy) {
+                world.gamepad.triggerRumble(0, 100, 0.25, 0.25);
+            }
             if (this.stats.health <= 0) {
                 this.isDying();
             } else {
@@ -38,13 +43,12 @@ class Character extends MovableObject {
 
     endIFrames() {
         if (this.iFrames.active && world.framerate.frame > (this.iFrames.startedAt + this.iFrames.duration)) {
-            this.setAppearanceTo('idle');
             this.iFrames.active = false;
             if (this instanceof Player) {
                 world.keyboard.buttonsWithCooldown.jump = false;
                 this.abilities.isJumping = false;
-                this.setAppearanceTo('idle');
             }
+            this.setAppearanceTo('idle');
         }
     }
 
@@ -52,7 +56,7 @@ class Character extends MovableObject {
         this.abilities.isFalling = false;
         this.abilities.isJumping = true;
         this.position.y = atObject.position.y - this.appearance.height;
-        this.abilities.jump.bouncePeak = 60
+        this.abilities.jump.bouncePeak = 120 - atObject.appearance.height / 2;
         this.velocity.y = 8;
     }
 
@@ -62,9 +66,13 @@ class Character extends MovableObject {
             this.setAppearanceTo('dead', 0);
             this.startSFX('dying');
             if (this instanceof Chicken) {
-                world.audio.clearChickenScream(world.audio.currentlyPlayed.length);
+                setTimeout(() => {
+                    world.audio.clearChickenScream(world.audio.currentlyPlayed.length);
+                    // this.appearance.currentStyle = 'hidden';
+                }, 200);
             }
             this.isDead = true;
+            this.hitboxes = [];
         }
     }
 }

@@ -9,9 +9,11 @@ class Player extends Character {
     };
 
     abilities = {
+        isJumping: false,
+        isFalling: false,
         jump: {
             cooldown: false,
-            peak: 60,
+            peak: 55,
             bouncePeak: 0,
         },
         run: false,
