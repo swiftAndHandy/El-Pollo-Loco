@@ -36,6 +36,7 @@ class Character extends MovableObject {
     reciveIFrames() {
         this.setAppearanceTo('damaged');
         world.audio.playRandomVariant(this.sounds.damaged, this);
+        Audioplayer.clearSound();
         this.iFrames.active = true;
         this.iFrames.startedAt = world.framerate.frame;
 
@@ -65,10 +66,12 @@ class Character extends MovableObject {
             this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
             this.startSFX('dying');
-            if (this instanceof Enemy) {
+            Audioplayer.clearSound()
+            if (this instanceof Character) {
                 setTimeout(() => {
-                    world.audio.clearChickenScream(world.audio.currentlyPlayed.length);
-                    Level.remove(this);
+                    if (this instanceof Enemy) {
+                        Level.remove(this);
+                    }
                 }, 500);
             }
             this.isDead = true;

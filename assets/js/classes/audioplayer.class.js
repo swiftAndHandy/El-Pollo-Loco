@@ -21,8 +21,11 @@ class Audioplayer {
         this.currentlyPlayed
     }
 
-    clearChickenScream(atIndex) {
-            this.currentlyPlayed.splice(atIndex - 1, 1);
+    static clearSound(delay = 0) {
+        const index = world.audio.currentlyPlayed.length - 1;
+        setTimeout(() => {
+            world.audio.currentlyPlayed.splice(index, 1);
+        }, delay);
     }
 }
 

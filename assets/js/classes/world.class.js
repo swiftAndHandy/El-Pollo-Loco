@@ -162,20 +162,8 @@ class World {
      * Checks for collisions, needs adjustments to allow check for coins and other stuff
      */
     checkCollisions() {
-        this.enemyCollisions();
-    }
-
-    enemyCollisions() {
-        this.level.enemies.forEach(enemy => {
-            if (Collisions.isColliding(this.player, enemy) && !enemy.isDead) {
-                if (this.player.appearance.currentStyle !== 'falling') {
-                    this.player.reciveDamage(1);
-                } else {
-                    this.player.bounce(enemy);
-                    enemy.reciveDamage(100);
-                }
-            }
-        });
+        Collisions.enemyCollisions(this);
+        Collisions.coinCollisions(this);
     }
 
 
