@@ -106,6 +106,10 @@ class MovableObject extends Physics {
         if (!this.isDead) {
             this.getCurrentVelocityX();
             this.position.x -= this.velocity.x;
+            if (this.position.x < -200) {
+                this.position.x = 3500;
+                
+            }
         }
         return this;
     }

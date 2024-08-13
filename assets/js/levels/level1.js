@@ -1,5 +1,5 @@
 const level1 = new Level(
-    7, 
+    6, 
     20,
     15,
     1,

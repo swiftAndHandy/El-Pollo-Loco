@@ -5,6 +5,10 @@ class Coin extends CollectableItem {
         'assets/img/8_coin/coin_2.png',
     ];
 
+    sounds = {
+        collected: Object.assign(new Audio('../assets/audio/collectables/coin_collected.mp3'), { loop: false, volume: 0.5 }),
+    };
+
     constructor(x, y) {
         super();
         this.appearance.width = 120;
@@ -30,6 +34,6 @@ class Coin extends CollectableItem {
         const index = world.level.coins.indexOf(self);
         world.level.coins.splice(index, 1)
         world.player.stats.coins++;
-           
+        Audioplayer.startSFX(self, 'collected', false);
     }
 }

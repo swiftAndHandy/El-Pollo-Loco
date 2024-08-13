@@ -35,7 +35,7 @@ class Character extends MovableObject {
 
     reciveIFrames() {
         this.setAppearanceTo('damaged');
-        world.audio.playRandomVariant(this.sounds.damaged, this);
+        world.audio.playRandomVariant(this.sounds.damaged, this, false);
         Audioplayer.clearSound();
         this.iFrames.active = true;
         this.iFrames.startedAt = world.framerate.frame;

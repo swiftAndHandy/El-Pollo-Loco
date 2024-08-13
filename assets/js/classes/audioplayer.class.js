@@ -6,9 +6,9 @@ class Audioplayer {
      * @param {*} soundArray 
      * @param {object} target - must be this of the object
      */
-    playRandomVariant(soundArray, target) {
+    playRandomVariant(soundArray, target, published = true) {
         const index = Math.floor(Math.random() * soundArray.length);
-        Audioplayer.startSFX(target, soundArray[index]);
+        Audioplayer.startSFX(target, soundArray[index], published);
     }
 
     clearJumpSounds() {
@@ -29,17 +29,21 @@ class Audioplayer {
     }
 
     /**
-    * starts a specific audio, if it's not played allready. pushes it to an array,
+    * starts a specific audio, if it's not played allready. can publish it to an array,
     * that contains all currently played sounds, to use them when world gets paused.
     * @param {string} sound - name of the required sound
     */
-    static startSFX(self, sound) {
+    static startSFX(self, sound, published = true) {
         try {
-            self.sounds[sound].paused && world.audio.currentlyPlayed.push(self.sounds[sound]);
+            if (published) {
+                self.sounds[sound].paused && world.audio.currentlyPlayed.push(self.sounds[sound]);
+            }
             self.sounds[sound].play();
         } catch (error) {
             sound.play();
-            world.audio.currentlyPlayed.push(sound);
+            if (published) {
+                world.audio.currentlyPlayed.push(sound);
+            }
         }
     }
 
