@@ -116,6 +116,8 @@ class MovableObject extends Physics {
         if (!this.isDead) {
             this.getCurrentVelocityX();
             this.position.x -= this.velocity.x;
+            if (this.position.x == Infinity) {console.log('Bug!', this.velocity.x);
+            }
         }
         return this;
     }

@@ -50,6 +50,10 @@ class Player extends Character {
         this.setAppearanceTo('idle');
     }
 
+    static isntMirrored(self) {
+        return !self.appearance.mirrored && self instanceof Player;
+    }
+
     bufferAnimations() {
         this.cacheImage('walking', this.ANIMATION.WALKING); delete this.ANIMATION.WALKING;
         this.appearance.idle = []; this.cacheImage('idle', this.ANIMATION.IDLE); delete this.ANIMATION.IDLE;

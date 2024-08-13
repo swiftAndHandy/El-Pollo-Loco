@@ -18,10 +18,11 @@ class Chicken extends Enemy {
         super(width,height);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.dead = []; this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
-        this.position.x = Math.random() * (canvasWidth * worldSize);
-        if (this.position.x < 300) {
-            this.position.x = 300;
-        }
+        this.position.x = Math.ceil(Math.random() * (canvasWidth * worldSize));
+        // if (this.position.x < 300) {
+        //     this.position.x = 300;
+            console.log(this.position.x, canvasWidth*worldSize);
+        // }
         this.position.y = 350;
         this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
         this.hitboxes.push(new Hitbox(5, 0, 20, 10));

@@ -27,16 +27,17 @@ class Level {
     static remove(self) {
         const index = world.level[self['type']].indexOf(self)
         world.level.enemies.splice(index, 1)
+        console.log(world.level.enemies.length);
     }
 
     addEnemies(chicks, chicken, boss) {
-        for (let i = 0; i <= chicks; i++) {
+        for (let i = 0; i < chicks; i++) {
             this.enemies.push(new Chick(this.worldSize));
         }
-        for (let i = 0; i <= chicken; i++) {
+        for (let i = 0; i < chicken; i++) {
             this.enemies.push(new Chicken(this.worldSize));
         }
-        for (let i = 0; i <= boss; i++) {
+        for (let i = 0; i < boss; i++) {
             this.enemies.push(new ElGallonatorBoss);
         }
     }
