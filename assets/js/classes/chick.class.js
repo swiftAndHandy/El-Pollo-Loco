@@ -14,13 +14,16 @@ class Chick extends Enemy {
         dying: Object.assign(new Audio('../assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.5 }),
     }; 
 
-    constructor(width = 50, height = 50) {
+    constructor(worldSize = 4, width = 50, height = 50) {
         super(width,height);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.dead = []; this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
-        this.position.x = Math.random() * canvasWidth + 300; 
+        this.position.x = Math.random() * (canvasWidth * worldSize);
+        if (this.position.x < 300) {
+            this.position.x = 300;
+        }
         this.position.y = 370;
-        this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
+        this.velocity.xMax = 1 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
         this.hitboxes.push(new Hitbox(5, 0, 20, 10));
     }
 

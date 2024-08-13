@@ -1,17 +1,8 @@
 const level1 = new Level(
-    [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chick(),
-        new Chick(),
-        new Chick(),
-        new Chick(),
-        new ElGallonatorBoss(),
-    ],
+    7, 
+    20,
+    15,
+    1,
     [
         new Cloud(),
     ],
@@ -22,9 +13,9 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, -1),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 0),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, 1),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 2), 
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 2),
         new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 0, 3),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 4), 
+        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0, 4),
 
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 0.2, -2),
         new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0.2, -1),
@@ -44,5 +35,5 @@ const level1 = new Level(
     ],
     3000,
     10,
-    50,
+    20,
 );

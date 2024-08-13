@@ -5,30 +5,24 @@ class Coin extends CollectableItem {
         'assets/img/8_coin/coin_2.png',
     ];
 
-    constructor() {
+    constructor(x, y) {
         super();
-        this.appearance.width = 50;
-        this.appearance.height = 50;
-        this.position.x = 50;
-        this.position.y = 250;
+        this.appearance.width = 120;
+        this.appearance.height = 120;
+        this.position.x = x;
+        this.position.y = y;
         this.type = 'coins';
-        this.hitboxes.push(new Hitbox(10, 10, 20, 20));
+        this.hitboxes.push(new Hitbox(40, 40, 80, 80));
         this.cacheImage(this.ANIMATION); delete this.ANIMATION;
     }
 
     static addCoins(amount, toLevel) {
-        // while (amount > 0) {
-        //     if (amount >= 5) {
-        //         const pattern = Math.floor(Math.random()*5);
-        //         console.log(pattern);
-        //         amount -= pattern;
-                
-        //     } else {
-        //         amount--;
-        //     }
-        // }
+        let lastPosition = 0;
         for (let i = 0; i < amount; i++) {
-            toLevel.coins.push(new Coin());
+            const x = lastPosition + Math.ceil(Math.random() * 150) + 40;
+            const y = Math.floor(Math.random() * 200 + 100);
+            lastPosition = x;
+            toLevel.coins.push(new Coin(x, y));
         }
     }
 }
