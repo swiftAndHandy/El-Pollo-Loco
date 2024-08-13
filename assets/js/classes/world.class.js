@@ -162,13 +162,15 @@ class World {
      * Checks for collisions, needs adjustments to allow check for coins and other stuff
      */
     checkCollisions() {
+        this.enemyCollisions();
+    }
+
+    enemyCollisions() {
         this.level.enemies.forEach(enemy => {
             if (Collisions.isColliding(this.player, enemy) && !enemy.isDead) {
                 if (this.player.appearance.currentStyle !== 'falling') {
                     this.player.reciveDamage(1);
-                    console.log('Collision with character', enemy, this.player.stats.health, this.framerate.frame);
                 } else {
-                    console.log('you killed the chicken', enemy);
                     this.player.bounce(enemy);
                     enemy.reciveDamage(100);
                 }
@@ -195,6 +197,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.player);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.coins);
         this.UIElements.update();
         this.updateCamera(0);
     }
@@ -211,6 +214,7 @@ class World {
             this.animateObjects(this.level.backgroundObjects);
         }
         this.animateObjects(this.level.enemies);
+        this.animateObjects(this.level.coins);
 
     }
 

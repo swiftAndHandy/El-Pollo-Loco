@@ -1,5 +1,5 @@
 class CollectableItem {
-    item = null;
+    type = null;
     index = null;
 
     position = {
@@ -10,47 +10,32 @@ class CollectableItem {
     appearance = {
         img: new Image(),
         currentImg: 0,
+        design: [],
         width: null,
         height: null,
     }
 
     hitboxes = [];
 
-
-    constructor(item) {
-        if (item === 'coin') {
-            this.appearance.width = width;
-            this.appearance.height = height;
-        } else if (item === 'bottle') {
-            this.appearance.width = width;
-            this.appearance.height = height;
-        }
-        this.hitboxes.push(new Hitbox());
-    }
-
     drawHitbox(ctx) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            this.hitboxes.forEach(hitbox => {
-                ctx.rect(this.position.x + hitbox.x,
-                    this.position.y + hitbox.y,
-                    this.appearance.width - hitbox.width,
-                    this.appearance.height - hitbox.height);
-            });
-            ctx.stroke();
-    }
-
-    loadImage(path) {
-        this.appearance.img.src = path;
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'green';
+        this.hitboxes.forEach(hitbox => {
+            ctx.rect(this.position.x + hitbox.x,
+                this.position.y + hitbox.y,
+                this.appearance.width - hitbox.width,
+                this.appearance.height - hitbox.height);
+        });
+        ctx.stroke();
     }
 
 
-    cacheImage(targetAnimation, arr) {
+    cacheImage(arr) {
         arr.forEach(frame => {
             const img = new Image();
             img.src = frame;
-            this.appearance[targetAnimation].push(img);
+            this.appearance['design'].push(img);
         });
     };
 
@@ -89,46 +74,24 @@ class CollectableItem {
         this.sounds[sound].pause();
     }
 
-
-
-
-    /**
-     * @returns {boolean} - true, if the current frame of the animation is the last one.
-     */
-    lastFrameOfAnimation() {
-        return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
-    }
-
     /**
      * checks conditions and only allows an image update, when the target animation speed is fitted.
      * If the current MO has the running ability and does use it while walking, speed up the animation.
      * @returns {boolean} 
      */
     frameUpdateRequired() {
-        if (this instanceof Player) {
-            if (this.abilities.run && this.appearance.currentStyle === 'walking') {
-                return world.framerate.frame % (world.framerate.fps / 10) == 0;
-            } else {
-                return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
-            }
-        } else {
-            return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
-        }
+        return world.framerate.frame % (world.framerate.fps / 2) == 0;
     }
 
     /**
      * Updates the image to the required one, for the target animation
-     * @param {string} animationType containing this.appearance.currentStyle
      */
-    playAnimation(animationType) {
-        const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;
-        this.appearance.img = this.appearance[animationType][animationFrame];
+    animate() {
+        const animationType = this.appearance.design;
+        const animationFrame = this.appearance.currentImg % this.appearance.design.length;
+        this.appearance.img = animationType[animationFrame];
         if (this.frameUpdateRequired()) {
             this.appearance.currentImg++;
-            if (this instanceof Player) {
-                this.endSpecialAnimations();
-                this.endIFrames();
-            }
         }
     }
 }
