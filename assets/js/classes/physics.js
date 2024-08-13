@@ -44,7 +44,7 @@ class Physics {
                 this.setAppearanceTo('landing', 0);
                 this.abilities.isFalling = false;
                 this.abilities.jump.bouncePeak = 0;
-                this.startSFX('landing');
+                Audioplayer.startSFX(this, 'landing');
                 Audioplayer.clearSound();
             }
         }

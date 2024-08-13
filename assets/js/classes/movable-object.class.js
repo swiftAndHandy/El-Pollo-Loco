@@ -84,30 +84,20 @@ class MovableObject extends Physics {
         return this.appearance.currentStyle === `${targetSound}` && !world.time.paused;
     }
 
-    /**
-     * starts a specific audio, if it's not played allready. pushes it to an array,
-     * that contains all currently played sounds, to use them when world gets paused.
-     * @param {string} sound - name of the required sound
-     */
-    startSFX(sound) {
-        try {
-            this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
-            this.sounds[sound].play();
-        } catch (error) {
-            sound.play();
-            world.audio.currentlyPlayed.push(sound);
-        }
-    }
-
-    /**
-     * stops the specific sound and removes it from world.audio[].
-     * @param {string} sound - name of the sound-type, that should be stopped.
-     */
-    stopSFX(sound) {
-        const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
-        indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
-        this.sounds[sound].pause();
-    }
+    // /**
+    //  * starts a specific audio, if it's not played allready. pushes it to an array,
+    //  * that contains all currently played sounds, to use them when world gets paused.
+    //  * @param {string} sound - name of the required sound
+    //  */
+    // startSFX(sound) {
+    //     try {
+    //         this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
+    //         this.sounds[sound].play();
+    //     } catch (error) {
+    //         sound.play();
+    //         world.audio.currentlyPlayed.push(sound);
+    //     }
+    // }
 
     /**
      * required methods, if the target is moving to the left side.
@@ -116,8 +106,6 @@ class MovableObject extends Physics {
         if (!this.isDead) {
             this.getCurrentVelocityX();
             this.position.x -= this.velocity.x;
-            if (this.position.x == Infinity) {console.log('Bug!', this.velocity.x);
-            }
         }
         return this;
     }

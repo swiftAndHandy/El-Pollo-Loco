@@ -136,16 +136,16 @@ class Player extends Character {
 
     playSound() {
         if (this.requiredSound('longIdle')) {
-            this.startSFX('snoring');
+            Audioplayer.startSFX(this, 'snoring');
         } else {
-            this.stopSFX('snoring');
+            Audioplayer.stopSFX(this, 'snoring');
         }
 
         if (this.requiredSound('walking')) {
-            this.startSFX('walking');
+            Audioplayer.startSFX(this, 'walking');
             world.player.sounds.walking.playbackRate = this.abilities.run ? this.abilities.runBonusX : 1;
         } else {
-            this.stopSFX('walking');
+            Audioplayer.stopSFX(this, 'walking');
         }
     };
 

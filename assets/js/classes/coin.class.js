@@ -25,4 +25,11 @@ class Coin extends CollectableItem {
             toLevel.coins.push(new Coin(x, y));
         }
     }
+
+    static collect(self) {
+        const index = world.level.coins.indexOf(self);
+        world.level.coins.splice(index, 1)
+        world.player.stats.coins++;
+           
+    }
 }

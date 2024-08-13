@@ -50,31 +50,6 @@ class CollectableItem {
     }
 
     /**
-     * starts a specific audio, if it's not played allready. pushes it to an array,
-     * that contains all currently played sounds, to use them when world gets paused.
-     * @param {string} sound - name of the required sound
-     */
-    startSFX(sound) {
-        try {
-            this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
-            this.sounds[sound].play();
-        } catch (error) {
-            sound.play();
-            world.audio.currentlyPlayed.push(sound);
-        }
-    }
-
-    /**
-     * stops the specific sound and removes it from world.audio[].
-     * @param {string} sound - name of the sound-type, that should be stopped.
-     */
-    stopSFX(sound) {
-        const indexToRemove = world.audio.currentlyPlayed.indexOf(this.sounds[sound]);
-        indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
-        this.sounds[sound].pause();
-    }
-
-    /**
      * checks conditions and only allows an image update, when the target animation speed is fitted.
      * If the current MO has the running ability and does use it while walking, speed up the animation.
      * @returns {boolean} 
