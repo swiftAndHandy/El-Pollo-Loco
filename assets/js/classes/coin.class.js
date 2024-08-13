@@ -6,7 +6,7 @@ class Coin extends CollectableItem {
     ];
 
     sounds = {
-        collected: Object.assign(new Audio('../assets/audio/collectables/coin_collected.mp3'), { loop: false, volume: 0.5 }),
+        collected: Object.assign(new Audio('../assets/audio/collectables/coin_collected.mp3'), { loop: false, volume: 0.1 }),
     };
 
     constructor(x, y) {
@@ -23,7 +23,7 @@ class Coin extends CollectableItem {
     static addCoins(amount, toLevel) {
         let lastPosition = 0;
         for (let i = 0; i < amount; i++) {
-            const x = lastPosition + Math.ceil(Math.random() * 150) + 40;
+            const x = lastPosition + Math.ceil(Math.random() * 150) + 50;
             const y = Math.floor(Math.random() * 200 + 100);
             lastPosition = x;
             toLevel.coins.push(new Coin(x, y));

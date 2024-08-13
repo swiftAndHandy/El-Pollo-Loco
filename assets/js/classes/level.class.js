@@ -7,6 +7,7 @@ class Level {
     levelEnd = 0;
     bottles = [];
     coins = [];
+    cutsceneTriggered = false;
 
     constructor(worldSize, chicks, chicken, boss, clouds, backgroundObjects, levelEnd, bottleAmount, coinAmount) {
         this.worldSize = worldSize;
@@ -16,6 +17,17 @@ class Level {
         this.levelEnd = levelEnd;
         this.addBottles(bottleAmount);
         Coin.addCoins(coinAmount, this);
+    }
+
+    static triggerCutscene() {
+        if (world.level.cutsceneTriggered === false && world.player.position.x > 2900) { // 2800
+            world.camera.cutscenePlays = true;
+            world.level.cutsceneTriggered = true;
+            Audioplayer.startSFX(world.player, 'cutscene', false);
+            setTimeout(() => {
+                world.camera.cutscenePlays = false;
+            }, 3800);
+        }
     }
 
     static lastCoinPosition() {

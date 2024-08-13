@@ -121,6 +121,7 @@ class MovableObject extends Physics {
         if (!this.isDead) {
             this.getCurrentVelocityX();
             this.position.x += this.velocity.x;
+            Level.triggerCutscene();
         }
         return this;
     }

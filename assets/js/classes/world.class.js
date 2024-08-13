@@ -6,6 +6,18 @@ class World {
 
     UIElements = new UIElements();
 
+    VSIMAGE = {
+        player: {
+            image: new Image(),
+            x: 0
+        },
+        boss: {
+            image: new Image(),
+            x: 0
+        },
+        vs: new Image(),
+    }
+
 
     camera = {
         x: 0,
@@ -39,6 +51,9 @@ class World {
         this.ctx.font = '36px UIElements'
         this.framerate.msPerFrame = 1000 / this.framerate.fps;
         this.time.msPrev = window.performance.now();
+        this.VSIMAGE.vs.src = 'assets/img/9_intro_outro_screens/vs.png';
+        this.VSIMAGE.player.image.src = 'assets/img/9_intro_outro_screens/player.png';
+        this.VSIMAGE.boss.image.src = 'assets/img/9_intro_outro_screens/boss.png';
         // setInterval(() => {
         //     console.log(this.framerate.frame);
         // }, 1000);
@@ -151,7 +166,13 @@ class World {
             this.animateWorld();
             this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
-            // this.Audioplayer
+            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.drawWorld();
+            this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);
+            this.ctx.drawImage(this.VSIMAGE.player.image, this.VSIMAGE.player.x, -100);
+            this.VSIMAGE.player.x += 3;
+            this.ctx.drawImage(this.VSIMAGE.boss.image, this.VSIMAGE.boss.x, 300);
+            this.VSIMAGE.boss.x -= 3;
         } else {
             this.checkForEndOfPause();
         }

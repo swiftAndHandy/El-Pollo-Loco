@@ -65,8 +65,7 @@ class Character extends MovableObject {
         if (!this.isDead) {
             this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
-            Audioplayer.startSFX(this, 'dying');
-            Audioplayer.clearSound()
+            Audioplayer.startSFX(this, 'dying', false);
             if (this instanceof Character) {
                 setTimeout(() => {
                     if (this instanceof Enemy) {
