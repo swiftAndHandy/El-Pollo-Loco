@@ -15,8 +15,8 @@ class Level {
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.levelEnd = levelEnd;
-        this.addBottles(bottleAmount);
         Coin.addCoins(coinAmount, this);
+        Bottle.addBottles(bottleAmount, this);
     }
 
     static triggerCutscene() {
@@ -50,12 +50,6 @@ class Level {
         }
         for (let i = 0; i < boss; i++) {
             this.enemies.push(new ElGallonatorBoss);
-        }
-    }
-
-    addBottles(amount) {
-        for (let i = 0; i < amount; i++) {
-            this.bottles.push(new Bottle());
         }
     }
 }

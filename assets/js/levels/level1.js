@@ -34,6 +34,6 @@ const level1 = new Level(
         new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0, 4),
     ],
     3000,
-    10,
+    6,
     20,
 );

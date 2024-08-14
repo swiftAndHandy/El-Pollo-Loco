@@ -185,6 +185,7 @@ class World {
     checkCollisions() {
         Collisions.enemyCollisions(this);
         Collisions.coinCollisions(this);
+        Collisions.bottleCollisions(this);
     }
 
 
@@ -207,6 +208,7 @@ class World {
         this.addToMap(this.player);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles, 'magenta');
         this.UIElements.update();
         this.updateCamera(0);
     }
@@ -224,6 +226,7 @@ class World {
         }
         this.animateObjects(this.level.enemies);
         this.animateObjects(this.level.coins);
+        this.animateObjects(this.level.bottles);
 
     }
 
@@ -232,9 +235,9 @@ class World {
      * Helpmethod to draw arrays on the canvas
      * @param {Array} object - the object-Array thats need to be drawn.
      */
-    addObjectsToMap(object) {
+    addObjectsToMap(object, color = undefined) {
         object.forEach(o => {
-            this.addToMap(o);
+            this.addToMap(o, color);
         })
     }
 
@@ -259,10 +262,10 @@ class World {
      * Draws mo on canvas. If the object is mirrored, transform it with scale(-1, 1) and translate to object to keep it on the correct place.
      * @param {Object} mo - a single Object, e. g. BackgroundObject/Character/Enemies, that needs to be drawn on canvas.
      */
-    addToMap(mo) {
+    addToMap(mo, color = undefined) {
         this.flipImage(mo, true);
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
-        mo.drawHitbox(this.ctx);
+        mo.drawHitbox(this.ctx, color);
         this.flipImage(mo, false);
     }
 

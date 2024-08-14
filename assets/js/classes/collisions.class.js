@@ -43,8 +43,15 @@ class Collisions {
     static coinCollisions (self) {
         self.level.coins.forEach(coin => {
             if (Collisions.isColliding(self.player, coin)) {
-                    // console.log('Collision with Coin', coin, self.framerate.frame);
                     Coin.collect(coin);
+            }
+        });
+    }
+
+    static bottleCollisions (self) {
+        self.level.bottles.forEach(bottle => {
+            if (Collisions.isColliding(self.player, bottle)) {
+                    Bottle.collect(bottle);
             }
         });
     }

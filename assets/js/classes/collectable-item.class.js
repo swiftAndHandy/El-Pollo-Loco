@@ -17,10 +17,10 @@ class CollectableItem {
 
     hitboxes = [];
 
-    drawHitbox(ctx) {
+    drawHitbox(ctx, color = 'green') {
         ctx.beginPath();
         ctx.lineWidth = '5';
-        ctx.strokeStyle = 'green';
+        ctx.strokeStyle = color;
         this.hitboxes.forEach(hitbox => {
             ctx.rect(this.position.x + hitbox.x,
                 this.position.y + hitbox.y,

@@ -11,7 +11,7 @@ class Chicken extends Enemy {
     ];
 
     sounds = {
-        dying: Object.assign(new Audio('../assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.5 }),
+        dying: Object.assign(new Audio('../assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.2 }),
     }; 
 
     constructor(worldSize = 4, width = 70, height = 70) {
