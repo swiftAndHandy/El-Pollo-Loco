@@ -22,11 +22,13 @@ class Level {
 
     static triggerCutscene() {
         if (world.level.cutsceneTriggered === false && world.player.position.x > 2900) { // 2800
+            world.pause();
             world.camera.cutscenePlays = true;
             world.level.cutsceneTriggered = true;
             Audioplayer.startSFX(world.player, 'cutscene', false);
             setTimeout(() => {
                 world.camera.cutscenePlays = false;
+                world.pause();
             }, 3800);
         }
     }

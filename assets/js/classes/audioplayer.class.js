@@ -63,13 +63,9 @@ class Audioplayer {
      * pauses Audio on pause and some audio on cutscenes
      */
     static pauseAudio(self) {
-        if (!self.camera.cutscenePlays) {
             self.audio.currentlyPlayed.forEach(audioElement => {
                 audioElement.pause();
             });
-        } else {
-
-        }
     }
 
 
