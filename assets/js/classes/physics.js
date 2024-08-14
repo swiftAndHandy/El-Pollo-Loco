@@ -1,16 +1,12 @@
 class Physics {
 
-    constructor() {
-
-    }
-
-
     /**
     * applys gravity on the mo, based on falling (or jumping).
     */
     applyGravity() {
         this.isFalling();
         this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
+        this instanceof Chick && this.velocity.y;
         if (this.abilities.isFalling) {
             this.position.y += this.velocity.y * 0.8;
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
@@ -29,24 +25,32 @@ class Physics {
         return this.position.y >= this.position.ground;
     }
 
+    calculatePeak() {
+        return this.abilities.jump.peak < this.abilities.jump.bouncePeak || this.abilities.jump.bouncePeak === 0 ?
+            this.abilities.jump.peak : this.abilities.jump.bouncePeak;
+    }
 
-    /**
-     * @param {string} [mo='character'] - character applies specific rules for inputs
-     */
-    isFalling(mo = 'character') {
-        if (this.position.y <= this.abilities.jump.peak || this.position.y <= this.abilities.jump.bouncePeak || this.isAirstucked()) {
+    isFalling() {
+        const peak = this.calculatePeak();
+        if (this.position.y <= peak || this.isAirstucked()) {
             this.abilities.isFalling = true;
-            !this.isDead && this.setAppearanceTo('falling', 0);
+            !this.isDead && this instanceof Player && this.setAppearanceTo('falling', 0);
             this.abilities.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
-            mo === 'character' && this.allowJumping();
-            if (this.abilities.isFalling && !this.isDead) {
+            this.isLanding();
+        }
+    }
+
+    isLanding() {
+        this instanceof Player && this.allowJumping();
+        if (this.abilities.isFalling && !this.isDead) {
+            if (this instanceof Player) {
                 this.setAppearanceTo('landing', 0);
-                this.abilities.isFalling = false;
-                this.abilities.jump.bouncePeak = 0;
                 Audioplayer.startSFX(this, 'landing');
                 Audioplayer.clearSound();
             }
+            this.abilities.isFalling = false;
+            this.abilities.jump.bouncePeak = 0;
         }
     }
     /**
@@ -54,7 +58,10 @@ class Physics {
      * @returns {boolean}
      */
     isAirstucked() {
-        return this.position.y < this.position.ground && (this.appearance.currentStyle !== 'falling' && this.appearance.currentStyle !== 'jumping' && this.appearance.currentStyle !== 'startJump');
+        return this.position.y < this.position.ground &&
+            (this.appearance.currentStyle !== 'falling' &&
+                this.appearance.currentStyle !== 'jumping' &&
+                this.appearance.currentStyle !== 'startJump');
     }
 
 

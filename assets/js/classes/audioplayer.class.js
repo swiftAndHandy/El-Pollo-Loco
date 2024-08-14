@@ -57,4 +57,28 @@ class Audioplayer {
         indexToRemove >= 0 && world.audio.currentlyPlayed.splice(indexToRemove, 1);
         self.sounds[sound].pause();
     }
+
+
+    /**
+     * pauses Audio on pause and some audio on cutscenes
+     */
+    static pauseAudio(self) {
+        if (!self.camera.cutscenePlays) {
+            self.audio.currentlyPlayed.forEach(audioElement => {
+                audioElement.pause();
+            });
+        } else {
+
+        }
+    }
+
+
+    /**
+     * continues the playback of audio-files. 
+     */
+   static continueAudio(self) {
+        self.audio.currentlyPlayed.forEach(audioElement => {
+            audioElement.play();
+        });
+    }
 }

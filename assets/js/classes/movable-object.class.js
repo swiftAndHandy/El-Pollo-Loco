@@ -6,11 +6,11 @@ class MovableObject extends Physics {
     }
 
     abilities = {
+        isFalling: false,
+        isJumping: false,
         jump: {
             peak: 0,
             bouncePeak: 0,
-            isFalling: false,
-            isJumping: false,
         }
     }
 
@@ -108,7 +108,7 @@ class MovableObject extends Physics {
             this.position.x -= this.velocity.x;
             if (this.position.x < -200) {
                 this.position.x = 3500;
-                
+
             }
         }
         return this;

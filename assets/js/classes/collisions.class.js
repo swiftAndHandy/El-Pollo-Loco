@@ -30,9 +30,7 @@ class Collisions {
             if (Collisions.isColliding(self.player, enemy) && !enemy.isDead) {
                 if (self.player.appearance.currentStyle !== 'falling') {
                     self.player.reciveDamage(1);
-                    console.log('Collision with character', enemy, self.player.stats.health, self.framerate.frame);
                 } else {
-                    console.log('you killed the chicken', enemy);
                     self.player.bounce(enemy);
                     enemy.reciveDamage(100);
                 }

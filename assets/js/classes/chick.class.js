@@ -22,14 +22,22 @@ class Chick extends Enemy {
         if (this.position.x < 300) {
             this.position.x = 300;
         }
-        this.position.y = 370;
+        this.position.y = 370; this.position.ground = this.position.y;
         this.velocity.xMax = 0.75 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
+        this.velocity.yMax = 20;
+        this.velocity.jumpSpeed = 8; this.abilities.jump.peak = 40;
         this.hitboxes.push(new Hitbox(5, 0, 20, 10));
+    }
+
+    jump() {
+        this.position.y = this.velocity.jumpSpeed;
+        this.abilities.isJumping = true;
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
         this.moveLeft();
+        this.getCurrentVelocityY();
     }
 }

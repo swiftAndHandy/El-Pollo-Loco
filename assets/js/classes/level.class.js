@@ -7,6 +7,7 @@ class Level {
     levelEnd = 0;
     bottles = [];
     coins = [];
+    throwableObjects = [];
     cutsceneTriggered = false;
 
     constructor(worldSize, chicks, chicken, boss, clouds, backgroundObjects, levelEnd, bottleAmount, coinAmount) {

@@ -68,37 +68,13 @@ class World {
     pause() {
         if (!this.time.preventPause && !this.camera.cutscenePlays) {
             this.time.paused = !this.time.paused;
-            this.time.paused ? this.pauseAudio() : this.continueAudio();
+            this.time.paused ? Audioplayer.pauseAudio(this) : Audioplayer.continueAudio(this);
         } else if (this.camera.cutscenePlays && !this.time.paused) {
             this.time.paused = true;
-            this.pauseAudio();
+            Audioplayer.pauseAudio(this);
         }
 
         return this.time.paused;
-    }
-
-
-    /**
-     * pauses Audio on pause and some audio on cutscenes
-     */
-    pauseAudio() {
-        if (!this.camera.cutscenePlays) {
-            this.audio.currentlyPlayed.forEach(audioElement => {
-                audioElement.pause();
-            });
-        } else {
-
-        }
-    }
-
-
-    /**
-     * continues the playback of audio-files. 
-     */
-    continueAudio() {
-        this.audio.currentlyPlayed.forEach(audioElement => {
-            audioElement.play();
-        });
     }
 
 
@@ -166,18 +142,21 @@ class World {
             this.animateWorld();
             this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
-            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.drawWorld();
-            this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);
-            this.ctx.drawImage(this.VSIMAGE.player.image, this.VSIMAGE.player.x, -100);
-            this.VSIMAGE.player.x += 3;
-            this.ctx.drawImage(this.VSIMAGE.boss.image, this.VSIMAGE.boss.x, 300);
-            this.VSIMAGE.boss.x -= 3;
+            this.drawCutscene();
         } else {
             this.checkForEndOfPause();
         }
     }
 
+    drawCutscene() {
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.drawWorld();
+        this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);
+        this.ctx.drawImage(this.VSIMAGE.player.image, this.VSIMAGE.player.x, -100);
+        this.VSIMAGE.player.x += 3;
+        this.ctx.drawImage(this.VSIMAGE.boss.image, this.VSIMAGE.boss.x, 300);
+        this.VSIMAGE.boss.x -= 3;
+    }
 
     /**
      * Checks for collisions, needs adjustments to allow check for coins and other stuff
