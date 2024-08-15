@@ -109,6 +109,7 @@ class Gamepad extends InputDevice {
 
         this.handleJumping(buttons, leftStickUpDown);
         this.handleRunning(buttons);
+        this.handleThrowing(buttons);
 
         this.handleWalking(leftStickLeftRight, buttons);
     }
@@ -143,6 +144,15 @@ class Gamepad extends InputDevice {
             world.player.abilities.run = true;
         } else {
             world.player.abilities.run = false;
+        }
+    }
+
+    handleThrowing(buttons) {
+        if (buttons[3].pressed && !this.buttonsWithCooldown.throw) {
+            this.buttonsWithCooldown.throw = true;
+            ThrowableObject.throwBottle();
+        } else if (!buttons[3].pressed) {
+            this.buttonsWithCooldown.throw = false;
         }
     }
 

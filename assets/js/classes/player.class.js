@@ -16,6 +16,9 @@ class Player extends Character {
             peak: 55,
             bouncePeak: 0,
         },
+        throw: {
+            cooldown: false,
+        },
         run: false,
         runBonusX: 1.5,
         runBonusY: 1.5,

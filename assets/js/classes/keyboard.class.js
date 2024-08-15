@@ -6,6 +6,7 @@ class Keyboard extends InputDevice {
         enter: false,
         space: false,
         esc: false,
+        enter: false,
     }
 
 
@@ -46,6 +47,11 @@ class Keyboard extends InputDevice {
         if (event.code === 'Space') {
             this.keys.space = true;
         }
+
+        if (event.code === 'Enter') {
+            this.keys.enter = true;
+        }
+        
     }
 
     removeInput(event) {
@@ -64,6 +70,10 @@ class Keyboard extends InputDevice {
 
         if (event.code === 'Space') {
             this.keys.space = false;
+        }
+
+        if (event.code === 'Enter') {
+            this.keys.enter = false;
         }
     }
 
@@ -87,7 +97,8 @@ class Keyboard extends InputDevice {
 
             world.player.abilities.run = this.keys.shift ? true : false;
 
-            this.handeJumping();
+            this.handleJumping();
+            this.handleThrowing();
         }
     }
 
@@ -110,9 +121,18 @@ class Keyboard extends InputDevice {
         }
     }
 
-    handeJumping() {
+    handleJumping() {
         if (this.keys.space && !this.buttonsWithCooldown.jump) {
             world.player.jump(); this.buttonsWithCooldown.jump = true;
+        }
+    }
+
+    handleThrowing() {
+        if (this.keys.enter && !this.buttonsWithCooldown.throw) {
+            this.buttonsWithCooldown.throw = true;
+            ThrowableObject.throwBottle();
+        } else if (!this.keys.enter) {
+            this.buttonsWithCooldown.throw = false;
         }
     }
 }
