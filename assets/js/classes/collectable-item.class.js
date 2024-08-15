@@ -66,7 +66,7 @@ class CollectableItem {
         const animationFrame = this.appearance.currentImg % this.appearance.design.length;
         this.appearance.img = animationType[animationFrame];
         if (this.frameUpdateRequired()) {
-            this.appearance.currentImg++;
+                this.appearance.currentImg++;
         }
     }
 }

@@ -1,11 +1,11 @@
 class ThrowableObject extends MovableObject {
 
     speed = {
-        x: 15,
+        x: 20,
         y: 10,
     }
 
-    THROW_ANIMATION = [
+    THROW_RIGHT_ANIMATION = [
         './assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
@@ -14,6 +14,17 @@ class ThrowableObject extends MovableObject {
         './assets/img/6_salsa_bottle/bottle_rotation/6_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/7_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/8_bottle_rotation.png',
+    ];
+
+    THROW_LEFT_ANIMATION = [
+        './assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/8_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/7_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/6_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/5_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
+        './assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
     ];
 
     SPLASH_ANIMATION = [
@@ -32,9 +43,11 @@ class ThrowableObject extends MovableObject {
         this.generatedAtFrame = world.framerate.frame;
         this.position.x = x;
         this.position.y = y;
-        this.appearance.throw = []; this.cacheImage('throw', this.THROW_ANIMATION); delete this.THROW_ANIMATION;
+        this.appearance.throwLeft = []; this.cacheImage('throwLeft', this.THROW_LEFT_ANIMATION); delete this.THROW_LEFT_ANIMATION;
+        this.appearance.throwRight = []; this.cacheImage('throwRight', this.THROW_RIGHT_ANIMATION); delete this.THROW_RIGHT_ANIMATION;
         this.appearance.splash = []; this.cacheImage('splash', this.SPLASH_ANIMATION); delete this.SPLASH_ANIMATION;
-        this.appearance.currentStyle = 'throw';
+        this.appearance.mirrored = world.player.appearance.mirrored ? true : false;
+        this.appearance.currentStyle = this.appearance.mirrored ? 'throwLeft' : 'throwRight';
         this.hitboxes.push(new Hitbox(10, 10, 20, 20));
     }
 
@@ -43,7 +56,6 @@ class ThrowableObject extends MovableObject {
         const y = world.player.position.y;
         const cooldownLength = 30;
         const cooldownFrame = ThrowableObject.framesSinceLastBottle();
-
         if (ThrowableObject.throwAllowed(cooldownLength, cooldownFrame)) {
             world.level.throwableObjects.push(new ThrowableObject(x, y));
             world.player.stats.bottles--;
@@ -77,6 +89,19 @@ class ThrowableObject extends MovableObject {
     animate() {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
+
+        if (!this.appearance.mirrored) {
+            this.position.x += this.speed.x;
+        } else {
+            this.position.x -= this.speed.x;
+        }
+
+        this.position.y -= this.speed.y;
+        this.speed.y--;
+
+        if (this.speed.x > 8) {
+            this.speed.x--;
+        }
 
         // this.getCurrentVelocityY();
     }

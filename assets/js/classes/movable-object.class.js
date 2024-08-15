@@ -179,6 +179,8 @@ class MovableObject extends Physics {
             } else {
                 return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
             }
+        } else if (this instanceof ThrowableObject) {
+            return world.framerate.frame % (world.framerate.fps / 10) == 0;
         } else {
             return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
         }
