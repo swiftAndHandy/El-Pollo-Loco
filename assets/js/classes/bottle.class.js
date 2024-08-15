@@ -31,11 +31,13 @@ class Bottle extends CollectableItem {
     static addBottles(amount, toLevel, positionModification = 0) {
         let lastPosition = 0;
         for (let i = 0; i < amount; i++) {
-            let x = positionModification + lastPosition + Math.ceil(Math.random() * 200) + 300;
+            let x = positionModification == 0 ? positionModification + lastPosition + Math.ceil(Math.random() * 200) + 300 : Math.ceil(Math.random() * 100 * positionModification);
             if (x > 3000) x = Math.ceil(Math.random() * positionModification); 
             const y = 320;
             lastPosition = x;
             toLevel.bottles.push(new Bottle(x, y));
+            console.log(x, y);
+            
         }
     }
 

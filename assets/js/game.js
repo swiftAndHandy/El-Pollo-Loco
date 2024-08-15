@@ -3,6 +3,7 @@ let canvasHeight = 480; // Base 480
 let canvasWidth = 720; // Base 720
 let world = null;
 let gamepad = null;
+let animationID = null;
 
 function init() {
     canvas = document.getElementById('game-area');

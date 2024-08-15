@@ -107,7 +107,7 @@ class World {
 
 
     requestFrame() {
-        window.requestAnimationFrame(() => {
+        animationID = window.requestAnimationFrame(() => {
             this.draw();
         });
     }
@@ -187,7 +187,8 @@ class World {
         this.addToMap(this.player);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles, 'magenta');
+        this.addObjectsToMap(this.level.bottles, 'violet');
+        this.addObjectsToMap(this.level.throwableObjects, 'orange');
         this.UIElements.update();
         this.updateCamera(0);
     }
@@ -206,6 +207,7 @@ class World {
         this.animateObjects(this.level.enemies);
         this.animateObjects(this.level.coins);
         this.animateObjects(this.level.bottles);
+        this.animateObjects(this.level.throwableObjects);
 
     }
 

@@ -167,7 +167,7 @@ class Player extends Character {
 
         if (this.isDead) {
             this.playAnimation(animationType);
-        } else if (true) {
+        } else {
             this.playAnimation(animationType);
         }
 

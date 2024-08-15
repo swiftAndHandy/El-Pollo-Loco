@@ -46,11 +46,11 @@ class MovableObject extends Physics {
         this.appearance.height = height;
     }
 
-    drawHitbox(ctx) {
-        if (this instanceof Player || this instanceof Enemy) {
+    drawHitbox(ctx, color = 'blue') {
+        if (this instanceof Player || this instanceof Enemy || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
+            ctx.strokeStyle = color;
             this.hitboxes.forEach(hitbox => {
                 ctx.rect(this.position.x + hitbox.x,
                     this.position.y + hitbox.y,
