@@ -142,7 +142,11 @@ class MovableObject extends Physics {
      * @returns {boolean} - true, if the current frame of the animation is the last one.
      */
     lastFrameOfAnimation() {
-        return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
+        if (this.appearance.currentImg !== 0) {
+            return this.appearance.currentImg % this.appearance[this.appearance.currentStyle].length === 0;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -180,7 +184,11 @@ class MovableObject extends Physics {
                 return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
             }
         } else if (this instanceof ThrowableObject) {
-            return world.framerate.frame % (world.framerate.fps / 10) == 0;
+            if (this.appearance.currentStyle == 'splash') {
+                return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+            } else {
+                return world.framerate.frame % (world.framerate.fps / 10) == 0;
+            }
         } else {
             return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
         }

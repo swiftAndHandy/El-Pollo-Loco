@@ -165,6 +165,7 @@ class World {
         Collisions.enemyCollisions(this);
         Collisions.coinCollisions(this);
         Collisions.bottleCollisions(this);
+        Collisions.throwableObjectCollision(this);
     }
 
 

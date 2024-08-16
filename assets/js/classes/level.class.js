@@ -40,8 +40,9 @@ class Level {
     }
 
     static remove(self) {
-        const index = world.level[self['type']].indexOf(self)
-        world.level.enemies.splice(index, 1)
+        const type = self['type'];
+        const index = world.level[type].indexOf(self)
+        world.level[type].splice(index, 1)
     }
 
     addEnemies(chicks, chicken, boss) {

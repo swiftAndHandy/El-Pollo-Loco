@@ -17,16 +17,16 @@ class Character extends MovableObject {
         super(width, height);
     }
 
-    reciveDamage(value) {
+    reciveDamage(amount, bySource = '') {
         if (!this.isDead && !this.iFrames.active) {
-            this.stats.health -= value;
+            this.stats.health -= amount;
             if (this instanceof Player) {
                 world.gamepad.triggerRumble(0, 200, 0.5, 0.5);
             } else if (this instanceof Enemy) {
                 world.gamepad.triggerRumble(0, 100, 0.25, 0.25);
             }
             if (this.stats.health <= 0) {
-                this.isDying();
+                this.isDying(bySource);
             } else {
                 this.reciveIFrames();
             }
@@ -64,11 +64,11 @@ class Character extends MovableObject {
         this.velocity.y = 10;
     }
 
-    isDying() {
+    isDying(sourceModificator = '') {
         if (!this.isDead) {
             this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
-            Audioplayer.startSFX(this, 'dying', false);
+            Audioplayer.startSFX(this, `dying${sourceModificator}`, false);
             if (this instanceof Character) {
                 setTimeout(() => {
                     if (this instanceof Enemy) {

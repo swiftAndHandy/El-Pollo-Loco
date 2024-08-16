@@ -25,9 +25,15 @@ class Collisions {
         });
     }
 
+
+    /**
+     * Compares the players hitboxes with every enemy. 
+     * When the player is falling, the enemy will die, otherwise the player will recive dmg.
+     * @param {Object} self - instance of the world
+     */
     static enemyCollisions(self) {
         self.level.enemies.forEach(enemy => {
-            if (Collisions.isColliding(self.player, enemy) && !enemy.isDead) {
+            if (this.isColliding(self.player, enemy) && !enemy.isDead) {
                 if (self.player.appearance.currentStyle !== 'falling') {
                     self.player.reciveDamage(1);
                 } else {
@@ -38,18 +44,31 @@ class Collisions {
         });
     }
 
-    static coinCollisions (self) {
+    static coinCollisions(self) {
         self.level.coins.forEach(coin => {
-            if (Collisions.isColliding(self.player, coin)) {
-                    Coin.collect(coin);
+            if (this.isColliding(self.player, coin)) {
+                Coin.collect(coin);
             }
         });
     }
 
-    static bottleCollisions (self) {
+    static bottleCollisions(self) {
         self.level.bottles.forEach(bottle => {
-            if (Collisions.isColliding(self.player, bottle)) {
-                    Bottle.collect(bottle);
+            if (this.isColliding(self.player, bottle)) {
+                Bottle.collect(bottle);
+            }
+        });
+    }
+
+    static throwableObjectCollision(self) {
+        self.level.throwableObjects.forEach(bottle => {
+            if (bottle.appearance.currentStyle !== 'splash') {
+                self.level.enemies.forEach(enemy => {
+                    if (this.isColliding(bottle, enemy) && !enemy.isDead) {
+                        enemy.reciveDamage(100);
+                        bottle.setAppearanceTo('splash', 0)
+                    }
+                });
             }
         });
     }

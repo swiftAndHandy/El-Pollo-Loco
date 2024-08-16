@@ -1,8 +1,12 @@
 class ThrowableObject extends MovableObject {
 
+    type = 'throwableObjects';
+
+    canSplash = false;
+
     speed = {
         x: 20,
-        y: 10,
+        y: 15,
     }
 
     THROW_RIGHT_ANIMATION = [
@@ -52,8 +56,8 @@ class ThrowableObject extends MovableObject {
     }
 
     static throwBottle() {
-        const x = world.player.position.x;
-        const y = world.player.position.y;
+        const x = !world.player.appearance.mirrored ? world.player.position.x + world.player.appearance.width / 2 : world.player.position.x - world.player.appearance.width / 2;
+        const y = world.player.position.y + world.player.appearance.height / 2;
         const cooldownLength = 30;
         const cooldownFrame = ThrowableObject.framesSinceLastBottle();
         if (ThrowableObject.throwAllowed(cooldownLength, cooldownFrame)) {
@@ -90,17 +94,23 @@ class ThrowableObject extends MovableObject {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
 
-        if (!this.appearance.mirrored) {
-            this.position.x += this.speed.x;
+        if (this.appearance.currentStyle !== 'splash') {
+            if (!this.appearance.mirrored) {
+                this.position.x += this.speed.x;
+            } else {
+                this.position.x -= this.speed.x;
+            }
+
+            this.position.y -= this.speed.y;
+            this.speed.y--;
+
+            if (this.speed.x > 8) {
+                this.speed.x--;
+            }
         } else {
-            this.position.x -= this.speed.x;
-        }
-
-        this.position.y -= this.speed.y;
-        this.speed.y--;
-
-        if (this.speed.x > 8) {
-            this.speed.x--;
+            if (this.lastFrameOfAnimation()) {
+                Level.remove(this);
+            }
         }
 
         // this.getCurrentVelocityY();
