@@ -5,7 +5,7 @@ class Keyboard extends InputDevice {
         shift: false,
         enter: false,
         space: false,
-        esc: false,
+        p: false,
         enter: false,
     }
 
@@ -22,7 +22,7 @@ class Keyboard extends InputDevice {
     }
 
     setPausePrevention() {
-        world.time.preventPause = !this.Keyboard.keys.esc ? false : true;
+        world.time.preventPause = !this.Keyboard.keys.p ? false : true;
     }
 
     /**
@@ -30,8 +30,8 @@ class Keyboard extends InputDevice {
      * @param {KeyboardEvent} event 
      */
     setInput(event) {
-        if (event.code === 'Escape') {
-            this.keys.esc = true;
+        if (event.code === 'KeyP') {
+            this.keys.p = true;
         }
 
         if (event.code === 'KeyA' || event.code === 'KeyD') {
@@ -55,8 +55,8 @@ class Keyboard extends InputDevice {
     }
 
     removeInput(event) {
-        if (event.code === 'Escape') {
-            this.keys.esc = false;
+        if (event.code === 'KeyP') {
+            this.keys.p = false;
         }
 
         if (event.code === 'KeyA' || event.code === 'KeyD') {
@@ -103,15 +103,15 @@ class Keyboard extends InputDevice {
     }
 
     setPausePrevention() {
-        world.time.preventPause = !this.keys.esc ? false : true;
+        world.time.preventPause = !this.keys.p ? false : true;
     }
 
 
     /**
-     * Pauses/Unpauses the Game by Pressing ESC
+     * Pauses/Unpauses the Game by Pressing P
      */
     handlePauseMenu() {
-        if (this.keys.esc) {
+        if (this.keys.p) {
             if (!world.time.preventPause) {
                 world.pause();
                 this.setPausePrevention();

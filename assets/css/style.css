@@ -4,11 +4,14 @@
 }
 
 body {
+    margin: 0;
     display: flex;
     font-family: 'UIElements';
     flex-direction: column;
     align-items: center;
     background-image: url(../img/background.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 h1 {
@@ -19,4 +22,21 @@ h1 {
 canvas {
     background-color: black;
     border-radius: 8px;
+    display: block;
+}
+
+@media (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media (max-height: 480px) {
+    h1 {
+        display: none;
+    }
+
+    canvas {
+        height: 100svh;
+    }
 }
