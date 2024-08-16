@@ -57,11 +57,13 @@ class Character extends MovableObject {
         this.abilities.isFalling = false;
         this.abilities.isJumping = true;
         this.position.y = atObject.position.y - this.appearance.height;
-        this.abilities.jump.bouncePeak = this.position.ground + this.appearance.height - atObject.position.y;
-        // this.abilities.jump.bouncePeak = 80 - atObject.appearance.height / 2;
-        console.log(this.abilities.jump.bouncePeak);
-        
-        this.velocity.y = 10;
+        this.abilities.jump.bouncePeak = (atObject.position.ground - atObject.position.y) * -1 + atObject.appearance.height;
+        console.log(atObject.position.ground - atObject.position.y);
+        if (this.peakAtBounce()) {
+            this.velocity.y = 8;
+        } else {
+            this.velocity.y = 10;
+        }
     }
 
     isDying(sourceModificator = '') {

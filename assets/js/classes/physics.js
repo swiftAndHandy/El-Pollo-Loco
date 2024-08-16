@@ -4,16 +4,10 @@ class Physics {
     * applys gravity on the mo, based on falling (or jumping).
     */
     applyGravity() {
-        this.isFalling();
-        this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
-        this instanceof Chick && this.velocity.y;
-        if (this.abilities.isFalling) {
-            this.position.y += this.velocity.y * 0.8;
-            this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
-        } else if (this.abilities.isJumping) {
-            this.position.y -= this.velocity.y;
-        } else if (this.position.y == this.position.ground) {
-            this.position.y -= this.velocity.y;
+        this.position.y -= this.speed.y;
+        this.speed.y--;
+        if (this.position.y > this.position.ground) {
+            this.position.y = this.position.ground;
         }
     }
 
@@ -25,8 +19,12 @@ class Physics {
         return this.position.y >= this.position.ground;
     }
 
+    peakAtBounce() {
+        return this.abilities.jump.peak < this.abilities.jump.bouncePeak || this.abilities.jump.bouncePeak === 0;
+    }
+
     calculatePeak() {
-        return this.abilities.jump.peak < this.abilities.jump.bouncePeak || this.abilities.jump.bouncePeak === 0 ?
+        return this.peakAtBounce() ?
             this.abilities.jump.peak : this.abilities.jump.bouncePeak;
     }
 
@@ -92,7 +90,7 @@ class Physics {
      * Sets the MOs velocity to the required value and limits it to the maxY-Speed.
      */
     getCurrentVelocityY() {
-        let maxSpeed = this.getMaxSpeedY();
+        let maxSpeed = this.velocity.yMax;
         if (this.abilities.isJumping) {
             if (this.frameUpdateRequired()) {
                 this.velocity.y -= this.acceleration.y * 2;

@@ -63,12 +63,16 @@ class Collisions {
     static throwableObjectCollision(self) {
         self.level.throwableObjects.forEach(bottle => {
             if (bottle.appearance.currentStyle !== 'splash') {
-                self.level.enemies.forEach(enemy => {
-                    if (this.isColliding(bottle, enemy) && !enemy.isDead) {
-                        enemy.reciveDamage(100);
-                        bottle.setAppearanceTo('splash', 0)
-                    }
-                });
+                if (bottle.position.y < bottle.position.ground) {
+                    self.level.enemies.forEach(enemy => {
+                        if (this.isColliding(bottle, enemy) && !enemy.isDead) {
+                            enemy.reciveDamage(100);
+                            bottle.setAppearanceTo('splash', 0)
+                        }
+                    });
+                } else {
+                    bottle.hitsGround();
+                }
             }
         });
     }

@@ -161,6 +161,20 @@ class Player extends Character {
         return (world.framerate.frame - this.idleStartedAtFrame) > (world.framerate.fps * 10);
     }
 
+    applyGravity() {
+        this.isFalling();
+        this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
+        this instanceof Chick && this.velocity.y;
+        if (this.abilities.isFalling) {
+            this.position.y += this.velocity.y * 0.8;
+            this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
+        } else if (this.abilities.isJumping) {
+            this.position.y -= this.velocity.y;
+        } else if (this.position.y == this.position.ground) {
+            this.position.y -= this.velocity.y;
+        }
+    }
+
     animate() {
         const animationType = this.appearance.currentStyle;
         this.checkForLongIdle(animationType);

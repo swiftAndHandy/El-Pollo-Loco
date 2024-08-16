@@ -161,17 +161,6 @@ class MovableObject extends Physics {
     }
 
     /**
-     * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
-     * @returns {number}
-     */
-    getMaxSpeedY() {
-        if (this instanceof Player) {
-            return this.abilities.run ? this.velocity.yMax * this.abilities.runBonusY : this.velocity.yMax;
-        }
-        return this.velocity.yMax;
-    }
-
-    /**
      * checks conditions and only allows an image update, when the target animation speed is fitted.
      * If the current MO has the running ability and does use it while walking, speed up the animation.
      * @returns {boolean} 

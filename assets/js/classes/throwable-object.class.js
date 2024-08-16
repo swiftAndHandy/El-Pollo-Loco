@@ -45,8 +45,7 @@ class ThrowableObject extends MovableObject {
     constructor(x, y) {
         super(80, 80);
         this.generatedAtFrame = world.framerate.frame;
-        this.position.x = x;
-        this.position.y = y;
+        this.position.x = x; this.position.y = y; this.position.ground = 370;
         this.appearance.throwLeft = []; this.cacheImage('throwLeft', this.THROW_LEFT_ANIMATION); delete this.THROW_LEFT_ANIMATION;
         this.appearance.throwRight = []; this.cacheImage('throwRight', this.THROW_RIGHT_ANIMATION); delete this.THROW_RIGHT_ANIMATION;
         this.appearance.splash = []; this.cacheImage('splash', this.SPLASH_ANIMATION); delete this.SPLASH_ANIMATION;
@@ -101,9 +100,6 @@ class ThrowableObject extends MovableObject {
                 this.position.x -= this.speed.x;
             }
 
-            this.position.y -= this.speed.y;
-            this.speed.y--;
-
             if (this.speed.x > 8) {
                 this.speed.x--;
             }
@@ -113,7 +109,12 @@ class ThrowableObject extends MovableObject {
             }
         }
 
-        // this.getCurrentVelocityY();
+        this.applyGravity();
+    }
+
+    hitsGround() {
+        this.setAppearanceTo('splash', 0);
+        this.position.y = this.position.ground;
     }
 
 
