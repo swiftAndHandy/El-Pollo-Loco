@@ -47,8 +47,35 @@
 
 <body onload="init();">
     <h1>El Pollo Loco</h1>
-
-    <canvas id="game-area" width="720px" height="480px"></canvas>
+    <section id="game">
+        <canvas id="game-area" width="720px" height="480px">
+        </canvas>
+        <div class="overlay">
+            <div class="controls wrapper">
+                <div class="top">
+                    <button id="pause" class="control-icon pause-btn no-select"></button>
+                    <button id="audio" class="control-icon audio-btn no-select"></button>
+                    <button id="fullscreen" class="control-icon fullscreen-btn no-select"></button>
+                </div>
+                <div class="center"></div>
+                <div class="bottom">
+                    <div class="movement-controls">
+                        <button id="move-left" class="control-icon move-left-btn no-select"></button>
+                        <button id="move-right" class="control-icon move-right-btn no-select"></button>
+                    </div>
+                    <div class="ability-controls">
+                        <div>
+                            <button id="run" class="control-icon run-btn no-select"></button>
+                        </div>
+                        <div>
+                            <button id="jump" class="control-icon jump-btn no-select"></button>
+                            <button id="throw" class="control-icon throw-btn no-select"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

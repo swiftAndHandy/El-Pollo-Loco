@@ -247,7 +247,7 @@ class World {
     addToMap(mo, color = undefined) {
         this.flipImage(mo, true);
         this.ctx.drawImage(mo.appearance.img, mo.position.x, mo.position.y, mo.appearance.width, mo.appearance.height);
-        mo.drawHitbox(this.ctx, color);
+        hitboxMode && mo.drawHitbox(this.ctx, color);
         this.flipImage(mo, false);
     }
 

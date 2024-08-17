@@ -11,8 +11,8 @@ class InputDevice {
      */
     noImportantStyle() {
         const allowedStyles = [
-            'longIdle', 
-            'idle', 
+            'longIdle',
+            'idle',
             'walking',
         ];
         return allowedStyles.includes(world.player.appearance.currentStyle);

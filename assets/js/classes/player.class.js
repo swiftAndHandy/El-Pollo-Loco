@@ -25,21 +25,21 @@ class Player extends Character {
     };
 
     sounds = {
-        walking: Object.assign(new Audio('../assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5 }),
-        snoring: Object.assign(new Audio('../assets/audio/pepe/snoring.mp3'), { loop: true, volume: 1 }),
+        walking: Object.assign(new Audio('./assets/audio/pepe/footsteps.mp3'), { loop: true, volume: 0.5 }),
+        snoring: Object.assign(new Audio('./assets/audio/pepe/snoring.mp3'), { loop: true, volume: 1 }),
         jumping: [
-            Object.assign(new Audio('../assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('../assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('../assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/jump1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/jump2.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/jump3.mp3'), { loop: false, volume: 1 }),
         ],
         damaged: [
-            Object.assign(new Audio('../assets/audio/pepe/damaged1.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('../assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('../assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/damaged1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
         ],
-        landing: Object.assign(new Audio('../assets/audio/pepe/hit_ground.mp3'), { loop: false, volume: 0.3 }),
-        dying: Object.assign(new Audio('../assets/audio/pepe/dying.mp3'), { loop: false, volume: 0.5 }),
-        cutscene: Object.assign(new Audio('../assets/audio/pepe/gallonator.mp3'), { loop: false, volume: 1 }),
+        landing: Object.assign(new Audio('./assets/audio/pepe/hit_ground.mp3'), { loop: false, volume: 0.3 }),
+        dying: Object.assign(new Audio('./assets/audio/pepe/dying.mp3'), { loop: false, volume: 0.5 }),
+        cutscene: Object.assign(new Audio('./assets/audio/pepe/gallonator.mp3'), { loop: false, volume: 1 }),
     };
 
     ANIMATION = new CharacterAnimations;

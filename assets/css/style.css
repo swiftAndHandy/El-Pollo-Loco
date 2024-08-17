@@ -14,6 +14,10 @@ body {
     background-size: cover;
 }
 
+.d-none {
+    display: none;
+}
+
 h1 {
     font-size: 4rem;
     color: white;
@@ -23,6 +27,7 @@ canvas {
     background-color: black;
     border-radius: 8px;
     display: block;
+    position: relative;
 }
 
 @media (max-width: 720px) {
@@ -38,5 +43,127 @@ canvas {
 
     canvas {
         height: 100svh;
+    }
+}
+
+/* Basic Game Overlay */
+
+#game {
+    position: relative;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Touch Controls */
+
+.controls.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-between;
+}
+
+.overlay .top {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+    padding-right: 16px;
+    gap: 8px;
+}
+
+.overlay .center {
+    flex: 1;
+}
+
+.overlay .bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 0 16px;
+}
+
+.control-icon {
+    height: 50px;
+    width: 50px;
+    border: 0;
+    background-color: unset;
+}
+
+.control-icon.touched {
+    filter: brightness(0.8);
+}
+
+.pause-btn {
+    background-image: url('../img/controls/pause.png');
+    background-size: contain;
+}
+
+.audio-btn {
+    background-image: url('../img/controls/audio_active.png');
+    background-size: contain;
+}
+
+.audio-btn.muted{
+    background-image: url('../img/controls/audio_muted.png');
+    background-size: contain;
+}
+
+.fullscreen-btn {
+    background-image: url('../img/controls/fullscreen.png');
+    background-size: contain;
+}
+
+
+.movement-controls {
+    display: flex;
+    gap: 16px;
+    align-self: flex-end;
+}
+
+.move-left-btn {
+    background-image: url('../img/controls/move_left.png');
+    background-size: contain;
+}
+
+.move-right-btn {
+    background-image: url('../img/controls/move_right.png');
+    background-size: contain;
+}
+
+.ability-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.run-btn {
+    background-image: url('../img/controls/run.png');
+    background-size: contain;
+}
+
+.jump-btn {
+    background-image: url('../img/controls/jump.png');
+    background-size: contain;
+}
+
+.throw-btn {
+    background-image: url('../img/controls/throw.png');
+    background-size: contain;
+}
+
+@media (pointer: fine) {
+    .overlay .bottom {
+        display: none;
     }
 }

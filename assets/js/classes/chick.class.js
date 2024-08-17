@@ -7,17 +7,17 @@ class Chick extends Enemy {
     }
 
     WALKING_ANIMATION = [
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        'assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        './assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
     ];
 
     DEAD_ANIMATION = [
-        'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png',
+        './assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png',
     ];
 
     sounds = {
-        dying: Object.assign(new Audio('../assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.2 }),
+        dying: Object.assign(new Audio('./assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.2 }),
     }; 
 
     constructor(worldSize = 4, width = 50, height = 50) {

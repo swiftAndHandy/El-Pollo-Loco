@@ -1,12 +1,12 @@
 class Bottle extends CollectableItem {
 
     ANIMATION = [
-        'assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
-        'assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
+        './assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        './assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
     ];
 
     sounds = {
-        collected: Object.assign(new Audio('../assets/audio/collectables/bottle_collected.wav'), { loop: false, volume: 0.1 }),
+        collected: Object.assign(new Audio('./assets/audio/collectables/bottle_collected.wav'), { loop: false, volume: 0.1 }),
     };
 
     constructor(x, y) {

@@ -1,12 +1,12 @@
 class Coin extends CollectableItem {
 
     ANIMATION = [
-        'assets/img/8_coin/coin_1.png',
-        'assets/img/8_coin/coin_2.png',
+        './assets/img/8_coin/coin_1.png',
+        './assets/img/8_coin/coin_2.png',
     ];
 
     sounds = {
-        collected: Object.assign(new Audio('../assets/audio/collectables/coin_collected.mp3'), { loop: false, volume: 0.1 }),
+        collected: Object.assign(new Audio('./assets/audio/collectables/coin_collected.mp3'), { loop: false, volume: 0.1 }),
     };
 
     constructor(x, y) {

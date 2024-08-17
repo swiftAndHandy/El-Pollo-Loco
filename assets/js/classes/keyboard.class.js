@@ -19,10 +19,66 @@ class Keyboard extends InputDevice {
         document.addEventListener('keyup', (event) => {
             this.removeInput(event);
         });
+
+        this.addTouchControls();
     }
+
+
+    addTouchControls() {
+        this.startTouchcontrol();
+        this.endTouchcontrol();
+    }
+
+    startTouchcontrol() {
+        document.getElementById('move-left').addEventListener('touchstart', (event) => {
+            this.addDirection('KeyA');
+        });
+        document.getElementById('move-right').addEventListener('touchstart', (event) => {
+            this.addDirection('KeyD');
+        });
+        document.getElementById('jump').addEventListener('touchstart', (event) => {
+            this.keys.space = true;
+        });
+        document.getElementById('throw').addEventListener('touchstart', (event) => {
+            this.keys.enter = true;
+        });
+        document.getElementById('run').addEventListener('touchstart', (event) => {
+            this.keys.shift = true;
+        });
+    }
+
+    endTouchcontrol() {
+        document.getElementById('move-left').addEventListener('touchend', (event) => {
+            this.removeDirection('KeyA');
+        });
+        document.getElementById('move-right').addEventListener('touchend', (event) => {
+            this.removeDirection('KeyD');
+        });
+        document.getElementById('jump').addEventListener('touchend', (event) => {
+            this.keys.space = false;
+        });
+        document.getElementById('throw').addEventListener('touchend', (event) => {
+            this.keys.enter = false;
+        });
+        document.getElementById('run').addEventListener('touchend', (event) => {
+            this.keys.shift = false;
+        });
+    }
+
 
     setPausePrevention() {
         world.time.preventPause = !this.Keyboard.keys.p ? false : true;
+    }
+
+    addDirection(direction) {
+        if (this.keys.direction.indexOf(direction) === -1) {
+            this.keys.direction.push(direction);
+        }
+    }
+
+    removeDirection(direction) {
+        let index = this.keys.direction.indexOf(direction);
+        this.keys.direction.splice(index, 1);
     }
 
     /**
@@ -35,9 +91,7 @@ class Keyboard extends InputDevice {
         }
 
         if (event.code === 'KeyA' || event.code === 'KeyD') {
-            if (this.keys.direction.indexOf(event.code) === -1) {
-                this.keys.direction.push(event.code);
-            }
+            this.addDirection(event.code);
         }
 
         if (event.key === 'Shift') {
@@ -51,7 +105,7 @@ class Keyboard extends InputDevice {
         if (event.code === 'Enter') {
             this.keys.enter = true;
         }
-        
+
     }
 
     removeInput(event) {
@@ -60,8 +114,7 @@ class Keyboard extends InputDevice {
         }
 
         if (event.code === 'KeyA' || event.code === 'KeyD') {
-            let index = this.keys.direction.indexOf(event.code);
-            this.keys.direction.splice(index, 1);
+            this.removeDirection(event.code);
         }
 
         if (event.key === 'Shift') {
