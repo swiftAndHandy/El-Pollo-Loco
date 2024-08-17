@@ -36,7 +36,7 @@ canvas {
 }
 
 @media (max-width: 720px) {
-    canvas{
+    canvas {
         width: 100%;
     }
 
@@ -146,6 +146,31 @@ canvas {
 .titlescreen img {
     height: 480px;
     width: 720px;
+}
+
+.highscores {
+    position: absolute;
+    top: 22%;
+    padding: 0 32px;
+    min-width: 100%;
+    height: clamp(100px, 100%, 290px);
+    overflow-y: auto;
+    background-color: rgba(250, 235, 215, 0.8);
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    text-align: center;
+}
+
+.highscores h2 {
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
 }
 
 menu {

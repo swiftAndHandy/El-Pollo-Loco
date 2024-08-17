@@ -55,9 +55,20 @@
                 <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" alt="Titlescreen">
                 <menu>
                     <img src="./assets/img/controls/new_game.png" class="nav btn" alt="New Game" onclick="newGame();">
-                    <img src="./assets/img/controls/highscores.png" class="nav btn" alt="Highscores">
+                    <img src="./assets/img/controls/highscores.png" class="nav btn" alt="Highscores" onclick="toggleHighscore()">
                     <img src="./assets/img/controls/howto.png" class="nav btn" alt="How to play">
                 </menu>
+                <section id="highscores" class="highscores d-none">
+                    <h2>Highscores</h2>
+                    <table>
+                        <tbody id="highscore-table">
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+
+            <section id="howtoplay">
+
             </section>
             <section class="controls wrapper d-none">
                 <div class="top">
