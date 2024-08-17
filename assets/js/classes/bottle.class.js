@@ -36,8 +36,6 @@ class Bottle extends CollectableItem {
             const y = 320;
             lastPosition = x;
             toLevel.bottles.push(new Bottle(x, y));
-            console.log(x, y);
-            
         }
     }
 

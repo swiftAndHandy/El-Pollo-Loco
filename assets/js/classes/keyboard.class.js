@@ -32,19 +32,19 @@ class Keyboard extends InputDevice {
     startTouchcontrol() {
         document.getElementById('move-left').addEventListener('touchstart', (event) => {
             this.addDirection('KeyA');
-        });
+        }, {passive: true});
         document.getElementById('move-right').addEventListener('touchstart', (event) => {
             this.addDirection('KeyD');
-        });
+        }, {passive: true});
         document.getElementById('jump').addEventListener('touchstart', (event) => {
             this.keys.space = true;
-        });
+        }, {passive: true});
         document.getElementById('throw').addEventListener('touchstart', (event) => {
             this.keys.enter = true;
-        });
+        }, {passive: true});
         document.getElementById('run').addEventListener('touchstart', (event) => {
             this.keys.shift = true;
-        });
+        }, {passive: true});
     }
 
     endTouchcontrol() {

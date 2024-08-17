@@ -22,15 +22,22 @@ function setupMenu() {
     document.getElementById('audio').addEventListener('click', (event) => {
         audioMuted = !audioMuted;
         document.getElementById('audio').classList.toggle('muted');
-        
+
     });
 
     document.getElementById('fullscreen').addEventListener('click', (event) => {
         if (!document.fullscreenElement) {
-            document.getElementById('game').requestFullscreen();
-            // canvas.requestFullscreen();
+            const game = document.getElementById('game');
+            game.requestFullscreen();
+            game.classList.toggle('fullscreen');
         } else {
             document.exitFullscreen();
+            game.classList.toggle('fullscreen');
         }
     });
+}
+
+function newGame() {
+    world.draw();
+    document.getElementById('titlescreen').classList.add('d-none');
 }

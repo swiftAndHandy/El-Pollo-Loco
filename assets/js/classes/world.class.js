@@ -57,7 +57,7 @@ class World {
         // setInterval(() => {
         //     console.log(this.framerate.frame);
         // }, 1000);
-        this.draw();
+        // this.draw();
     }
 
 

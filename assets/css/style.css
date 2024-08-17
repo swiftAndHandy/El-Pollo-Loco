@@ -15,11 +15,16 @@ body {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 h1 {
     font-size: 4rem;
+    color: white;
+}
+
+h2 {
+    font-size: 2rem;
     color: white;
 }
 
@@ -31,8 +36,12 @@ canvas {
 }
 
 @media (max-width: 720px) {
-    canvas {
+    canvas{
         width: 100%;
+    }
+
+    .titlescreen img {
+        width: 100% !important;
     }
 }
 
@@ -44,12 +53,22 @@ canvas {
     canvas {
         height: 100svh;
     }
+
+    .titlescreen img {
+        width: 100% !important;
+        height: 100svh !important;
+    }
 }
 
 /* Basic Game Overlay */
 
 #game {
     position: relative;
+}
+
+#game.fullscreen {
+    display: flex;
+    justify-content: center;
 }
 
 .no-select {
@@ -61,6 +80,11 @@ canvas {
     top: 0;
     width: 100%;
     height: 100%;
+}
+
+.nav.btn {
+    width: 30% !important;
+    height: auto !important;
 }
 
 /* Touch Controls */
@@ -79,10 +103,6 @@ canvas {
     margin-top: 8px;
     padding-right: 16px;
     gap: 8px;
-}
-
-.overlay .center {
-    flex: 1;
 }
 
 .overlay .bottom {
@@ -113,7 +133,7 @@ canvas {
     background-size: contain;
 }
 
-.audio-btn.muted{
+.audio-btn.muted {
     background-image: url('../img/controls/audio_muted.png');
     background-size: contain;
 }
@@ -121,6 +141,26 @@ canvas {
 .fullscreen-btn {
     background-image: url('../img/controls/fullscreen.png');
     background-size: contain;
+}
+
+.titlescreen img {
+    height: 480px;
+    width: 720px;
+}
+
+menu {
+    position: absolute;
+    top: 24px;
+}
+
+menu img {
+    height: 100% !important;
+    width: 30% !important;
+}
+
+menu img:hover {
+    filter: brightness(1.1);
+    scale: 1.1;
 }
 
 
