@@ -31,8 +31,9 @@ nav {
 }
 
 .nav-btn {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
 }
 
 .link {
@@ -115,6 +116,7 @@ canvas {
 .nav.btn {
     width: 30% !important;
     height: auto !important;
+    cursor: pointer;
 }
 
 /* Touch Controls */
@@ -147,6 +149,7 @@ canvas {
     width: 50px;
     border: 0;
     background-color: unset;
+    cursor: pointer;
 }
 
 .control-icon.touched {

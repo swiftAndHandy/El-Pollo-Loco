@@ -58,7 +58,6 @@ class Character extends MovableObject {
         this.abilities.isJumping = true;
         this.position.y = atObject.position.y - this.appearance.height;
         this.abilities.jump.bouncePeak = (atObject.position.ground - atObject.position.y) * -1 + atObject.appearance.height;
-        console.log(atObject.position.ground - atObject.position.y);
         if (this.peakAtBounce()) {
             this.velocity.y = 8;
         } else {

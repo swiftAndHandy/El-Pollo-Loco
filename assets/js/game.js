@@ -24,6 +24,11 @@ function setupMenu() {
     document.getElementById('audio').addEventListener('click', (event) => {
         audioMuted = !audioMuted;
         document.getElementById('audio').classList.toggle('muted');
+        if (audioMuted) {
+            Audioplayer.pauseAudio(world);
+        } else {
+            !world.time.paused && Audioplayer.continueAudio(world);
+        }
 
     });
 
@@ -100,9 +105,9 @@ async function renderHighscores() {
             target.innerHTML += highscoreHTML(rank, data.player, data.score, data.date);
             rank++;
         });
-    } catch (error){
+    } catch (error) {
         console.warn('Please check your Internet connection');
-        
+
     }
 }
 

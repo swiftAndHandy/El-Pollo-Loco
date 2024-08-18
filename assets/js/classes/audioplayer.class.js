@@ -38,9 +38,9 @@ class Audioplayer {
             if (published) {
                 self.sounds[sound].paused && world.audio.currentlyPlayed.push(self.sounds[sound]);
             }
-            self.sounds[sound].play();
+            !audioMuted && self.sounds[sound].play();
         } catch (error) {
-            sound.play();
+            !audioMuted && sound.play();
             if (published) {
                 world.audio.currentlyPlayed.push(sound);
             }
