@@ -95,6 +95,9 @@ class Player extends Character {
         if (this.lastFrameOfAnimation()) {
             if (this.appearance.currentStyle === 'dead') {
                 this.setAppearanceTo('hidden');
+                setTimeout(() => {
+                    world.gameOver = true;
+                }, 100);
             } else if (this.appearance.currentStyle === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
                 this.abilities.isJumping = true;

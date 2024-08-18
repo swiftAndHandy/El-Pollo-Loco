@@ -13,6 +13,7 @@ function init() {
     canvas.width = canvasWidth; canvas.height = canvasHeight;
     world = new World(canvas);
     setupMenu();
+    nextControls();
 }
 
 function setupMenu() {
@@ -40,10 +41,16 @@ function setupMenu() {
 
 function newGame() {
     world.draw();
-    document.getElementById('titlescreen').classList.add('d-none');
+    document.getElementById('title-screen').classList.add('d-none');
     document.getElementById('highscores').classList.add('d-none');
     document.getElementById('howtoplay').classList.add('d-none');
+    document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.remove('d-none');
+}
+
+function resetGame() {
+    world = null;
+    world = new World(canvas);
 }
 
 function openManual() {

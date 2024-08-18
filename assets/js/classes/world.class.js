@@ -1,5 +1,6 @@
 class World {
     ctx = null;
+    gameOver = false;
 
     keyboard = new Keyboard();
     gamepad = new Gamepad();
@@ -44,7 +45,7 @@ class World {
     audio = new Audioplayer();
     player = new Player();
 
-    level = level1;
+    level = level1();
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -131,7 +132,9 @@ class World {
      * @returns {undefined} - used to interrupt the draw method, if no frame-update is required
      */
     draw() {
-        this.requestFrame();
+        if (this.gameOver === false) {
+            this.requestFrame();
+        }
         this.setUpTime();
         if (this.time.msPassed < this.framerate.msPerFrame) return;
         if (!this.time.paused && !this.camera.cutscenePlays) {

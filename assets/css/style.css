@@ -4,9 +4,12 @@
 }
 
 * {
-    -webkit-touch-callout: none; /* Verhindert das Kontextmenü bei langem Drücken */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Verhindert die graue Highlighting-Box */
-    touch-action: manipulation; /* Verhindert Standardaktionen, wie Scrollen oder Zoomen */
+    -webkit-touch-callout: none;
+    /* Verhindert das Kontextmenü bei langem Drücken */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* Verhindert die graue Highlighting-Box */
+    touch-action: manipulation;
+    /* Verhindert Standardaktionen, wie Scrollen oder Zoomen */
 }
 
 body {
@@ -18,6 +21,22 @@ body {
     background-image: url(../img/background.webp);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+nav {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    color: white;
+}
+
+.nav-btn {
+    height: 30px;
+    width: 30px;
+}
+
+.link {
+    color: white;
 }
 
 .d-none {
@@ -74,6 +93,7 @@ canvas {
 
 #game {
     position: relative;
+    user-select: none;
 }
 
 #game.fullscreen {
@@ -158,7 +178,8 @@ canvas {
     width: 720px;
 }
 
-.highscores, .howtoplay {
+.highscores,
+.howtoplay {
     position: absolute;
     top: 22%;
     padding: 0 32px;
@@ -180,9 +201,16 @@ canvas {
     width: clamp(40px, 50%, 50px);
 }
 
-.manual__left-page {}
+.manual__left-page {
+    width: 50%;
+    border-right: 1px solid black;
+    padding-right: 16px;
+}
 
-.manual__right-page {}
+.manual__right-page {
+    width: 50%;
+    padding-left: 16px;
+}
 
 .manual__controls {
     display: flex;
@@ -194,6 +222,17 @@ canvas {
     font-size: 1.25rem;
 }
 
+.manual__button {
+    flex: 1;
+}
+
+.control-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
 table {
     width: 100%;
 }
@@ -202,11 +241,12 @@ td {
     text-align: center;
 }
 
-.highscores h2, .howtoplay h2 {
+.highscores h2,
+.howtoplay h2 {
     text-align: center;
     color: black;
     font-size: 1.5rem;
-    margin-block-end: 0;
+    margin-block-end: 0.5em;
 }
 
 h3 {

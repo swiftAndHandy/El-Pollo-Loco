@@ -13,7 +13,8 @@ class BackgroundObject extends MovableObject {
         super(canvasWidth, canvasHeight).loadImage(imagePath)
         this.position.x = screen * (canvasWidth - 1);
         if (isAir) {
-            this.position.x -= 1 + 0;
+            this.position.x = -1;
+            
             this.appearance.width += 2;
         }
         this.position.y = 0;
