@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html translate="no" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pollo Loco</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/classes/world.class.js"></script>
+    <script src="./assets/js/classes/uielements.class.js"></script>
+    <script src="./assets/js/classes/collectable-item.class.js"></script>
+    <script src="./assets/js/classes/coin.class.js"></script>
+    <script src="./assets/js/classes/bottle.class.js"></script>
+    <script src="./assets/js/classes/level.class.js"></script>
+    <script src="./assets/js/classes/collisions.class.js"></script>
+    <script src="./assets/js/classes/physics.js"></script>
+    <script src="./assets/js/classes/static-object.class.js"></script>
+    <script src="./assets/js/classes/movable-object.class.js"></script>
+    <script src="./assets/js/classes/throwable-object.class.js"></script>
+    <script src="./assets/js/classes/character.class.js"></script>
+    <script src="./assets/js/classes/hitbox.class.js"></script>
+    <script src="./assets/js/classes/background-object.class.js"></script>
+    <script src="./assets/js/classes/cloud.class.js"></script>
+    <script src="./assets/js/classes/player.class.js"></script>
+    <script src="./assets/js/classes/player_animations.class.js"></script>
+    <script src="./assets/js/classes/enemy.class.js"></script>
+    <script src="./assets/js/classes/chicken.class.js"></script>
+    <script src="./assets/js/classes/chick.class.js"></script>
+    <script src="./assets/js/classes/boss-el-gallonator.class.js"></script>
+    <script src="./assets/js/game.js"></script>
+    <script src="./assets/js/classes/input-device.class.js"></script>
+    <script src="./assets/js/classes/gamepad.class.js"></script>
+    <script src="./assets/js/classes/keyboard.class.js"></script>
+    <script src="./assets/js/classes/audioplayer.class.js"></script>
+    <script src="./assets/js/levels/level1.js"></script>
+
+    <link rel="icon" type="image/svg+xml" href="./assets/img/icons/favicon.svg">
+    <!-- <link rel="icon" type="image/x-icon" href="./assets/img/icons/favicon.svg"> -->
+    <link rel="icon" type="image/png" sizes="48x48" href="./assets/img/icons/favicon-48x48.png">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/img/icons/favicon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="./assets/img/icons/favicon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/icons/favicon-180x180.png">
+    <!-- Safari Pinned Tab -->
+    <link rel="mask-icon" href="./assets/img/icons/favicon.svg" color="#5bbad5">
+</head>
+
+<body onload="init()">
+    <h1>El Pollo Loco</h1>
+    <section id="game">
+        <canvas id="game-area" width="720px" height="480px">
+        </canvas>
+        <div block-context="true" class="overlay">
+            <section id="titlescreen" class="titlescreen">
+                <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" class="mainscreen"
+                    alt="Titlescreen">
+                <menu>
+                    <img src="./assets/img/controls/new_game.png" class="nav btn" alt="New Game" onclick="newGame();">
+                    <img src="./assets/img/controls/highscores.png" class="nav btn" alt="Highscores"
+                        onclick="toggleHighscore();">
+                    <img src="./assets/img/controls/howto.png" class="nav btn" alt="How to play"
+                        onclick="openManual();">
+                </menu>
+                <section id="highscores" class="highscores d-none">
+                    <h2>Highscores</h2>
+                    <table>
+                        <tbody id="highscore-table">
+                        </tbody>
+                    </table>
+                </section>
+                <section id="howtoplay" class="howtoplay d-none">
+                    <h2>How to play</h3>
+                        <div class="manual-wrapper">
+                            <div id="manual__left-page">
+                                <h3>Controls</h3>
+                                <div class="manual__controls">
+                                    <div class="manual__button">
+                                        <img src="./assets/img/controls/move_left.png" class="manual__icon"
+                                            alt="move left">
+                                        <img src="./assets/img/controls/move_right.png" class="manual__icon"
+                                            alt="move right">
+                                    </div>
+                                    <div class="manual__function">Move Left/Right</div>
+                                </div>
+                                <div class="manual__controls">
+                                    <div class="manual__button">
+                                        <img src="./assets/img/controls/jump.png" class="manual__icon" alt="jump">
+                                    </div>
+                                    <div class="manual__function">Jump</div>
+                                </div>
+                                <div class="manual__controls">
+                                    <div class="manual__button">
+                                        <img src="./assets/img/controls/throw.png" class="manual__icon" alt="throw">
+                                    </div>
+                                    <div class="manual__function">Throw bottle</div>
+                                </div>
+                                <div class="manual__controls">
+                                    <div class="manual__button">
+                                        <img src="./assets/img/controls/run.png" class="manual__icon" alt="run">
+                                    </div>
+                                    <div class="manual__function">Run faster</div>
+                                </div>
+                                <div class="manual__controls">
+                                    <div class="manual__button">
+                                        <img src="./assets/img/controls/pause.png" class="manual__icon" alt="pause">
+                                    </div>
+                                    <div class="manual__function">Pause Game</div>
+                                </div>
+                            </div>
+                            <div id="manual__right-page">
+                                <h3>Gameplay</h3>
+                            </div>
+                        </div>
+                </section>
+            </section>
+        </div>
+
+
+        <section id="controls" class="controls wrapper d-none">
+            <div class="top">
+                <div id="pause" class="control-icon pause-btn no-select"></div>
+                <div id="audio" class="control-icon audio-btn no-select"></div>
+                <div id="fullscreen" class="control-icon fullscreen-btn no-select"></div>
+            </div>
+            <div class="bottom-control-wrapper">
+                <div class="bottom">
+                    <div class="movement-controls">
+                        <div id="move-left" class="control-icon move-left-btn no-select"></div>
+                        <div id="move-right" class="control-icon move-right-btn no-select"></div>
+                    </div>
+                    <div class="ability-controls">
+                        <div>
+                            <div id="run" class="control-icon run-btn no-select"></div>
+                        </div>
+                        <div class="flex">
+                            <div id="jump" class="control-icon jump-btn no-select"></div>
+                            <div id="throw" class="control-icon throw-btn no-select"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+    </section>
+
+</body>
+
+</html>
