@@ -52,11 +52,14 @@
         </canvas>
         <div class="overlay">
             <section id="titlescreen" class="titlescreen">
-                <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" class="mainscreen" alt="Titlescreen">
+                <img src="./assets/img/9_intro_outro_screens/start/startscreen_2.png" class="mainscreen"
+                    alt="Titlescreen">
                 <menu>
                     <img src="./assets/img/controls/new_game.png" class="nav btn" alt="New Game" onclick="newGame();">
-                    <img src="./assets/img/controls/highscores.png" class="nav btn" alt="Highscores" onclick="toggleHighscore();">
-                    <img src="./assets/img/controls/howto.png" class="nav btn" alt="How to play" onclick="openManual();">
+                    <img src="./assets/img/controls/highscores.png" class="nav btn" alt="Highscores"
+                        onclick="toggleHighscore();">
+                    <img src="./assets/img/controls/howto.png" class="nav btn" alt="How to play"
+                        onclick="openManual();">
                 </menu>
                 <section id="highscores" class="highscores d-none">
                     <h2>Highscores</h2>
@@ -66,7 +69,47 @@
                     </table>
                 </section>
                 <section id="howtoplay" class="howtoplay d-none">
-
+                    <h2>How to play</h2>
+                    <div class="manual-wrapper">
+                        <div id="manual__left-page">
+                            <h3>Controls</h3>
+                            <div class="manual__controls">
+                                <div class="manual__button">
+                                    <img src="./assets/img/controls/move_left.png" class="manual__icon" alt="move left">
+                                    <img src="./assets/img/controls/move_right.png" class="manual__icon"
+                                        alt="move right">
+                                </div>
+                                <div class="manual__function">Move Left/Right</div>
+                            </div>
+                            <div class="manual__controls">
+                                <div class="manual__button">
+                                    <img src="./assets/img/controls/jump.png" class="manual__icon" alt="jump">
+                                </div>
+                                <div class="manual__function">Jump</div>
+                            </div>
+                            <div class="manual__controls">
+                                <div class="manual__button">
+                                    <img src="./assets/img/controls/throw.png" class="manual__icon" alt="throw">
+                                </div>
+                                <div class="manual__function">Throw bottle</div>
+                            </div>
+                            <div class="manual__controls">
+                                <div class="manual__button">
+                                    <img src="./assets/img/controls/run.png" class="manual__icon" alt="run">
+                                </div>
+                                <div class="manual__function">Run faster</div>
+                            </div>
+                            <div class="manual__controls">
+                                <div class="manual__button">
+                                    <img src="./assets/img/controls/pause.png" class="manual__icon" alt="pause">
+                                </div>
+                                <div class="manual__function">Pause Game</div>
+                            </div>
+                        </div>
+                        <div id="manual__right-page">
+                            <h3>Gameplay</h3>
+                        </div>
+                    </div>
                 </section>
             </section>
             <section id="controls" class="controls wrapper d-none">
@@ -95,7 +138,6 @@
             </section>
         </div>
     </section>
-
 </body>
 
 </html>
