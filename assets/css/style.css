@@ -148,12 +148,13 @@ canvas {
     width: 720px;
 }
 
-.highscores {
+.highscores, .howtoplay {
     position: absolute;
     top: 22%;
     padding: 0 32px;
     min-width: 100%;
-    height: clamp(100px, 100%, 290px);
+    /* height: clamp(100px, 100%, 290px); */
+    height: 70%;
     overflow-y: auto;
     background-color: rgba(250, 235, 215, 0.8);
     box-sizing: border-box;
@@ -175,7 +176,7 @@ td {
 
 menu {
     position: absolute;
-    top: 24px;
+    top: 16px;
 }
 
 menu img {

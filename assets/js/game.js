@@ -41,6 +41,22 @@ function setupMenu() {
 function newGame() {
     world.draw();
     document.getElementById('titlescreen').classList.add('d-none');
+    document.getElementById('highscores').classList.add('d-none');
+    document.getElementById('howtoplay').classList.add('d-none');
+    document.getElementById('controls').classList.remove('d-none');
+}
+
+function openManual() {
+    const target = document.getElementById('howtoplay');
+    if (!visible(target)) {
+        renderManual();
+    }
+    target.classList.toggle('d-none');
+    document.getElementById('highscores').classList.add('d-none');
+}
+
+function renderManual() {
+
 }
 
 /**
@@ -48,12 +64,20 @@ function newGame() {
  */
 function toggleHighscore() {
     const target = document.getElementById('highscores');
-    if (target.classList.contains('d-none')) {
+    if (!visible(target)) {
         renderHighscores();
     }
     target.classList.toggle('d-none');
+    document.getElementById('howtoplay').classList.add('d-none');
 }
 
+/**
+ * @param {HTMLElement} target - checks for d-none css class, that hides the element
+ * @returns - true, if the element is visible, otherwise false
+ */
+function visible(target) {
+    return !target.classList.contains('d-none');
+}
 
 /**
  * Get Scores from Database, call sort function and insert HTML.
@@ -63,11 +87,16 @@ async function renderHighscores() {
     const target = document.getElementById('highscore-table');
     target.innerHTML = ``;
     let rank = 1;
-    scores.forEach(score => {
-        const data = score[1];
-        target.innerHTML += highscoreHTML(rank, data.player, data.score, data.date);
-        rank++;
-    });
+    try {
+        scores.forEach(score => {
+            const data = score[1];
+            target.innerHTML += highscoreHTML(rank, data.player, data.score, data.date);
+            rank++;
+        });
+    } catch (error){
+        console.warn('Please check your Internet connection');
+        
+    }
 }
 
 /**
