@@ -12,7 +12,6 @@ class Collisions {
             const rightArea = leftArea + self.appearance.width - hitbox.width;
             const topArea = self.position.y + hitbox.y;
             const bottomArea = topArea + self.appearance.height - hitbox.height;
-            const invincible = hitbox.invincible;
             return obj.hitboxes.some(objHitbox => {
                 const objInvincible = objHitbox.invincible;
                 const objLeftArea = obj.position.x + objHitbox.x;
@@ -20,9 +19,11 @@ class Collisions {
                 const objTopArea = obj.position.y + objHitbox.y;
                 const objBottomArea = objTopArea + obj.appearance.height - objHitbox.height;
                 if (rightArea >= objLeftArea && leftArea <= objRightArea &&
-                    topArea <= objBottomArea && bottomArea >= objTopArea &&
-                    (!invincible || !objInvincible)) {
-                    return true;
+                    topArea <= objBottomArea && bottomArea >= objTopArea) {
+                    if (self instanceof ThrowableObject && objInvincible) {
+                        return false;
+                    }
+                        return true;
                 }
                 return false;
             });
