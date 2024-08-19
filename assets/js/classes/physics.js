@@ -44,8 +44,10 @@ class Physics {
         if (this.abilities.isFalling && !this.isDead) {
             if (this instanceof Player) {
                 this.setAppearanceTo('landing', 0);
-                Audioplayer.startSFX(this, 'landing');
-                Audioplayer.clearSound();
+                const sound = Audioplayer.startSFX(this, 'landing');
+                console.log(sound);
+                
+                Audioplayer.clearSound(sound);
             }
             this.abilities.isFalling = false;
             this.abilities.jump.bouncePeak = 0;

@@ -39,10 +39,10 @@ class Chick extends Enemy {
 
     animate() {
         const animationType = this.appearance.currentStyle;
-        this.playAnimation(animationType);
+        const updateRequired = this.playAnimation(animationType);
         this.moveLeft();
         this.applyGravity();
-        if (!this.isDead && Math.random() < this.speed.jumpRate && this.isTouchingGround()) {
+        if (!this.isDead && Math.random() < this.speed.jumpRate && this.isTouchingGround() && updateRequired) {
             this.jump();
         }
     }

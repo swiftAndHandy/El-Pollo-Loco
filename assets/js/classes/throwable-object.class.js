@@ -91,24 +91,30 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         const animationType = this.appearance.currentStyle;
-        this.playAnimation(animationType);
+        const updateRequired = this.playAnimation(animationType);
 
         if (this.appearance.currentStyle !== 'splash') {
-            if (!this.appearance.mirrored) {
-                this.position.x += this.speed.x;
-            } else {
-                this.position.x -= this.speed.x;
-            }
-
-            if (this.speed.x > 8) {
-                this.speed.x--;
-            }
+            this.moveBottle();
         } else {
             if (this.lastFrameOfAnimation()) {
                 Level.remove(this);
             }
         }
 
+    }
+
+    /**
+     * Moves the bottle on axis, applys gravity and updated speed.
+     */
+    moveBottle() {
+        if (!this.appearance.mirrored) {
+            this.position.x += this.speed.x;
+        } else {
+            this.position.x -= this.speed.x;
+        }
+        if (this.speed.x > 8) {
+            this.speed.x--;
+        }
         this.applyGravity();
     }
 

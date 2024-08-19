@@ -27,6 +27,7 @@ class Level {
             world.level.cutsceneTriggered = true;
             Audioplayer.startSFX(world.player, 'cutscene', false);
             setTimeout(() => {
+                Audioplayer.fade('in', MUSIC.boss, 1);
                 world.camera.cutscenePlays = false;
                 world.pause();
                 // Level.setBossAppearance('walking');

@@ -7,6 +7,11 @@ let animationID = null;
 let hitboxMode = true;
 let audioMuted = false;
 const DATABASE = 'https://el-pollo-loco-9a9c1-default-rtdb.europe-west1.firebasedatabase.app/';
+const MUSIC = {
+title: Object.assign(new Audio('./assets/audio/titlescreen.mp3'), { loop: true, volume: 0.1 }),
+regular: Object.assign(new Audio('./assets/audio/regular.mp3'), { loop: true, volume: 0.1 }),
+boss: Object.assign(new Audio('./assets/audio/bossfight.mp3'), { loop: true, volume: 0 }),
+};
 
 function init() {
     canvas = document.getElementById('game-area');
@@ -19,6 +24,12 @@ function init() {
 function setupMenu() {
     document.getElementById('pause').addEventListener('click', (event) => {
         world.pause();
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!document.getElementById('title-screen').classList.contains('d-none')) {
+            MUSIC.title.play();
+        }
     });
 
     document.getElementById('audio').addEventListener('click', (event) => {
@@ -36,15 +47,20 @@ function setupMenu() {
 }
 
 function newGame() {
+    MUSIC.title.pause(); 
     world.draw();
     document.getElementById('title-screen').classList.add('d-none');
     document.getElementById('highscores').classList.add('d-none');
     document.getElementById('howtoplay').classList.add('d-none');
     document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.remove('d-none');
+    MUSIC.regular.volume = 0.1;
+    MUSIC.boss.volume = 0;
+    Audioplayer.startSFX('', MUSIC.regular, true);
 }
 
 function resetGame() {
+    Audioplayer.pauseAudio(world);
     world = null;
     world = new World(canvas);
 }

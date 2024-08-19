@@ -29,7 +29,7 @@ class Chicken extends Enemy {
 
     animate() {
         const animationType = this.appearance.currentStyle;
-        this.playAnimation(animationType);
+        const updateRequired = this.playAnimation(animationType);
         this.moveLeft();
     }
 }

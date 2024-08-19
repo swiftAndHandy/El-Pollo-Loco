@@ -133,7 +133,8 @@ class MovableObject extends Physics {
     jump() {
         if (!this.abilities.isJumping && !this.isDead && !this.iFrames.active) {
             this.setAppearanceTo('startJump', 0);
-            world.audio.playRandomVariant(this.sounds.jumping, this);
+            const sound = world.audio.playRandomVariant(this.sounds.jumping, this);
+            Audioplayer.clearSound(sound);
         }
     }
 
@@ -211,8 +212,12 @@ class MovableObject extends Physics {
             this.appearance.currentImg++;
             if (this instanceof Player) {
                 this.endSpecialAnimations();
+            }
+            if (this instanceof Character) {
                 this.endIFrames();
             }
+            return true;
         }
+        return false;
     }
 }

@@ -61,6 +61,17 @@ class World {
         // this.draw();
     }
 
+    /**
+     * 
+     * @param {number} delay - ends the current world after this
+     */
+    static gameOver(delay = 100) {
+        world.gameOver = true;
+        setTimeout(() => {
+            resetGame();
+        }, delay);
+    }
+
 
     /**
      * toggles pause, if the pause-button is not blocked.
@@ -69,7 +80,9 @@ class World {
     pause() {
         if (!this.time.preventPause && !this.camera.cutscenePlays) {
             this.time.paused = !this.time.paused;
-            this.time.paused ? Audioplayer.pauseAudio(this) : Audioplayer.continueAudio(this);
+            if (!audioMuted) {
+                this.time.paused ? Audioplayer.pauseAudio(this) : Audioplayer.continueAudio(this);
+            }
         } else if (this.camera.cutscenePlays && !this.time.paused) {
             this.time.paused = true;
             Audioplayer.pauseAudio(this);
@@ -86,7 +99,7 @@ class World {
         const gamepadUsed = this.gamepad.checkInput();
         if (!gamepadUsed) {
             this.keyboard.handlePauseMenu();
-        } 
+        }
     }
 
 
@@ -147,7 +160,9 @@ class World {
             this.animateWorld();
             this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
+            if (this.time.msPassed < this.framerate.msPerFrame) return;
             this.drawCutscene();
+            Audioplayer.fade('out', MUSIC.regular, 0);
         } else {
             this.checkForEndOfPause();
         }

@@ -35,8 +35,8 @@ class Character extends MovableObject {
 
     reciveIFrames() {
         this.setAppearanceTo('damaged');
-        world.audio.playRandomVariant(this.sounds.damaged, this, false);
-        Audioplayer.clearSound();
+        const sound = world.audio.playRandomVariant(this.sounds.damaged, this, false);
+        Audioplayer.clearSound(sound);
         this.iFrames.active = true;
         this.iFrames.startedAt = world.framerate.frame;
 
@@ -70,11 +70,9 @@ class Character extends MovableObject {
             this.velocity.x = 0;
             this.setAppearanceTo('dead', 0);
             Audioplayer.startSFX(this, `dying${sourceModificator}`, false);
-            if (this instanceof Character) {
+            if (this instanceof Enemy && !(this instanceof ElGallonatorBoss)) {
                 setTimeout(() => {
-                    if (this instanceof Enemy) {
                         Level.remove(this);
-                    }
                 }, 500);
             }
             this.isDead = true;

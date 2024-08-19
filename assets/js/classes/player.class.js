@@ -95,9 +95,7 @@ class Player extends Character {
         if (this.lastFrameOfAnimation()) {
             if (this.currentAppearance() === 'dead') {
                 this.setAppearanceTo('hidden');
-                setTimeout(() => {
-                    world.gameOver = true;
-                }, 100);
+                World.gameOver();
             } else if (this.currentAppearance() === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
                 this.abilities.isJumping = true;
@@ -125,6 +123,7 @@ class Player extends Character {
         this.velocity.x = 0;
         if (this.isntIdeling()) {
             world.keyboard.noImportantStyle() && this.setAppearanceTo('idle', 0);
+            Audioplayer.stopSFX(this, 'walking');
         }
     }
 

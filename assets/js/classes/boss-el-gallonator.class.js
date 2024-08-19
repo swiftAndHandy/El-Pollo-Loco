@@ -6,7 +6,7 @@ class ElGallonatorBoss extends Enemy {
         'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
         'assets/img/4_enemie_boss_chicken/1_walk/G4.png',
     ];
-
+        
     ALERT_ANIMATION = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -26,31 +26,77 @@ class ElGallonatorBoss extends Enemy {
         'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
     ];
 
-    DAMAGED = [
+    DAMAGE_ANIMATION = [
         './assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
         './assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
         './assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
     ];
 
+    ATTACK_ANIMATION = [
+        'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G15.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G16.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G19.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G20.png',
+    ];
+
+    DEAD_ANIMATION = [
+        './assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G24.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G25.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
+    ];
+
+    sounds = {
+        dying: Object.assign(new Audio('./assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.2 }),
+        damaged: [
+            Object.assign(new Audio('./assets/audio/pepe/damaged1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
+        ],
+    }; 
+
     isFighting = false;
 
     constructor() {
         super(280, 280);
+        this.appearance.currentStyle = 'alerta';
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
-        this.appearance.alerta = []; this.appearance.currentStyle = 'walking';
+        this.appearance.alerta = [];
         this.cacheImage('alerta', this.ALERT_ANIMATION); delete this.ALERT_ANIMATION;
+        this.appearance.idle = this.appearance.alerta;
+        this.appearance.damaged = [];
+        this.cacheImage('damaged', this.DAMAGE_ANIMATION); delete this.DAMAGE_ANIMATION;
+        this.appearance.attacking = [];
+        this.cacheImage('attacking', this.ATTACK_ANIMATION); delete this.ATTACK_ANIMATION;
+        this.appearance.dead = []; 
+        this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
         this.position.x = 300; this.position.y = 160; // x 3200
         this.velocity.xMax = 2; this.acceleration.x = 0.3;
-        this.hitboxes.push(new Hitbox(20, 50, 170, 180, true));
+        this.hitboxes.push(new Hitbox(20, 50, 200, 180), new Hitbox(40, 150, 70, 160, true), new Hitbox(100, 100, 110, 230, true));
+        this.stats.health = 200;
+        this.iFrames.duration = 60;
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
-        this.playAnimation(animationType);
+        const updateRequired = this.playAnimation(animationType);
 
         if (this.isFighting) {
+            !world.time.paused && !audioMuted && Audioplayer.fade('in', MUSIC.boss, 0.2);
             this.setAppearanceTo('walking');
             this.moveLeft();
+        }
+
+        if (this.lastFrameOfAnimation() && this.currentAppearance() === 'dead') {
+            World.gameOver(0);
         }
     }
 }
