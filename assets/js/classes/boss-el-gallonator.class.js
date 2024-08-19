@@ -26,15 +26,22 @@ class ElGallonatorBoss extends Enemy {
         'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
     ];
 
+    DAMAGED = [
+        './assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        './assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
+    ];
+
     isFighting = false;
 
     constructor() {
         super(280, 280);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
-        this.appearance.alerta = []; this.appearance.currentStyle = 'alerta';
+        this.appearance.alerta = []; this.appearance.currentStyle = 'walking';
         this.cacheImage('alerta', this.ALERT_ANIMATION); delete this.ALERT_ANIMATION;
-        this.position.x = 3200; this.position.y = 160;
-        this.velocity.xMax = 0.25 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;
+        this.position.x = 300; this.position.y = 160; // x 3200
+        this.velocity.xMax = 2; this.acceleration.x = 0.3;
+        this.hitboxes.push(new Hitbox(20, 50, 170, 180, true));
     }
 
     animate() {
@@ -42,7 +49,7 @@ class ElGallonatorBoss extends Enemy {
         this.playAnimation(animationType);
 
         if (this.isFighting) {
-            this.setAppearanceTo('walking', 0);
+            this.setAppearanceTo('walking');
             this.moveLeft();
         }
     }

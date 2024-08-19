@@ -59,7 +59,12 @@ class Level {
         }
     }
 
+    /**
+     * Boss is the last Enemy on enemies-Array. Activate the fight.
+     */
     static triggerBossfight() {
-        //world.level.enemies[world.level.enemies.length - 1].appearance.currentStyle = style;
+        const boss = world.level.enemies[world.level.enemies.length - 1];
+        boss.isFighting = true;
+
     }
 }

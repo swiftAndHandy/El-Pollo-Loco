@@ -12,12 +12,16 @@ class Collisions {
             const rightArea = leftArea + self.appearance.width - hitbox.width;
             const topArea = self.position.y + hitbox.y;
             const bottomArea = topArea + self.appearance.height - hitbox.height;
+            const invincible = hitbox.invincible;
             return obj.hitboxes.some(objHitbox => {
+                const objInvincible = objHitbox.invincible;
                 const objLeftArea = obj.position.x + objHitbox.x;
                 const objRightArea = objLeftArea + obj.appearance.width - objHitbox.width;
                 const objTopArea = obj.position.y + objHitbox.y;
                 const objBottomArea = objTopArea + obj.appearance.height - objHitbox.height;
-                if (rightArea >= objLeftArea && leftArea <= objRightArea && topArea <= objBottomArea && bottomArea >= objTopArea) {
+                if (rightArea >= objLeftArea && leftArea <= objRightArea &&
+                    topArea <= objBottomArea && bottomArea >= objTopArea &&
+                    (!invincible || !objInvincible)) {
                     return true;
                 }
                 return false;
@@ -34,11 +38,13 @@ class Collisions {
     static enemyCollisions(self) {
         self.level.enemies.forEach(enemy => {
             if (this.isColliding(self.player, enemy) && !enemy.isDead) {
-                if (self.player.appearance.currentStyle !== 'falling') {
+                if (self.player.appearance.currentStyle !== 'falling' || enemy instanceof ElGallonatorBoss) {
                     self.player.reciveDamage(1);
                 } else {
-                    self.player.bounce(enemy);
-                    enemy.reciveDamage(100);
+                    if (!(enemy instanceof ElGallonatorBoss)) {
+                        self.player.bounce(enemy);
+                        enemy.reciveDamage(100);
+                    }
                 }
             }
         });

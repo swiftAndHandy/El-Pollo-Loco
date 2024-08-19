@@ -4,7 +4,7 @@ let canvasWidth = 720; // Base 720
 let world = null;
 let gamepad = null;
 let animationID = null;
-let hitboxMode = false;
+let hitboxMode = true;
 let audioMuted = false;
 const DATABASE = 'https://el-pollo-loco-9a9c1-default-rtdb.europe-west1.firebasedatabase.app/';
 
