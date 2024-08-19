@@ -21,7 +21,7 @@ class Level {
     }
 
     static triggerCutscene() {
-        if (world.level.cutsceneTriggered === false && world.player.position.x > 2900) { // 2800
+        if (world.level.cutsceneTriggered === false && world.player.position.x > 2800) { // 2800
             world.pause();
             world.camera.cutscenePlays = true;
             world.level.cutsceneTriggered = true;
@@ -29,6 +29,8 @@ class Level {
             setTimeout(() => {
                 world.camera.cutscenePlays = false;
                 world.pause();
+                // Level.setBossAppearance('walking');
+                Level.triggerBossfight();
             }, 3800);
         }
     }
@@ -55,5 +57,9 @@ class Level {
         for (let i = 0; i < boss; i++) {
             this.enemies.push(new ElGallonatorBoss);
         }
+    }
+
+    static triggerBossfight() {
+        //world.level.enemies[world.level.enemies.length - 1].appearance.currentStyle = style;
     }
 }

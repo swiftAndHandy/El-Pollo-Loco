@@ -35,6 +35,10 @@ const controls = {
     ],
 }
 
+document.addEventListener('fullscreenchange', () => {
+    game.classList.toggle('fullscreen');
+});
+
 function previousControls() {
     controlIndex--;
     if (controlIndex < 0) {
@@ -74,6 +78,15 @@ function updatePauseButton() {
         <img draggable="false" src="${controls.pause[controlIndex]}" class="manual__icon"
         alt="pause" id="pause-button-two">
         `);
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        const game = document.getElementById('game');
+        game.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
 }
 
 /**

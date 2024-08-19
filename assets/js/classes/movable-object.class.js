@@ -167,7 +167,7 @@ class MovableObject extends Physics {
      */
     frameUpdateRequired() {
         if (this instanceof Player) {
-            if (this.abilities.run && this.appearance.currentStyle === 'walking') {
+            if (this.abilities.run && this.currentAppearance() === 'walking') {
                 return world.framerate.frame % (world.framerate.fps / 10) == 0;
             } else {
                 return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
@@ -191,6 +191,13 @@ class MovableObject extends Physics {
     setAppearanceTo(style, atFrame = -1) {
         this.appearance.currentStyle = style;
         this.appearance.currentImg = atFrame >= 0 ? atFrame : this.appearance.currentImg;
+    }
+
+    /**
+     * @returns - current style of movable Object
+     */
+    currentAppearance() {
+        return this.appearance.currentStyle;
     }
 
     /**

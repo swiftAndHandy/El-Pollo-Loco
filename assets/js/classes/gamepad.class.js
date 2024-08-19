@@ -4,6 +4,10 @@ class Gamepad extends InputDevice {
     directionBuffer = null;
     gamepad = null;
 
+    buttons = {
+        fullscreen: false,
+    }
+
     constructor() {
         super();
         window.addEventListener('gamepadconnected', (event) => {
@@ -32,6 +36,7 @@ class Gamepad extends InputDevice {
                 gamepad.buttons[9].pressed && world.pause();
                 this.setPausePrevention();
             }
+            this.handleFullscreen(gamepad.buttons);
             return true;
         } else {
             return false;
@@ -50,7 +55,7 @@ class Gamepad extends InputDevice {
         if (this.unallowedLatency()) {
             world.player.stopMovement();
         }
-        if (world.player.appearance.currentStyle === 'walking') {
+        if (world.player.appearance() === 'walking') {
             world.player.startIdle();
             world.player.setAppearanceTo('idle', 0);
         };
@@ -61,13 +66,20 @@ class Gamepad extends InputDevice {
         }
     }
 
+
+    /**
+     * @param {number} delay - time in ms that passes before rumble effect starts
+     * @param {number} duration - time in ms, the rumble effect takes
+     * @param {number} weakMagnitude - 0 to 1, intensivity of the weak magnitude
+     * @param {number} strongMagnitude - 0 to 1, intensivity of the strong magnitude
+     */
     triggerRumble(delay, duration, weakMagnitude, strongMagnitude) {
         if (this.controllerIndex !== null) {
             gamepad.vibrationActuator.playEffect('dual-rumble', {
                 startDelay: delay,
                 duration: duration,
                 weakMagnitude: weakMagnitude,
-                strongMagnitude: strongMagnitude
+                strongMagnitude: strongMagnitude,
             });
         }
     }
@@ -110,6 +122,7 @@ class Gamepad extends InputDevice {
         this.handleJumping(buttons, leftStickUpDown);
         this.handleRunning(buttons);
         this.handleThrowing(buttons);
+        this.handleFullscreen(buttons);
 
         this.handleWalking(leftStickLeftRight, buttons);
     }
@@ -144,6 +157,19 @@ class Gamepad extends InputDevice {
             world.player.abilities.run = true;
         } else {
             world.player.abilities.run = false;
+        }
+    }
+
+    /**
+     * 
+     * @param {Array} buttons - an Array that contains all buttons of the gamepad.
+     */
+    handleFullscreen(buttons) {
+        if (buttons[8].pressed) {
+            !this.buttons.fullscreen &&toggleFullscreen();
+            this.buttons.fullscreen = true;
+        } else {
+            this.buttons.fullscreen = false;
         }
     }
 

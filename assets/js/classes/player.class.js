@@ -93,17 +93,17 @@ class Player extends Character {
      */
     endSpecialAnimations() {
         if (this.lastFrameOfAnimation()) {
-            if (this.appearance.currentStyle === 'dead') {
+            if (this.currentAppearance() === 'dead') {
                 this.setAppearanceTo('hidden');
                 setTimeout(() => {
                     world.gameOver = true;
                 }, 100);
-            } else if (this.appearance.currentStyle === 'startJump') {
+            } else if (this.currentAppearance() === 'startJump') {
                 this.setAppearanceTo('jumping', 0);
                 this.abilities.isJumping = true;
                 this.velocity.y = this.velocity.jumpSpeed;
                 world.audio.clearJumpSounds();
-            } else if (this.appearance.currentStyle === 'landing') {
+            } else if (this.currentAppearance() === 'landing') {
                 world.keyboard.buttonsWithCooldown.jump = false;
                 this.abilities.isJumping = false;
                 this.setAppearanceTo('idle');
@@ -167,7 +167,6 @@ class Player extends Character {
     applyGravity() {
         this.isFalling();
         this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
-        this instanceof Chick && this.velocity.y;
         if (this.abilities.isFalling) {
             this.position.y += this.velocity.y * 0.8;
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
@@ -178,10 +177,10 @@ class Player extends Character {
         }
     }
 
+    
     animate() {
         const animationType = this.appearance.currentStyle;
         this.checkForLongIdle(animationType);
-
         if (this.isDead) {
             this.playAnimation(animationType);
         } else {

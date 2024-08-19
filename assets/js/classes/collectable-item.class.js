@@ -46,7 +46,7 @@ class CollectableItem {
      * @returns {boolean} - true, if the sound should become played, otherwise false
      */
     requiredSound(targetSound) {
-        return this.appearance.currentStyle === `${targetSound}` && !world.time.paused;
+        return this.currentAppearance() === `${targetSound}` && !world.time.paused;
     }
 
     /**

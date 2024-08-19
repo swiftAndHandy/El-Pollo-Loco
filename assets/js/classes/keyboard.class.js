@@ -7,6 +7,7 @@ class Keyboard extends InputDevice {
         space: false,
         p: false,
         enter: false,
+        esc: false,
     }
 
 
@@ -106,6 +107,11 @@ class Keyboard extends InputDevice {
             this.keys.enter = true;
         }
 
+        if (event.code === 'Escape') {
+            !this.keys.esc &&toggleFullscreen();
+            this.keys.esc = true;
+        }
+
     }
 
     removeInput(event) {
@@ -128,6 +134,11 @@ class Keyboard extends InputDevice {
         if (event.code === 'Enter') {
             this.keys.enter = false;
         }
+
+        if (event.code === 'Escape') {
+            this.keys.esc = false;
+        }
+        
     }
 
     handleKeyboardInput(gamepadUsed) {

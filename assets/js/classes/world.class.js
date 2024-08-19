@@ -84,7 +84,9 @@ class World {
      */
     checkForEndOfPause() {
         const gamepadUsed = this.gamepad.checkInput();
-        !gamepadUsed && this.keyboard.handlePauseMenu();
+        if (!gamepadUsed) {
+            this.keyboard.handlePauseMenu();
+        } 
     }
 
 

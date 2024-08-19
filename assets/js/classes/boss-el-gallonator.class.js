@@ -26,8 +26,10 @@ class ElGallonatorBoss extends Enemy {
         'assets/img/4_enemie_boss_chicken/2_alert/G11.png',
     ];
 
+    isFighting = false;
+
     constructor() {
-        super(280,280);
+        super(280, 280);
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.alerta = []; this.appearance.currentStyle = 'alerta';
         this.cacheImage('alerta', this.ALERT_ANIMATION); delete this.ALERT_ANIMATION;
@@ -38,6 +40,10 @@ class ElGallonatorBoss extends Enemy {
     animate() {
         const animationType = this.appearance.currentStyle;
         this.playAnimation(animationType);
-        // this.moveLeft();
+
+        if (this.isFighting) {
+            this.setAppearanceTo('walking', 0);
+            this.moveLeft();
+        }
     }
 }

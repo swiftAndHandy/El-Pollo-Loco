@@ -32,16 +32,7 @@ function setupMenu() {
 
     });
 
-    document.getElementById('fullscreen').addEventListener('click', (event) => {
-        if (!document.fullscreenElement) {
-            const game = document.getElementById('game');
-            game.requestFullscreen();
-            game.classList.toggle('fullscreen');
-        } else {
-            document.exitFullscreen();
-            game.classList.toggle('fullscreen');
-        }
-    });
+    document.getElementById('fullscreen').addEventListener('click', toggleFullscreen);
 }
 
 function newGame() {
