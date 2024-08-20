@@ -142,11 +142,12 @@ class MovableObject extends Physics {
 
 
     /**
-     * @param {Number} divisor - Increase the Refresh-Rate
+     * @param {Number} divisor - Increase the Refresh-Rate by Dividing
+     * @param {Number} divisor - Increase the Refresh-Rate by substract a value
      * @returns {boolean} - true, if an update is required
      */
-    fasterRefreshRate(divisor = 1.5) {
-        if (world.framerate.frame >= this.lastRefreshFrame + this.refreshRate / divisor) {
+    fasterRefreshRate(divisor = 1.5, substractor = 0) {
+        if (world.framerate.frame >= this.lastRefreshFrame + (this.refreshRate / divisor) - substractor) {
             this.lastRefreshFrame = world.framerate.frame;
             return true;
         } else {
@@ -195,7 +196,7 @@ class MovableObject extends Physics {
             if (this.appearance.currentStyle == 'splash') {
                 return this.regularRefreshRate();
             } else {
-                return this.fasterRefreshRate(3);
+                return this.fasterRefreshRate(1, 9);
             }
         } else {
             return this.regularRefreshRate();
