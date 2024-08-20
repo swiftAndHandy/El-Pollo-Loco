@@ -74,7 +74,9 @@ class Collisions {
                     self.level.enemies.forEach(enemy => {
                         if (this.isColliding(bottle, enemy) && !enemy.isDead) {
                             enemy.reciveDamage(100);
-                            enemy.velocity.xMax = enemy instanceof ElGallonatorBoss ? enemy.velocity.xMax + 0.3 : enemy.velocity.xMax;
+                            if (enemy instanceof ElGallonatorBoss) {
+                                enemy.velocity.xMax +=  0.3;
+                            }
                             bottle.setAppearanceTo('splash', 0)
                         }
                     });

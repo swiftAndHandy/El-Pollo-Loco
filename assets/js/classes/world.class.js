@@ -166,7 +166,7 @@ class World {
     }
 
     drawCutscene() {
-        const boss = Level.bossID();
+        const boss = Level.getBoss();
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.drawWorld();
         this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);

@@ -63,12 +63,12 @@ class Level {
      * Boss is the last Enemy on enemies-Array. Activate the fight.
      */
     static triggerBossfight() {
-        const boss = Level.bossID();
+        const boss = Level.getBoss();
         boss.isFighting = true;
 
     }
 
-    static bossID() {
+    static getBoss() {
         return world.level.enemies[world.level.enemies.length-1]
     }
 }
