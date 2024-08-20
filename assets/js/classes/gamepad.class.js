@@ -10,6 +10,7 @@ class Gamepad extends InputDevice {
 
     constructor() {
         super();
+        this.controllerIndex = gamepad && gamepad.index;
         window.addEventListener('gamepadconnected', (event) => {
             gamepad = event.gamepad; this.gamepad = event.gamepad;
             this.controllerIndex = gamepad.index;
