@@ -44,8 +44,8 @@ class UIElements {
         world.ctx.drawImage(this.health.design, this.health.posX + this.calcOffset(), this.health.posY, this.health.width, this.health.height);
         world.ctx.drawImage(this.coins.design, this.coins.posX + this.calcOffset(), this.coins.posY, this.coins.width, this.coins.height);
         world.ctx.drawImage(this.bottles.design, this.bottles.posX + this.calcOffset(), this.bottles.posY, this.bottles.width, this.bottles.height);
-        this.updateBossBar();
         world.ctx.fillStyle = 'white';
+        this.updateBossBar();
         world.ctx.fillText(world.player.stats.health, this.health.posX + this.calcOffset() + 27, 55);
         world.ctx.fillText(world.player.stats.coins, this.coins.posX + this.calcOffset() + 70, 52);
         world.ctx.fillText(world.player.stats.bottles, this.bottles.posX + this.calcOffset() + 60, 52);
@@ -53,15 +53,20 @@ class UIElements {
 
     updateBossBar() {
         Level.getBoss().isFighting && world.ctx.drawImage(this.bossHealth.design, this.bossHealth.posX + this.calcOffset(), this.bossHealth.posY, this.bossHealth.width, this.bossHealth.height);
-        if (Level.getBoss().stats.health === 400) {
+        if (Level.getBoss().stats.health === 400 && Level.getBoss().stats.health !== Level.getBoss().stats.shadowHealth) {
+            Level.getBoss().stats.shadowHealth = Level.getBoss().stats.health;
             this.bossHealth.design.src = './assets/img/7_statusbars/2_statusbar_endboss/green/green100.png';
-        } else if (Level.getBoss().stats.health === 300) {
+        } else if (Level.getBoss().stats.health === 300 && Level.getBoss().stats.health !== Level.getBoss().stats.shadowHealth) {
+            Level.getBoss().stats.shadowHealth = Level.getBoss().stats.health;
             this.bossHealth.design.src = './assets/img/7_statusbars/2_statusbar_endboss/green/green75.png';
-        } else if (Level.getBoss().stats.health === 200) {
+        } else if (Level.getBoss().stats.health === 200 && Level.getBoss().stats.health !== Level.getBoss().stats.shadowHealth) {
+            Level.getBoss().stats.shadowHealth = Level.getBoss().stats.health;
             this.bossHealth.design.src = './assets/img/7_statusbars/2_statusbar_endboss/green/green50.png';
-        } else if (Level.getBoss().stats.health === 100) {
+        } else if (Level.getBoss().stats.health === 100 && Level.getBoss().stats.health !== Level.getBoss().stats.shadowHealth) {
+            Level.getBoss().stats.shadowHealth = Level.getBoss().stats.health;
             this.bossHealth.design.src = './assets/img/7_statusbars/2_statusbar_endboss/green/green25.png';
-        } else {
+        } else if (Level.getBoss().stats.health === 0 && Level.getBoss().stats.health !== Level.getBoss().stats.shadowHealth) {
+            Level.getBoss().stats.shadowHealth = Level.getBoss().stats.health;
             this.bossHealth.design.src = './assets/img/7_statusbars/2_statusbar_endboss/green/green0.png';
         }
     }

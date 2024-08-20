@@ -75,9 +75,11 @@
                     <div class="manual-wrapper">
                         <div class="manual__left-page">
                             <div class="control-type">
-                                <img draggable="false" src="./assets/img/controls/previous.png" alt="prev" class="nav-btn" onclick="previousControls();">
+                                <img draggable="false" src="./assets/img/controls/previous.png" alt="prev"
+                                    class="nav-btn" onclick="previousControls();">
                                 <h3 id="control-type">Touch Controls</h3>
-                                <img draggable="false" src="./assets/img/controls/next.png" alt="next" class="nav-btn" onclick="nextControls();">
+                                <img draggable="false" src="./assets/img/controls/next.png" alt="next" class="nav-btn"
+                                    onclick="nextControls();">
                             </div>
                             <div class="manual__controls">
                                 <div class="manual__button">
@@ -137,10 +139,46 @@
                     </div>
                 </section>
             </section>
-            <section id="gameover-screen" class="gameoverscreen">
-
+            <section id="gameover-screen" class="gameoverscreen d-none">
+                <img  draggable="false" id="final-image-lose" src="./assets/img/9_intro_outro_screens/game_over/gameover.png"
+                    class="final-image" alt="Game Over">
             </section>
-            <section id="controls" class="controls wrapper d-none">
+            <section id="win-screen" class="gameoverscreen d-none">
+                <img  draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png" class="final-image"
+                    alt="You Win">
+                <div class="final-screen win">
+                    <h3 class="score__heading">Score</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Source:</th>
+                                <th>Points:</th>
+                            </tr>
+                            <tr>
+                                <td>Killed Enemies</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>Health Bonus</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>Coin Bonus</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>Time Bonus</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>Total Score</td>
+                                <td>2000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section id="controls" class="controls wrapper endcard d-none">
                 <div class="top">
                     <div id="pause" class="control-icon pause-btn no-select"></div>
                     <div id="audio" class="control-icon audio-btn no-select"></div>

@@ -92,12 +92,13 @@ class ThrowableObject extends MovableObject {
     animate() {
         const animationType = this.appearance.currentStyle;
         const updateRequired = this.playAnimation(animationType);
-
-        if (this.appearance.currentStyle !== 'splash') {
-            this.moveBottle();
-        } else {
-            if (this.lastFrameOfAnimation()) {
-                Level.remove(this);
+        if (this.generatedAtFrame + 1 < world.framerate.frame) {
+            if (this.appearance.currentStyle !== 'splash') {
+                this.moveBottle();
+            } else {
+                if (this.lastFrameOfAnimation()) {
+                    Level.remove(this);
+                }
             }
         }
 

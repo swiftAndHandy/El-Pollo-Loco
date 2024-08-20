@@ -8,9 +8,9 @@ let hitboxMode = false;
 let audioMuted = false;
 const DATABASE = 'https://el-pollo-loco-9a9c1-default-rtdb.europe-west1.firebasedatabase.app/';
 const MUSIC = {
-title: Object.assign(new Audio('./assets/audio/titlescreen.mp3'), { loop: true, volume: 0.1 }),
-regular: Object.assign(new Audio('./assets/audio/regular.mp3'), { loop: true, volume: 0.1 }),
-boss: Object.assign(new Audio('./assets/audio/bossfight.mp3'), { loop: true, volume: 0 }),
+    title: Object.assign(new Audio('./assets/audio/titlescreen.mp3'), { loop: true, volume: 0.1 }),
+    regular: Object.assign(new Audio('./assets/audio/regular.mp3'), { loop: true, volume: 0.1 }),
+    boss: Object.assign(new Audio('./assets/audio/bossfight.mp3'), { loop: true, volume: 0 }),
 };
 
 function init() {
@@ -47,13 +47,16 @@ function setupMenu() {
 }
 
 function newGame() {
-    MUSIC.title.pause(); 
+    MUSIC.title.pause();
     world.draw();
     document.getElementById('title-screen').classList.add('d-none');
     document.getElementById('highscores').classList.add('d-none');
     document.getElementById('howtoplay').classList.add('d-none');
     document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.remove('d-none');
+    document.getElementById('controls').classList.remove('endcard');
+    document.getElementById('win-screen').classList.add('d-none');
+    document.getElementById('gameover-screen').classList.add('d-none');
     MUSIC.regular.volume = 0.1;
     MUSIC.boss.volume = 0;
     Audioplayer.startSFX('', MUSIC.regular, true);
@@ -62,23 +65,32 @@ function newGame() {
 function resetGame() {
     MUSIC.regular.volume = 0.1;
     MUSIC.boss.volume = 0;
+    if (!Level.getBoss().isDead) {
+        showGameOver();
+    } else {
+        showWinScreen();
+    }
     Audioplayer.pauseAudio(world);
     world = null;
     world = new World(canvas);
 }
 
+function showGameOver() {
+    document.getElementById('gameover-screen').classList.remove('d-none');
+    document.getElementById('controls').classList.add('endcard');
+}
+
+function showWinScreen() {
+    document.getElementById('win-screen').classList.remove('d-none');
+    document.getElementById('controls').classList.add('endcard');
+}
+
 function openManual() {
     const target = document.getElementById('howtoplay');
-    if (!visible(target)) {
-        renderManual();
-    }
     target.classList.toggle('d-none');
     document.getElementById('highscores').classList.add('d-none');
 }
 
-function renderManual() {
-
-}
 
 /**
  * Toggles the Highscore-Board and Renders results.

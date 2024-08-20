@@ -82,6 +82,7 @@ class ElGallonatorBoss extends Enemy {
         this.velocity.xMax = 2.5; this.acceleration.x = 0.15;
         this.hitboxes.push(new Hitbox(20, 50, 200, 180), new Hitbox(40, 150, 70, 160, true), new Hitbox(100, 100, 110, 230, true));
         this.stats.health = 400;
+        this.stats.shadowHealth = 0;
         this.iFrames.duration = 60;
         this.abilities.run = false; this.abilities.runBonus = 1.1;
     }
