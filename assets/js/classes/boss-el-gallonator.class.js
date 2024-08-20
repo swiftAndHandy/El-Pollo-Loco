@@ -6,7 +6,7 @@ class ElGallonatorBoss extends Enemy {
         'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
         'assets/img/4_enemie_boss_chicken/1_walk/G4.png',
     ];
-        
+
     ALERT_ANIMATION = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -61,7 +61,7 @@ class ElGallonatorBoss extends Enemy {
             Object.assign(new Audio('./assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
             Object.assign(new Audio('./assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
         ],
-    }; 
+    };
 
     isFighting = false;
 
@@ -76,27 +76,44 @@ class ElGallonatorBoss extends Enemy {
         this.cacheImage('damaged', this.DAMAGE_ANIMATION); delete this.DAMAGE_ANIMATION;
         this.appearance.attacking = [];
         this.cacheImage('attacking', this.ATTACK_ANIMATION); delete this.ATTACK_ANIMATION;
-        this.appearance.dead = []; 
+        this.appearance.dead = [];
         this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
-        this.position.x = 300; this.position.y = 160; // x 3200
-        this.velocity.xMax = 2; this.acceleration.x = 0.3;
+        this.position.x = 3500; this.position.y = 160; // x 3200 3500cs
+        this.velocity.xMax = 2.5; this.acceleration.x = 0.15;
         this.hitboxes.push(new Hitbox(20, 50, 200, 180), new Hitbox(40, 150, 70, 160, true), new Hitbox(100, 100, 110, 230, true));
-        this.stats.health = 200;
+        this.stats.health = 400;
         this.iFrames.duration = 60;
+        this.abilities.run = false; this.abilities.runBonus = 1.1;
+    }
+
+    move() {
+        if (!this.appearance.mirrored) {
+            if (this.position.x >= world.player.position.x - world.player.appearance.width * 2 && this.position.x > 30) {
+                this.setAppearanceTo('walking');
+                this.moveLeft();
+            } else if (world.player.position.x > 150) {
+                this.appearance.mirrored = true;
+            }
+        } else {
+            if (this.position.x <= world.player.position.x + world.player.appearance.width / 3) {
+                this.setAppearanceTo('walking');
+                this.moveRight();
+            } else {
+                this.appearance.mirrored = false;
+            }
+        }
     }
 
     animate() {
         const animationType = this.appearance.currentStyle;
         const updateRequired = this.playAnimation(animationType);
 
-        if (this.isFighting) {
-            !world.time.paused && !audioMuted && Audioplayer.fade('in', MUSIC.boss, 0.2);
-            this.setAppearanceTo('walking');
-            this.moveLeft();
+        if (this.isFighting && this.currentAppearance() !== 'damaged' && this.currentAppearance() !== 'dead') {
+            this.move();
         }
 
         if (this.lastFrameOfAnimation() && this.currentAppearance() === 'dead') {
-            World.gameOver(0);
+            World.gameOver(100);
         }
     }
 }

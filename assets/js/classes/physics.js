@@ -45,8 +45,6 @@ class Physics {
             if (this instanceof Player) {
                 this.setAppearanceTo('landing', 0);
                 const sound = Audioplayer.startSFX(this, 'landing');
-                console.log(sound);
-                
                 Audioplayer.clearSound(sound);
             }
             this.abilities.isFalling = false;

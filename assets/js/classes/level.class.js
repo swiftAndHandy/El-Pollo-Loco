@@ -27,12 +27,11 @@ class Level {
             world.level.cutsceneTriggered = true;
             Audioplayer.startSFX(world.player, 'cutscene', false);
             setTimeout(() => {
+                Level.triggerBossfight();
                 Audioplayer.fade('in', MUSIC.boss, 1);
                 world.camera.cutscenePlays = false;
                 world.pause();
-                // Level.setBossAppearance('walking');
-                Level.triggerBossfight();
-            }, 3800);
+            }, 5000);
         }
     }
 
@@ -64,8 +63,12 @@ class Level {
      * Boss is the last Enemy on enemies-Array. Activate the fight.
      */
     static triggerBossfight() {
-        const boss = world.level.enemies[world.level.enemies.length - 1];
+        const boss = Level.bossID();
         boss.isFighting = true;
 
+    }
+
+    static bossID() {
+        return world.level.enemies[world.level.enemies.length-1]
     }
 }

@@ -55,10 +55,6 @@ class World {
         this.VSIMAGE.vs.src = 'assets/img/9_intro_outro_screens/vs.png';
         this.VSIMAGE.player.image.src = 'assets/img/9_intro_outro_screens/player.png';
         this.VSIMAGE.boss.image.src = 'assets/img/9_intro_outro_screens/boss.png';
-        // setInterval(() => {
-        //     console.log(this.framerate.frame);
-        // }, 1000);
-        // this.draw();
     }
 
     /**
@@ -161,6 +157,7 @@ class World {
             this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
             if (this.time.msPassed < this.framerate.msPerFrame) return;
+            this.updateTime();
             this.drawCutscene();
             Audioplayer.fade('out', MUSIC.regular, 0);
         } else {
@@ -169,6 +166,7 @@ class World {
     }
 
     drawCutscene() {
+        const boss = Level.bossID();
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.drawWorld();
         this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);
@@ -176,6 +174,15 @@ class World {
         this.VSIMAGE.player.x += 3;
         this.ctx.drawImage(this.VSIMAGE.boss.image, this.VSIMAGE.boss.x, 300);
         this.VSIMAGE.boss.x -= 3;
+        if (boss.position.x > 3100) {
+            boss.setAppearanceTo('walking');
+            boss.moveLeft();
+            boss.position.x -= 0.4;
+        } else { 
+            boss.setAppearanceTo('alerta');
+            !audioMuted && Audioplayer.fade('in', MUSIC.boss, 0.2);
+        }
+        boss.animate();
     }
 
     /**

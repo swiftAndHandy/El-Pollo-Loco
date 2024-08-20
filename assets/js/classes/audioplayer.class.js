@@ -25,8 +25,6 @@ class Audioplayer {
         setTimeout(() => {
             const index = world.audio.currentlyPlayed.indexOf(sound);
             index > -1 && world.audio.currentlyPlayed.splice(index, 1);
-            console.log('spliced', index);
-
         }, delay);
     }
 
@@ -68,7 +66,6 @@ class Audioplayer {
                 this.stopMusic(audio);
             } else if (audio.volume > targetVolume && audio.volume > 0.02) {
                 audio.volume -= 0.01;
-                console.log(audio.volume);
             }
         } else if (method === 'in', audio, targetVolume) {
             audio.paused && Audioplayer.startSFX('', MUSIC.boss, true);

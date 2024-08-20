@@ -84,20 +84,6 @@ class MovableObject extends Physics {
         return this.appearance.currentStyle === `${targetSound}` && !world.time.paused;
     }
 
-    // /**
-    //  * starts a specific audio, if it's not played allready. pushes it to an array,
-    //  * that contains all currently played sounds, to use them when world gets paused.
-    //  * @param {string} sound - name of the required sound
-    //  */
-    // startSFX(sound) {
-    //     try {
-    //         this.sounds[sound].paused && world.audio.currentlyPlayed.push(this.sounds[sound]);
-    //         this.sounds[sound].play();
-    //     } catch (error) {
-    //         sound.play();
-    //         world.audio.currentlyPlayed.push(sound);
-    //     }
-    // }
 
     /**
      * required methods, if the target is moving to the left side.
@@ -106,9 +92,10 @@ class MovableObject extends Physics {
         if (!this.isDead) {
             this.getCurrentVelocityX();
             this.position.x -= this.velocity.x;
-            if (this.position.x < -200) {
+            if (!(this instanceof ElGallonatorBoss) && this.position.x < -180) {
                 this.position.x = 3500;
-
+            } else if (this.position.x === Infinity) {
+                this.position.x = world.player.position.x;
             }
         }
         return this;
@@ -155,7 +142,7 @@ class MovableObject extends Physics {
      * @returns {number}
      */
     getMaxSpeedX() {
-        if (this instanceof Player) {
+        if (this instanceof Player || this instanceof ElGallonatorBoss) {
             return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
         }
         return this.velocity.xMax;
@@ -203,7 +190,7 @@ class MovableObject extends Physics {
 
     /**
      * Updates the image to the required one, for the target animation
-     * @param {string} animationType containing this.appearance.currentStyle
+     * @param {string} animationType - containing this.appearance.currentStyle
      */
     playAnimation(animationType) {
         const animationFrame = this.appearance.currentImg % this.appearance[animationType].length;

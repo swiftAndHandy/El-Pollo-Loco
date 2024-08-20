@@ -23,7 +23,7 @@ class Collisions {
                     if (self instanceof ThrowableObject && objInvincible) {
                         return false;
                     }
-                        return true;
+                    return true;
                 }
                 return false;
             });
@@ -74,6 +74,7 @@ class Collisions {
                     self.level.enemies.forEach(enemy => {
                         if (this.isColliding(bottle, enemy) && !enemy.isDead) {
                             enemy.reciveDamage(100);
+                            enemy.velocity.xMax = enemy instanceof ElGallonatorBoss ? enemy.velocity.xMax + 0.3 : enemy.velocity.xMax;
                             bottle.setAppearanceTo('splash', 0)
                         }
                     });

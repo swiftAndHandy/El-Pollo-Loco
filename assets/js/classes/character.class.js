@@ -8,7 +8,7 @@ class Character extends MovableObject {
     false;
 
     stats = {
-        health: 50,
+        health: 6,
         coins: 0,
         bottles: 0,
     }
