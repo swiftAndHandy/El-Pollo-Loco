@@ -203,6 +203,7 @@ canvas {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 16px;
 }
 
 .final-screen.win {
@@ -236,6 +237,28 @@ canvas {
     overflow-y: auto;
     background-color: rgba(250, 235, 215, 0.8);
     box-sizing: border-box;
+}
+
+form {
+    padding: 16px 0;
+}
+
+.score th:first-child,
+.score td:first-child {
+    text-align: right;
+    width: 50%;
+}
+
+.submit-btn {
+    background-image: url('../img/controls/submit.png');
+    width: 20%;
+    height: 30px;
+}
+
+.score th:nth-child(2),
+.score td:nth-child(2) {
+    text-align: left;
+    padding-left: 32px;
 }
 
 .manual-wrapper {
@@ -320,6 +343,22 @@ menu img:hover {
     scale: 1.1;
 }
 
+.endscreen-btn {
+    height: 40px;
+}
+
+input[type="text"] {
+    border-radius: 16px;
+    padding: 4px 8px;
+    background: transparent;
+    border: 1px solid saddlebrown;
+}
+
+button[type="submit"] {
+    border-radius: 16px;
+    height: 25px;
+    border: 1px solid saddlebrown;
+}
 
 .movement-controls {
     display: flex;

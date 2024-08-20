@@ -6,6 +6,7 @@ let gamepad = null;
 let animationID = null;
 let hitboxMode = false;
 let audioMuted = false;
+let maxEnemies = 0;
 const DATABASE = 'https://el-pollo-loco-9a9c1-default-rtdb.europe-west1.firebasedatabase.app/';
 const MUSIC = {
     title: Object.assign(new Audio('./assets/audio/titlescreen.mp3'), { loop: true, volume: 0.1 }),
@@ -17,6 +18,7 @@ function init() {
     canvas = document.getElementById('game-area');
     canvas.width = canvasWidth; canvas.height = canvasHeight;
     world = new World(canvas);
+    maxEnemies = world.level.enemies.length;
     setupMenu();
     nextControls();
 }
@@ -55,6 +57,7 @@ function newGame() {
     document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.remove('d-none');
     document.getElementById('controls').classList.remove('endcard');
+    document.getElementById('touch-control').classList.remove('d-none');
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('gameover-screen').classList.add('d-none');
     MUSIC.regular.volume = 0.1;
@@ -81,7 +84,21 @@ function showGameOver() {
 }
 
 function showWinScreen() {
+    console.log(world.framerate.frame);
+    const enemyScore = Math.floor((maxEnemies - world.level.enemies.length) * 100);
+    const healthBonus = Math.floor(world.player.stats.health * 600);
+    const coinBonus = Math.floor(world.player.stats.coins * 180);
+    const timeBonus = Math.floor((3200 - world.framerate.frame) * 1.6);
+    const killspeedBonus = Math.floor(Level.getBoss().position.x * 1.1 - 50);
+    const totalScore = enemyScore + healthBonus + coinBonus + timeBonus + killspeedBonus;
+    document.getElementById('killed-enemies').innerText = enemyScore;
+    document.getElementById('health-bonus').innerText = healthBonus;
+    document.getElementById('coin-bonus').innerText = coinBonus;
+    document.getElementById('time-bonus').innerText = timeBonus;
+    document.getElementById('killspeed-bonus').innerText = killspeedBonus;
+    document.getElementById('total-score').innerText = totalScore;
     document.getElementById('win-screen').classList.remove('d-none');
+    document.getElementById('touch-control').classList.add('d-none');
     document.getElementById('controls').classList.add('endcard');
 }
 
@@ -174,6 +191,31 @@ async function getScores(path = '') {
         console.warn("Can't connect to Database.");
 
     }
+}
+
+async function submitScore() {
+    let date = new Date();
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    date = `${year}-${month}-${day}`;
+    await postData({
+        'player': document.getElementById('username').value,
+        'score': Number(document.getElementById('total-score').innerText),
+        'date': date,
+    });
+
+    document.getElementById('title-screen').classList.remove('d-none');
+    document.getElementById('highscores').classList.add('d-none');
+    document.getElementById('howtoplay').classList.add('d-none');
+    document.getElementById('imprint-link').classList.add('d-none');
+    document.getElementById('controls').classList.add('d-none');
+    document.getElementById('controls').classList.remove('endcard');
+    document.getElementById('win-screen').classList.add('d-none');
+    document.getElementById('gameover-screen').classList.add('d-none');
+    document.getElementById('username').value = '';
+    !audioMuted && MUSIC.title.play();
+
 }
 
 

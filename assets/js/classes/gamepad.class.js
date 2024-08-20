@@ -55,7 +55,7 @@ class Gamepad extends InputDevice {
         if (this.unallowedLatency()) {
             world.player.stopMovement();
         }
-        if (world.player.appearance() === 'walking') {
+        if (world.player.appearance.currentStyle === 'walking') {
             world.player.startIdle();
             world.player.setAppearanceTo('idle', 0);
         };

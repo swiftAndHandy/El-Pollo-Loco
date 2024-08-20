@@ -140,15 +140,15 @@
                 </section>
             </section>
             <section id="gameover-screen" class="gameoverscreen d-none">
-                <img  draggable="false" id="final-image-lose" src="./assets/img/9_intro_outro_screens/game_over/gameover.png"
-                    class="final-image" alt="Game Over">
+                <img draggable="false" id="final-image-lose"
+                    src="./assets/img/9_intro_outro_screens/game_over/gameover.png" class="final-image" alt="Game Over">
             </section>
             <section id="win-screen" class="gameoverscreen d-none">
-                <img  draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png" class="final-image"
-                    alt="You Win">
+                <img draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png"
+                    class="final-image" alt="You Win">
                 <div class="final-screen win">
                     <h3 class="score__heading">Score</h3>
-                    <table>
+                    <table class="score">
                         <tbody>
                             <tr>
                                 <th>Source:</th>
@@ -156,26 +156,37 @@
                             </tr>
                             <tr>
                                 <td>Killed Enemies</td>
-                                <td>2000</td>
+                                <td id="killed-enemies">0</td>
                             </tr>
                             <tr>
                                 <td>Health Bonus</td>
-                                <td>2000</td>
+                                <td id="health-bonus">0</td>
                             </tr>
                             <tr>
                                 <td>Coin Bonus</td>
-                                <td>2000</td>
+                                <td id="coin-bonus">0</td>
                             </tr>
                             <tr>
                                 <td>Time Bonus</td>
-                                <td>2000</td>
+                                <td id="time-bonus">0</td>
+                            </tr>
+                            <tr>
+                                <td>Boss Killspeed</td>
+                                <td id="killspeed-bonus">0</td>
                             </tr>
                             <tr>
                                 <td>Total Score</td>
-                                <td>2000</td>
+                                <td id="total-score">0</td>
                             </tr>
                         </tbody>
                     </table>
+                    <form onsubmit="submitScore(); return false;">
+                        <input placeholder="Your Username" id="username" type="text" name="name" min-length="3" required>
+                        <button type="submit">Submit Score</button>
+                    </form>
+                    <div>
+                        <img draggable="false" id="restart" onclick="newGame();" src="./assets/img/controls/new-game.png" class="endscreen-btn" alt="Restart Game">
+                    </div>
                 </div>
             </section>
             <section id="controls" class="controls wrapper endcard d-none">
@@ -184,7 +195,7 @@
                     <div id="audio" class="control-icon audio-btn no-select"></div>
                     <div id="fullscreen" class="control-icon fullscreen-btn no-select"></div>
                 </div>
-                <div class="bottom-control-wrapper">
+                <div id="touch-control" class="bottom-control-wrapper">
                     <div class="bottom">
                         <div class="movement-controls">
                             <div id="move-left" class="control-icon move-left-btn no-select"></div>

@@ -152,7 +152,6 @@ class World {
             this.requestFrame();
         }
         this.setUpTime();
-        // if (this.time.msPassed < this.framerate.msPerFrame) return;
         if (!this.time.paused && !this.camera.cutscenePlays) {
             this.updateTime();
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -161,7 +160,6 @@ class World {
             this.animateWorld();
             this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
-            // if (this.time.msPassed < this.framerate.msPerFrame) return;
             this.updateTime();
             this.drawCutscene();
             Audioplayer.fade('out', MUSIC.regular, 0);
@@ -195,9 +193,9 @@ class World {
      * Ignore Enemy-Collisons, when Boss is going to be dead to prevent double-kills.
      */
     checkCollisions() {
-        Level.getBoss().appearance.currentStyle !== 'dead' && Collisions.enemyCollisions(this);
         Collisions.coinCollisions(this);
         Collisions.bottleCollisions(this);
+        Level.getBoss().appearance.currentStyle !== 'dead' && Collisions.enemyCollisions(this);
         Collisions.throwableObjectCollision(this);
     }
 
