@@ -5,6 +5,9 @@ class MovableObject extends Physics {
         ground: 0,
     }
 
+    refreshRate = 12;
+    lastRefreshFrame = 0;
+
     abilities = {
         isFalling: false,
         isJumping: false,
@@ -137,12 +140,40 @@ class MovableObject extends Physics {
         }
     }
 
+
+    /**
+     * @param {Number} divisor - Increase the Refresh-Rate
+     * @returns {boolean} - true, if an update is required
+     */
+    fasterRefreshRate(divisor = 1.5) {
+        if (world.framerate.frame >= this.lastRefreshFrame + this.refreshRate / divisor) {
+            this.lastRefreshFrame = world.framerate.frame;
+            return true;
+        } else {
+            return false
+        }
+    }
+
+    /**
+     * Checks for refresh-Rate when player is running
+     * @param {Object} self - Instance of Player, that should be evaluated
+     * @returns {boolean} - true, if an update is required
+     */
+    regularRefreshRate() {
+        if (world.framerate.frame >= this.lastRefreshFrame + this.refreshRate) {
+            this.lastRefreshFrame = world.framerate.frame;
+            return true;
+        } else {
+            return false
+        }
+    }
+
     /**
      * Calculates the mobjects max speed on y axis. Try is, if the mo is a character, otherwise use catch.
      * @returns {number}
      */
     getMaxSpeedX() {
-        if (this instanceof Player || this instanceof ElGallonatorBoss) {
+        if (this instanceof Player || this instanceof ElGallonatorBoss) {
             return this.abilities.run ? this.velocity.xMax * this.abilities.runBonusX : this.velocity.xMax;
         }
         return this.velocity.xMax;
@@ -156,18 +187,18 @@ class MovableObject extends Physics {
     frameUpdateRequired() {
         if (this instanceof Player) {
             if (this.abilities.run && this.currentAppearance() === 'walking') {
-                return world.framerate.frame % (world.framerate.fps / 10) == 0;
+                return this.fasterRefreshRate();
             } else {
-                return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+                return this.regularRefreshRate();
             }
         } else if (this instanceof ThrowableObject) {
             if (this.appearance.currentStyle == 'splash') {
-                return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+                return this.regularRefreshRate();
             } else {
-                return world.framerate.frame % (world.framerate.fps / 10) == 0;
+                return this.fasterRefreshRate(3);
             }
         } else {
-            return world.framerate.frame % (world.framerate.fps / 7.5) == 0;
+            return this.regularRefreshRate();
         }
     }
 

@@ -72,7 +72,7 @@ class Physics {
     getCurrentVelocityX() {
         if (this.appearance.currentStyle !== 'landing') {
             let maxSpeed = this.getMaxSpeedX();
-            if (this.frameUpdateRequired()) {
+            if (this.lastRefreshFrame !== world.framerate.frame) {
                 this.velocity.x += this.acceleration.x;
             }
             this.velocity.x = this.velocity.x > maxSpeed ? maxSpeed : this.velocity.x;
@@ -91,17 +91,18 @@ class Physics {
      */
     getCurrentVelocityY() {
         let maxSpeed = this.velocity.yMax;
+        const requiredUpdate = this.frameUpdateRequired();
         if (this.abilities.isJumping) {
-            if (this.frameUpdateRequired()) {
-                this.velocity.y -= this.acceleration.y * 2;
-                this.velocity.y = this.velocity.y < 3 ? 3 : this.velocity.y;
+            if (requiredUpdate) {
+                this.velocity.y -= this.acceleration.y;
+                this.velocity.y = this.velocity.y < 1 ? 1 : this.velocity.y;
             }
         } else if (this.abilities.isFalling) {
-            if (this.frameUpdateRequired()) {
+            if (requiredUpdate) {
                 this.velocity.y += this.acceleration.y;
             }
             this.velocity.y = this.velocity.y > maxSpeed ? maxSpeed : this.velocity.y;
         }
-        this.applyGravity();
+        !requiredUpdate && this.applyGravity();
     }
 }

@@ -2,6 +2,9 @@ class CollectableItem {
     type = null;
     index = null;
 
+    refreshRate = 30;
+    lastRefreshFrame = 0;
+
     position = {
         x: null,
         y: null,
@@ -55,7 +58,12 @@ class CollectableItem {
      * @returns {boolean} 
      */
     frameUpdateRequired() {
-        return world.framerate.frame % (world.framerate.fps / 2) == 0;
+        if (world.framerate.frame >= this.lastRefreshFrame + this.refreshRate) {
+            this.lastRefreshFrame = world.framerate.frame;
+            return true;
+        } else {
+            return false
+        }
     }
 
     /**
