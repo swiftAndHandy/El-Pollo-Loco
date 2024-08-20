@@ -112,8 +112,8 @@ class ElGallonatorBoss extends Enemy {
             this.move();
         }
 
-        if (this.lastFrameOfAnimation() && this.currentAppearance() === 'dead') {
-            World.gameOver(100);
+        if (this.lastFrameOfAnimation() && this.currentAppearance() === 'dead' && !world.gameOver) {
+            World.gameOver(50);
         }
     }
 }

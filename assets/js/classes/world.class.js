@@ -64,6 +64,11 @@ class World {
     static gameOver(delay = 100) {
         world.gameOver = true;
         setTimeout(() => {
+            if (!audioMuted && !world.player.isDead && Level.getBoss().isDead) {
+                world.player.sounds.win.play();
+            } else if (!audioMuted && world.player.isDead && !Level.getBoss().isDead) {
+                // world.player.sounds.lose.play();
+            }
             resetGame();
         }, delay);
     }
@@ -178,7 +183,7 @@ class World {
             boss.setAppearanceTo('walking');
             boss.moveLeft();
             boss.position.x -= 0.4;
-        } else { 
+        } else {
             boss.setAppearanceTo('alerta');
             !audioMuted && Audioplayer.fade('in', MUSIC.boss, 0.2);
         }
@@ -187,9 +192,10 @@ class World {
 
     /**
      * Checks for collisions, needs adjustments to allow check for coins and other stuff
+     * Ignore Enemy-Collisons, when Boss is going to be dead to prevent double-kills.
      */
     checkCollisions() {
-        Collisions.enemyCollisions(this);
+        Level.getBoss().appearance.currentStyle !== 'dead' && Collisions.enemyCollisions(this);
         Collisions.coinCollisions(this);
         Collisions.bottleCollisions(this);
         Collisions.throwableObjectCollision(this);

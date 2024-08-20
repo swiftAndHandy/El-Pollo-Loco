@@ -40,6 +40,7 @@ class Player extends Character {
         landing: Object.assign(new Audio('./assets/audio/pepe/hit_ground.mp3'), { loop: false, volume: 0.3 }),
         dying: Object.assign(new Audio('./assets/audio/pepe/dying.mp3'), { loop: false, volume: 0.5 }),
         cutscene: Object.assign(new Audio('./assets/audio/pepe/gallonator.mp3'), { loop: false, volume: 1 }),
+        win: Object.assign(new Audio('./assets/audio/pepe/polloconsalsa.mp3'), { loop: false, volume: 1 }),
     };
 
     ANIMATION = new CharacterAnimations;

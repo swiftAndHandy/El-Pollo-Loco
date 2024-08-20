@@ -5,7 +5,13 @@ function level1() {
         15,
         1,
         [
-            new Cloud(),
+            new Cloud(300, 200, 100),
+            new Cloud(300, 200, 700),
+            new Cloud(300, 200, 1300),
+            new Cloud(300, 200, 1900),
+            new Cloud(300, 200, 2400),
+            new Cloud(300, 200, 3000),
+            new Cloud(300, 200, 3600),
         ],
         [
             new BackgroundObject('assets/img/5_background/layers/air.png', 1, 0, 1),
