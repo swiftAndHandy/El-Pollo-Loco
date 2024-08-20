@@ -56,7 +56,6 @@ function newGame() {
     document.getElementById('howtoplay').classList.add('d-none');
     document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.remove('d-none');
-    document.getElementById('controls').classList.remove('endcard');
     document.getElementById('touch-control').classList.remove('d-none');
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('gameover-screen').classList.add('d-none');
@@ -80,13 +79,13 @@ function resetGame() {
 
 function showGameOver() {
     document.getElementById('gameover-screen').classList.remove('d-none');
-    document.getElementById('controls').classList.add('endcard');
+    document.getElementById('controls').classList.add('d-none');
 }
 
 function showWinScreen() {
     console.log(world.framerate.frame);
     const enemyScore = Math.floor((maxEnemies - world.level.enemies.length) * 100);
-    const healthBonus = Math.floor(world.player.stats.health * 600);
+    const healthBonus = Math.floor(world.player.stats.health * 400);
     const coinBonus = Math.floor(world.player.stats.coins * 180);
     const timeBonus = Math.floor((3200 - world.framerate.frame) * 1.6);
     const killspeedBonus = Math.floor(Level.getBoss().position.x * 1.1 - 50);
@@ -99,7 +98,7 @@ function showWinScreen() {
     document.getElementById('total-score').innerText = totalScore;
     document.getElementById('win-screen').classList.remove('d-none');
     document.getElementById('touch-control').classList.add('d-none');
-    document.getElementById('controls').classList.add('endcard');
+    document.getElementById('controls').classList.add('d-none');
 }
 
 function openManual() {
@@ -204,18 +203,20 @@ async function submitScore() {
         'score': Number(document.getElementById('total-score').innerText),
         'date': date,
     });
+    openTitlescreen();
+}
 
+function openTitlescreen() {
+    console.log('bla');
     document.getElementById('title-screen').classList.remove('d-none');
     document.getElementById('highscores').classList.add('d-none');
     document.getElementById('howtoplay').classList.add('d-none');
     document.getElementById('imprint-link').classList.add('d-none');
     document.getElementById('controls').classList.add('d-none');
-    document.getElementById('controls').classList.remove('endcard');
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('gameover-screen').classList.add('d-none');
     document.getElementById('username').value = '';
     !audioMuted && MUSIC.title.play();
-
 }
 
 
