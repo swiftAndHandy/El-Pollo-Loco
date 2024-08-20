@@ -32,36 +32,46 @@ class Keyboard extends InputDevice {
 
     startTouchcontrol() {
         document.getElementById('move-left').addEventListener('touchstart', (event) => {
+            event.preventDefault();
             this.addDirection('KeyA');
-        }, {passive: true});
+        });
         document.getElementById('move-right').addEventListener('touchstart', (event) => {
+            event.preventDefault();
             this.addDirection('KeyD');
-        }, {passive: true});
+        });
         document.getElementById('jump').addEventListener('touchstart', (event) => {
+            event.preventDefault();
             this.keys.space = true;
-        }, {passive: true});
+        });
         document.getElementById('throw').addEventListener('touchstart', (event) => {
+            event.preventDefault();
             this.keys.enter = true;
-        }, {passive: true});
+        });
         document.getElementById('run').addEventListener('touchstart', (event) => {
+            event.preventDefault();
             this.keys.shift = true;
-        }, {passive: true});
+        });
     }
 
     endTouchcontrol() {
         document.getElementById('move-left').addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.removeDirection('KeyA');
         });
         document.getElementById('move-right').addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.removeDirection('KeyD');
         });
         document.getElementById('jump').addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.keys.space = false;
         });
         document.getElementById('throw').addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.keys.enter = false;
         });
         document.getElementById('run').addEventListener('touchend', (event) => {
+            event.preventDefault();
             this.keys.shift = false;
         });
     }

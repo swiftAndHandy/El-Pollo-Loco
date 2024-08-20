@@ -55,12 +55,12 @@ class ElGallonatorBoss extends Enemy {
     ];
 
     sounds = {
-        dying: Object.assign(new Audio('./assets/audio/chicken/chicken_dead_1.mp3'), { loop: false, volume: 0.2 }),
+        dying: Object.assign(new Audio('./assets/audio/chicken/boss_dead.mp3'), { loop: false, volume: 1 }),
         damaged: [
-            Object.assign(new Audio('./assets/audio/pepe/damaged1.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('./assets/audio/pepe/damaged2.mp3'), { loop: false, volume: 1 }),
-            Object.assign(new Audio('./assets/audio/pepe/damaged3.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/chicken/boss_damaged1.mp3'), { loop: false, volume: 1 }),
+            Object.assign(new Audio('./assets/audio/chicken/boss_damaged2.mp3'), { loop: false, volume: 1 }),
         ],
+        fight: Object.assign(new Audio('./assets/audio/fight_scream.mp3'), { loop: false, volume: 1 }),
     };
 
     isFighting = false;

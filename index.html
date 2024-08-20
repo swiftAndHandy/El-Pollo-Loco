@@ -142,6 +142,10 @@
             <section id="gameover-screen" class="gameoverscreen d-none">
                 <img draggable="false" id="final-image-lose"
                     src="./assets/img/9_intro_outro_screens/game_over/gameover.png" class="final-image" alt="Game Over">
+                    <div class="gameover-bar">
+                    <img draggable="false" id="restart0" onclick="newGame();" src="./assets/img/controls/new-game.png" class="endscreen-btn btn" alt="Restart Game">
+                    <img draggable="false" id="quit0" onclick="openTitlescreen();" src="./assets/img/controls/quit.png" class="endscreen-btn btn" alt="Quit Game">
+                    </div>
             </section>
             <section id="win-screen" class="gameoverscreen d-none">
                 <img draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png"
@@ -190,25 +194,25 @@
                     </div>
                 </div>
             </section>
-            <section id="controls" class="controls wrapper d-none">
+            <section id="controls" class="controls wrapper d-none no-select">
                 <div class="top">
-                    <div id="pause" class="control-icon pause-btn no-select"></div>
-                    <div id="audio" class="control-icon audio-btn no-select"></div>
-                    <div id="fullscreen" class="control-icon fullscreen-btn no-select"></div>
+                    <div id="pause" class="control-icon pause-btn"></div>
+                    <div id="audio" class="control-icon audio-btn"></div>
+                    <div id="fullscreen" class="control-icon fullscreen-btn"></div>
                 </div>
                 <div id="touch-control" class="bottom-control-wrapper">
                     <div class="bottom">
                         <div class="movement-controls">
-                            <div id="move-left" class="control-icon move-left-btn no-select"></div>
-                            <div id="move-right" class="control-icon move-right-btn no-select"></div>
+                            <div id="move-left" class="control-icon move-left-btn"></div>
+                            <div id="move-right" class="control-icon move-right-btn "></div>
                         </div>
-                        <div class="ability-controls">
-                            <div>
-                                <div id="run" class="control-icon run-btn no-select"></div>
+                        <div class="ability-controls ">
+                            <div class="">
+                                <div id="run" class="control-icon run-btn"></div>
                             </div>
                             <div class="flex">
-                                <div id="jump" class="control-icon jump-btn no-select"></div>
-                                <div id="throw" class="control-icon throw-btn no-select"></div>
+                                <div id="jump" class="control-icon jump-btn"></div>
+                                <div id="throw" class="control-icon throw-btn"></div>
                             </div>
                         </div>
                     </div>

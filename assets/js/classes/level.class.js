@@ -31,6 +31,7 @@ class Level {
                 Audioplayer.fade('in', MUSIC.boss, 1);
                 world.camera.cutscenePlays = false;
                 world.pause();
+                Audioplayer.startSFX('', Level.getBoss().sounds.fight, false);
             }, 5000);
         }
     }

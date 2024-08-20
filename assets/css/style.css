@@ -5,11 +5,8 @@
 
 * {
     -webkit-touch-callout: none;
-    /* Verhindert das Kontextmenü bei langem Drücken */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    /* Verhindert die graue Highlighting-Box */
-    touch-action: manipulation;
-    /* Verhindert Standardaktionen, wie Scrollen oder Zoomen */
+    touch-action: none;
 }
 
 body {
@@ -98,6 +95,16 @@ canvas {
     justify-content: center;
 }
 
+.gameover-bar {
+    display: flex;
+    position: absolute;
+    bottom: 32px;
+    transform: translateX(-50%);
+    left: 50%;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .no-select {
     user-select: none;
 }
@@ -107,6 +114,15 @@ canvas {
     top: 0;
     width: 100%;
     height: 100%;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+    scale: 1.1;
 }
 
 .nav.btn {
@@ -285,6 +301,8 @@ form {
 .manual__button {
     flex: 1;
 }
+
+
 
 .control-type {
     display: flex;

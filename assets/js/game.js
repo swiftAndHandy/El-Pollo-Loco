@@ -30,7 +30,7 @@ function setupMenu() {
 
     document.addEventListener('click', (event) => {
         if (!document.getElementById('title-screen').classList.contains('d-none')) {
-            MUSIC.title.play();
+            !audioMuted && MUSIC.title.play();
         }
     });
 
@@ -83,9 +83,8 @@ function showGameOver() {
 }
 
 function showWinScreen() {
-    console.log(world.framerate.frame);
     const enemyScore = Math.floor((maxEnemies - world.level.enemies.length) * 100);
-    const healthBonus = Math.floor(world.player.stats.health * 400);
+    const healthBonus = Math.floor((world.player.stats.health - 1) * 750);
     const coinBonus = Math.floor(world.player.stats.coins * 180);
     const timeBonus = Math.floor((3200 - world.framerate.frame) * 1.6);
     const killspeedBonus = Math.floor(Level.getBoss().position.x * 1.1 - 50);
@@ -207,7 +206,6 @@ async function submitScore() {
 }
 
 function openTitlescreen() {
-    console.log('bla');
     document.getElementById('title-screen').classList.remove('d-none');
     document.getElementById('highscores').classList.add('d-none');
     document.getElementById('howtoplay').classList.add('d-none');

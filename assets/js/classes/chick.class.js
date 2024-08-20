@@ -3,7 +3,7 @@ class Chick extends Enemy {
     speed = {
         y: 0,
         jumpHeight: 15,
-        jumpRate: 0.02, 
+        jumpRate: 0.1, 
     }
 
     WALKING_ANIMATION = [
