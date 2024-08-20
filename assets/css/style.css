@@ -20,6 +20,11 @@ body {
     background-size: cover;
 }
 
+dialog {
+    width: 50%;
+    text-align: center;
+}
+
 nav {
     position: absolute;
     bottom: 8px;
@@ -212,21 +217,6 @@ canvas {
     padding-bottom: 16px;
 }
 
-.final-screen.win {
-    opacity: 0;
-    animation: 3s showScore forwards;
-}
-
-@keyframes showScore {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .final-image {
     width: 100%;
     height: 100%;
@@ -301,8 +291,6 @@ form {
 .manual__button {
     flex: 1;
 }
-
-
 
 .control-type {
     display: flex;

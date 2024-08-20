@@ -213,6 +213,7 @@ function openTitlescreen() {
     document.getElementById('controls').classList.add('d-none');
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('gameover-screen').classList.add('d-none');
+    document.getElementById('imprint-link').classList.remove('d-none');
     document.getElementById('username').value = '';
     !audioMuted && MUSIC.title.play();
 }

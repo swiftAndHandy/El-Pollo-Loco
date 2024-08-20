@@ -1,0 +1,139 @@
+
+@media (orientation: landscape) {
+    .portrait-section {
+        display: none;
+    }
+}
+
+
+@media (orientation: portrait) {
+    main {
+        display: none;
+    }
+
+    body {
+        /* background-image: none !important; */
+        overflow: hidden;
+    }
+
+    .portrait-section {
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        min-height: 100svh;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        animation: 6s rotatePhone infinite;
+    }
+}
+
+
+
+.outer {
+    height: 80svh;
+    width: 80%;
+    display: flex;
+    border: 3px solid white;
+    border-radius: 16px;
+    background-color: black;
+}
+
+.inner {
+    height: 25%;
+    margin-top: 15%;
+    margin-left: 10%;
+    width: 40%;
+    border: 2px solid white;
+    background-color: black;
+    padding: 20px 0 0 20px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 14px;
+    animation: 6s hideCamera infinite;
+}
+
+.camera {
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.final-screen.win {
+    opacity: 0;
+    animation: 2s showScore forwards;
+}
+
+.msg {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    animation: showMsg 6s infinite;
+    text-align: center;
+    display: flex;
+    bottom: 10%;
+    right: -10%;
+}
+
+.rotatemsg {
+    font-size: 3rem;
+}
+
+@keyframes showScore {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes showMsg {
+    0% {
+        opacity: 0;
+        transform: scaleX(0) scaleY(0) scaleZ() rotateX(0) rotateY(0deg) rotateZ(0deg) translateX(0px) translateY(0px) translateZ(0px) skewX(0deg) skewY(0deg);
+    }
+
+
+    25% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+        transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(180deg) rotateY(0deg) rotateZ(90deg) translateX(50%) translateY(50%) translateZ(-200px) skewX(0deg) skewY(0deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(180deg) rotateY(0deg) rotateZ(90deg) translateX(50%) translateY(50%) translateZ(-500px) skewX(0deg) skewY(0deg);
+    }
+}
+
+@keyframes hideCamera {
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes rotatePhone {
+    0% {}
+
+    75% {
+        transform: scaleX(0.5) scaleY(0.5) scaleZ(1) rotateX(180deg) rotateY(0deg) rotateZ(90deg) translateX(0px) translateY(0px) translateZ(0px) skewX(0deg) skewY(0deg);
+    }
+
+    100% {
+        transform: scaleX(0.5) scaleY(0.5) scaleZ(1) rotateX(180deg) rotateY(0deg) rotateZ(90deg) translateX(0px) translateY(0px) translateZ(0px) skewX(0deg) skewY(0deg);
+    }
+}

@@ -91,9 +91,20 @@ function toggleFullscreen() {
 
 /**
  * Prevent Context-Menu
+ * Add Impressum-Modal
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal');
+    
+    document.getElementById('openModalBtn').addEventListener('click', () => modal.showModal());
+    document.getElementById('closeModalBtn').addEventListener('click', () => modal.close());
+
+    modal.addEventListener('click', e => {
+        const isInDialogContent = checkModalSize(e, modal);
+        !isInDialogContent && modal.close();
+    });
+
     document.querySelectorAll('[block-context]').forEach(element => {
         if (element.getAttribute('block-context') === 'true') {
             element.addEventListener('contextmenu', function (event) {
@@ -101,4 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }, false);
         }
     })
-})
+});
+
+function checkModalSize(e, modal) {
+    const rect = modal.getBoundingClientRect();
+    return (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+    );
+}
