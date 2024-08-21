@@ -152,6 +152,7 @@ class World {
             this.requestFrame();
         }
         this.setUpTime();
+        if (this.time.msPassed < this.framerate.msPerFrame) return;
         if (!this.time.paused && !this.camera.cutscenePlays) {
             this.updateTime();
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);

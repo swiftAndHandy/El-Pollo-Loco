@@ -49,7 +49,7 @@ class Player extends Character {
         super(100, 200);
         this.bufferAnimations();
         this.velocity.xMax = 2.5; this.acceleration.x = 0.5;
-        this.velocity.yMax = 20; this.acceleration.y = 1.75; this.velocity.jumpSpeed = 9;
+        this.velocity.yMax = 10; this.acceleration.y = 0.75; this.velocity.jumpSpeed = 9;
         this.hitboxes.push(new Hitbox(this.appearance.width / 5, this.appearance.height / 2, this.appearance.width / 2, this.appearance.height / 1.75));
         this.setAppearanceTo('idle');
     }
