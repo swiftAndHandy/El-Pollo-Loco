@@ -48,219 +48,221 @@
 </head>
 
 <body onload="init()">
-    <dialog id="modal">
-        <div class="modal">
-            <h2 style="color: black;margin-block: 0;">Imprint</h2>
-            <p>Andre Veltens<br>
-                Am Rippinger Weg 23<br>
-                33098 Paderborn</p>
-            <h3>Contact:</h3>
-            <p style="text-align: center;">dev@veltens.info</p>
-            <button id="closeModalBtn" class="close-dialog">Close</button>
-        </div>
-    </dialog>
-    <main>
-        <h1>El Pollo Loco</h1>
-        <section id="game" block-context="true">
-            <canvas id="game-area">
-            </canvas>
-            <div class="overlay">
-                <section id="title-screen" class="titlescreen">
-                    <img draggable="false" src="./assets/img/9_intro_outro_screens/start/startscreen_2.png"
-                        class="mainscreen" alt="Titlescreen">
-                    <menu>
-                        <img draggable="false" src="./assets/img/controls/new_game.png" class="nav btn" alt="New Game"
-                            onclick="newGame();">
-                        <img draggable="false" src="./assets/img/controls/highscores.png" class="nav btn"
-                            alt="Highscores" onclick="toggleHighscore();">
-                        <img draggable="false" src="./assets/img/controls/howto.png" class="nav btn" alt="How to play"
-                            onclick="openManual();">
-                    </menu>
-                    <section id="highscores" class="highscores d-none">
-                        <h2>Highscores</h2>
-                        <table>
-                            <tbody id="highscore-table">
-                            </tbody>
-                        </table>
+    <div class="background-wrapper">
+        <dialog id="modal">
+            <div class="modal">
+                <h2 style="color: black;margin-block: 0;">Imprint</h2>
+                <p>Andre Veltens<br>
+                    Am Rippinger Weg 23<br>
+                    33098 Paderborn</p>
+                <h3>Contact:</h3>
+                <p style="text-align: center;">dev@veltens.info</p>
+                <button id="closeModalBtn" class="close-dialog">Close</button>
+            </div>
+        </dialog>
+        <main>
+            <h1 class="title">El Pollo Loco</h1>
+            <section id="game" block-context="true">
+                <canvas id="game-area">
+                </canvas>
+                <div class="overlay">
+                    <section id="title-screen" class="titlescreen">
+                        <img draggable="false" src="./assets/img/9_intro_outro_screens/start/startscreen_2.png"
+                            class="mainscreen" alt="Titlescreen">
+                        <menu>
+                            <img draggable="false" src="./assets/img/controls/new_game.png" class="nav btn" alt="New Game"
+                                onclick="newGame();">
+                            <img draggable="false" src="./assets/img/controls/highscores.png" class="nav btn"
+                                alt="Highscores" onclick="toggleHighscore();">
+                            <img draggable="false" src="./assets/img/controls/howto.png" class="nav btn" alt="How to play"
+                                onclick="openManual();">
+                        </menu>
+                        <section id="highscores" class="highscores d-none">
+                            <h2>Highscores</h2>
+                            <table>
+                                <tbody id="highscore-table">
+                                </tbody>
+                            </table>
+                        </section>
+                        <section id="howtoplay" class="howtoplay d-none">
+                            <h2>How to play</h2>
+                            <div class="manual-wrapper">
+                                <div class="manual__left-page">
+                                    <div class="control-type">
+                                        <img draggable="false" src="./assets/img/controls/previous.png" alt="prev"
+                                            class="nav-btn" onclick="previousControls();">
+                                        <h3 id="control-type">Touch Controls</h3>
+                                        <img draggable="false" src="./assets/img/controls/next.png" alt="next"
+                                            class="nav-btn" onclick="nextControls();">
+                                    </div>
+                                    <div class="manual__controls">
+                                        <div class="manual__button">
+                                            <img draggable="false" src="./assets/img/controls/move_left.png"
+                                                class="manual__icon" alt="move left" id="manual-image-moveleft">
+                                            <img draggable="false" src="./assets/img/controls/move_right.png"
+                                                class="manual__icon" alt="move right" id="manual-image-moveright">
+                                        </div>
+                                        <div class="manual__function">Move Left/Right</div>
+                                    </div>
+                                    <div class="manual__controls">
+                                        <div class="manual__button">
+                                            <img draggable="false" src="./assets/img/controls/jump.png" class="manual__icon"
+                                                alt="jump" id="manual-image-jump">
+                                        </div>
+                                        <div class="manual__function">Jump</div>
+                                    </div>
+                                    <div class="manual__controls">
+                                        <div class="manual__button">
+                                            <img draggable="false" src="./assets/img/controls/throw.png"
+                                                class="manual__icon" alt="throw" id="manual-image-throw">
+                                        </div>
+                                        <div class="manual__function">Throw bottle</div>
+                                    </div>
+                                    <div class="manual__controls">
+                                        <div class="manual__button">
+                                            <img draggable="false" src="./assets/img/controls/run.png" class="manual__icon"
+                                                alt="run" id="manual-image-run">
+                                        </div>
+                                        <div class="manual__function">Run faster</div>
+                                    </div>
+                                    <div class="manual__controls">
+                                        <div id="manual-list-pause" class="manual__button">
+                                            <img draggable="false" src="./assets/img/controls/pause.png"
+                                                class="manual__icon" alt="pause" id="manual-image-pause">
+                                        </div>
+                                        <div class="manual__function">Pause Game</div>
+                                    </div>
+                                </div>
+                                <div class="manual__right-page">
+                                    <h3>Gameplay</h3>
+                                    <div class="scroll-wrapper">
+                                        <p>Pepe tries to save his village from a chicken gone mad. To do so, he arms himself
+                                            with Tabasco sauce. He can collect up to 20 coins on his mission. But he has to
+                                            be
+                                            careful:</p>
+    
+                                        <p>He is attacked on his mission by the crazy chicken's henchmen. He defeats them by
+                                            jumping on them or hitting them with Tabasco bottles. However, if he himself is
+                                            hit
+                                            by one of the chickens, he can no longer jump for a while due to the pain. He
+                                            also
+                                            needs a moment to be able to move again after landing on the ground.</p>
+    
+                                        <p>If you manage to defeat the final boss, you can add your score to the
+                                            leaderboard.
+                                            The score is calculated from the number of henchmen defeated, the coins
+                                            collected
+                                            and the time taken to complete the level.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </section>
-                    <section id="howtoplay" class="howtoplay d-none">
-                        <h2>How to play</h2>
-                        <div class="manual-wrapper">
-                            <div class="manual__left-page">
-                                <div class="control-type">
-                                    <img draggable="false" src="./assets/img/controls/previous.png" alt="prev"
-                                        class="nav-btn" onclick="previousControls();">
-                                    <h3 id="control-type">Touch Controls</h3>
-                                    <img draggable="false" src="./assets/img/controls/next.png" alt="next"
-                                        class="nav-btn" onclick="nextControls();">
-                                </div>
-                                <div class="manual__controls">
-                                    <div class="manual__button">
-                                        <img draggable="false" src="./assets/img/controls/move_left.png"
-                                            class="manual__icon" alt="move left" id="manual-image-moveleft">
-                                        <img draggable="false" src="./assets/img/controls/move_right.png"
-                                            class="manual__icon" alt="move right" id="manual-image-moveright">
-                                    </div>
-                                    <div class="manual__function">Move Left/Right</div>
-                                </div>
-                                <div class="manual__controls">
-                                    <div class="manual__button">
-                                        <img draggable="false" src="./assets/img/controls/jump.png" class="manual__icon"
-                                            alt="jump" id="manual-image-jump">
-                                    </div>
-                                    <div class="manual__function">Jump</div>
-                                </div>
-                                <div class="manual__controls">
-                                    <div class="manual__button">
-                                        <img draggable="false" src="./assets/img/controls/throw.png"
-                                            class="manual__icon" alt="throw" id="manual-image-throw">
-                                    </div>
-                                    <div class="manual__function">Throw bottle</div>
-                                </div>
-                                <div class="manual__controls">
-                                    <div class="manual__button">
-                                        <img draggable="false" src="./assets/img/controls/run.png" class="manual__icon"
-                                            alt="run" id="manual-image-run">
-                                    </div>
-                                    <div class="manual__function">Run faster</div>
-                                </div>
-                                <div class="manual__controls">
-                                    <div id="manual-list-pause" class="manual__button">
-                                        <img draggable="false" src="./assets/img/controls/pause.png"
-                                            class="manual__icon" alt="pause" id="manual-image-pause">
-                                    </div>
-                                    <div class="manual__function">Pause Game</div>
-                                </div>
+                    <section id="gameover-screen" class="gameoverscreen d-none">
+                        <img draggable="false" id="final-image-lose"
+                            src="./assets/img/9_intro_outro_screens/game_over/gameover.png" class="final-image"
+                            alt="Game Over">
+                        <div class="gameover-bar">
+                            <img draggable="false" id="restart0" onclick="newGame();"
+                                src="./assets/img/controls/new-game.png" class="endscreen-btn btn" alt="Restart Game">
+                            <img draggable="false" id="quit0" onclick="openTitlescreen();"
+                                src="./assets/img/controls/quit.png" class="endscreen-btn btn" alt="Quit Game">
+                        </div>
+                    </section>
+                    <section id="win-screen" class="gameoverscreen d-none">
+                        <img draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png"
+                            class="final-image" alt="You Win">
+                        <div class="final-screen win">
+                            <h3 class="score__heading">Score</h3>
+                            <table class="score">
+                                <tbody>
+                                    <tr>
+                                        <th>Source:</th>
+                                        <th>Points:</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Killed Enemies</td>
+                                        <td id="killed-enemies">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Health Bonus</td>
+                                        <td id="health-bonus">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Coin Bonus</td>
+                                        <td id="coin-bonus">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time Bonus</td>
+                                        <td id="time-bonus">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Boss Killspeed</td>
+                                        <td id="killspeed-bonus">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Score</td>
+                                        <td id="total-score">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <form onsubmit="submitScore(); return false;">
+                                <input placeholder="Your Username" id="username" type="text" name="name" min-length="3"
+                                    required>
+                                <button type="submit">Submit Score</button>
+                            </form>
+                            <div>
+                                <img draggable="false" id="restart" onclick="newGame();"
+                                    src="./assets/img/controls/new-game.png" class="endscreen-btn" alt="Restart Game">
+                                <img draggable="false" id="quit" onclick="openTitlescreen();"
+                                    src="./assets/img/controls/quit.png" class="endscreen-btn" alt="Quit Game">
                             </div>
-                            <div class="manual__right-page">
-                                <h3>Gameplay</h3>
-                                <div class="scroll-wrapper">
-                                    <p>Pepe tries to save his village from a chicken gone mad. To do so, he arms himself
-                                        with Tabasco sauce. He can collect up to 20 coins on his mission. But he has to
-                                        be
-                                        careful:</p>
-
-                                    <p>He is attacked on his mission by the crazy chicken's henchmen. He defeats them by
-                                        jumping on them or hitting them with Tabasco bottles. However, if he himself is
-                                        hit
-                                        by one of the chickens, he can no longer jump for a while due to the pain. He
-                                        also
-                                        needs a moment to be able to move again after landing on the ground.</p>
-
-                                    <p>If you manage to defeat the final boss, you can add your score to the
-                                        leaderboard.
-                                        The score is calculated from the number of henchmen defeated, the coins
-                                        collected
-                                        and the time taken to complete the level.</p>
+                        </div>
+                    </section>
+                    <section id="controls" class="controls wrapper d-none no-select">
+                        <div class="top">
+                            <div id="pause" class="control-icon pause-btn"></div>
+                            <div id="audio" class="control-icon audio-btn"></div>
+                            <div id="fullscreen" class="control-icon fullscreen-btn"></div>
+                        </div>
+                        <span id="jump-error" class="jump-error">Can't jump while hurt.</span>
+                        <div id="touch-control" class="bottom-control-wrapper">
+                            <div class="bottom">
+                                <div class="movement-controls">
+                                    <div id="move-left" class="control-icon move-left-btn"></div>
+                                    <div id="move-right" class="control-icon move-right-btn "></div>
+                                </div>
+                                <div class="ability-controls ">
+                                    <div class="">
+                                        <div id="run" class="control-icon run-btn"></div>
+                                    </div>
+                                    <div class="flex">
+                                        <div id="jump" class="control-icon jump-btn"></div>
+                                        <div id="throw" class="control-icon throw-btn"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                </section>
-                <section id="gameover-screen" class="gameoverscreen d-none">
-                    <img draggable="false" id="final-image-lose"
-                        src="./assets/img/9_intro_outro_screens/game_over/gameover.png" class="final-image"
-                        alt="Game Over">
-                    <div class="gameover-bar">
-                        <img draggable="false" id="restart0" onclick="newGame();"
-                            src="./assets/img/controls/new-game.png" class="endscreen-btn btn" alt="Restart Game">
-                        <img draggable="false" id="quit0" onclick="openTitlescreen();"
-                            src="./assets/img/controls/quit.png" class="endscreen-btn btn" alt="Quit Game">
-                    </div>
-                </section>
-                <section id="win-screen" class="gameoverscreen d-none">
-                    <img draggable="false" id="final-image-win" src="./assets/img/9_intro_outro_screens/win/win.png"
-                        class="final-image" alt="You Win">
-                    <div class="final-screen win">
-                        <h3 class="score__heading">Score</h3>
-                        <table class="score">
-                            <tbody>
-                                <tr>
-                                    <th>Source:</th>
-                                    <th>Points:</th>
-                                </tr>
-                                <tr>
-                                    <td>Killed Enemies</td>
-                                    <td id="killed-enemies">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Health Bonus</td>
-                                    <td id="health-bonus">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Coin Bonus</td>
-                                    <td id="coin-bonus">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Time Bonus</td>
-                                    <td id="time-bonus">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Boss Killspeed</td>
-                                    <td id="killspeed-bonus">0</td>
-                                </tr>
-                                <tr>
-                                    <td>Total Score</td>
-                                    <td id="total-score">0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <form onsubmit="submitScore(); return false;">
-                            <input placeholder="Your Username" id="username" type="text" name="name" min-length="3"
-                                required>
-                            <button type="submit">Submit Score</button>
-                        </form>
-                        <div>
-                            <img draggable="false" id="restart" onclick="newGame();"
-                                src="./assets/img/controls/new-game.png" class="endscreen-btn" alt="Restart Game">
-                            <img draggable="false" id="quit" onclick="openTitlescreen();"
-                                src="./assets/img/controls/quit.png" class="endscreen-btn" alt="Quit Game">
-                        </div>
-                    </div>
-                </section>
-                <section id="controls" class="controls wrapper d-none no-select">
-                    <div class="top">
-                        <div id="pause" class="control-icon pause-btn"></div>
-                        <div id="audio" class="control-icon audio-btn"></div>
-                        <div id="fullscreen" class="control-icon fullscreen-btn"></div>
-                    </div>
-                    <span id="jump-error" class="jump-error">Can't jump while hurt.</span>
-                    <div id="touch-control" class="bottom-control-wrapper">
-                        <div class="bottom">
-                            <div class="movement-controls">
-                                <div id="move-left" class="control-icon move-left-btn"></div>
-                                <div id="move-right" class="control-icon move-right-btn "></div>
-                            </div>
-                            <div class="ability-controls ">
-                                <div class="">
-                                    <div id="run" class="control-icon run-btn"></div>
-                                </div>
-                                <div class="flex">
-                                    <div id="jump" class="control-icon jump-btn"></div>
-                                    <div id="throw" class="control-icon throw-btn"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <nav id="imprint-link">
-                    <a href="#" class="link" id="openModalBtn">Imprint</a>
-                </nav>
+                    <nav id="imprint-link">
+                        <a href="#" class="link" id="openModalBtn">Imprint</a>
+                    </nav>
+                </div>
+            </section>
+        </main>
+        <section class="portrait-section">
+            <div class="outer">
+                <div class="inner">
+                    <div class="camera"></div>
+                    <div class="camera"></div>
+                    <div class="camera"></div>
+                </div>
+                <div class="msg">
+                    <h1 class="rotatemsg">Rotate Your Device</h1>
+                </div>
             </div>
         </section>
-    </main>
-    <section class="portrait-section">
-        <div class="outer">
-            <div class="inner">
-                <div class="camera"></div>
-                <div class="camera"></div>
-                <div class="camera"></div>
-            </div>
-            <div class="msg">
-                <h1 class="rotatemsg">Rotate Your Device</h1>
-            </div>
-        </div>
-    </section>
+    </div>
 </body>
 
 </html>

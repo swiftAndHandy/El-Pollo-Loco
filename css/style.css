@@ -11,12 +11,26 @@
 
 body {
     margin: 0;
-    display: flex;
     font-family: 'UIElements';
+}
+
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.background-wrapper {
+    position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    height: 100dvh;
     background-image: url(../assets/img/background.webp);
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 dialog {
@@ -55,6 +69,14 @@ h1 {
     text-align: center;
 }
 
+.title {
+    color: white;
+    -webkit-text-stroke: 1px brown;
+    margin-block: 0;
+    font-size: 5rem;
+    text-shadow: 7px 2px 9px #000000;
+}
+
 h2 {
     font-size: 2rem;
     color: white;
@@ -82,7 +104,9 @@ canvas {
 }
 
 @media (max-width: 720px) {
-    canvas, .overlay {
+
+    canvas,
+    .overlay {
         width: 100%;
     }
 }
@@ -92,7 +116,8 @@ canvas {
         display: none;
     }
 
-    canvas, .overlay {
+    canvas,
+    .overlay {
         height: 100dvh;
     }
 }
