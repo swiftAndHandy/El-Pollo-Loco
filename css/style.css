@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'UIElements';
-    src: url('../fonts/Boogaloo-Regular.ttf');
+    src: url('../assets/fonts/Boogaloo-Regular.ttf');
 }
 
 * {
@@ -15,7 +15,7 @@ body {
     font-family: 'UIElements';
     flex-direction: column;
     align-items: center;
-    background-image: url(../img/background.webp);
+    background-image: url(../assets/img/background.webp);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -175,22 +175,22 @@ canvas {
 }
 
 .pause-btn {
-    background-image: url('../img/controls/pause.png');
+    background-image: url('../assets/img/controls/pause.png');
     background-size: contain;
 }
 
 .audio-btn {
-    background-image: url('../img/controls/audio_active.png');
+    background-image: url('../assets/img/controls/audio_active.png');
     background-size: contain;
 }
 
 .audio-btn.muted {
-    background-image: url('../img/controls/audio_muted.png');
+    background-image: url('../assets/img/controls/audio_muted.png');
     background-size: contain;
 }
 
 .fullscreen-btn {
-    background-image: url('../img/controls/fullscreen.png');
+    background-image: url('../assets/img/controls/fullscreen.png');
     background-size: contain;
 }
 
@@ -247,7 +247,7 @@ form {
 }
 
 .submit-btn {
-    background-image: url('../img/controls/submit.png');
+    background-image: url('../assets/img/controls/submit.png');
     width: 20%;
     height: 30px;
 }

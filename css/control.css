@@ -6,12 +6,12 @@
 }
 
 .move-left-btn {
-    background-image: url('../img/controls/move_left.png');
+    background-image: url('../assets/img/controls/move_left.png');
     background-size: contain;
 }
 
 .move-right-btn {
-    background-image: url('../img/controls/move_right.png');
+    background-image: url('../assets/img/controls/move_right.png');
     background-size: contain;
 }
 
@@ -23,17 +23,17 @@
 }
 
 .run-btn {
-    background-image: url('../img/controls/run.png');
+    background-image: url('../assets/img/controls/run.png');
     background-size: contain;
 }
 
 .jump-btn {
-    background-image: url('../img/controls/jump.png');
+    background-image: url('../assets/img/controls/jump.png');
     background-size: contain;
 }
 
 .throw-btn {
-    background-image: url('../img/controls/throw.png');
+    background-image: url('../assets/img/controls/throw.png');
     background-size: contain;
 }
 
