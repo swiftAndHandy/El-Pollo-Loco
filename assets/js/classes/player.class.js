@@ -181,6 +181,10 @@ class Player extends Character {
         }
     }
 
+    requiresFastUpdate() {
+        return (this.abilities.run && this.currentAppearance() === 'walking') || this.currentAppearance() === 'jumpStart' || this.currentAppearance() === 'landing';
+    }
+
     
     animate() {
         const animationType = this.appearance.currentStyle;

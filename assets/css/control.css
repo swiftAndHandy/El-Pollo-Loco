@@ -1,0 +1,65 @@
+
+.movement-controls {
+    display: flex;
+    gap: 16px;
+    align-self: flex-end;
+}
+
+.move-left-btn {
+    background-image: url('../img/controls/move_left.png');
+    background-size: contain;
+}
+
+.move-right-btn {
+    background-image: url('../img/controls/move_right.png');
+    background-size: contain;
+}
+
+.ability-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.run-btn {
+    background-image: url('../img/controls/run.png');
+    background-size: contain;
+}
+
+.jump-btn {
+    background-image: url('../img/controls/jump.png');
+    background-size: contain;
+}
+
+.throw-btn {
+    background-image: url('../img/controls/throw.png');
+    background-size: contain;
+}
+
+.jump-error {
+    align-self: center;
+    color: #a72b2b;
+    opacity: 0;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    transform: translateY(100%);
+}
+
+.jump-error--active {
+    animation: showError 2s 1;
+}
+
+@keyframes showError {
+    0% {
+        opacity: 0;
+        transform: translateY(100%) scale(0.5);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(100%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100%) scale(1);
+    }
+}

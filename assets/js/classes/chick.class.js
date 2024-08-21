@@ -25,8 +25,8 @@ class Chick extends Enemy {
         this.cacheImage('walking', this.WALKING_ANIMATION); delete this.WALKING_ANIMATION;
         this.appearance.dead = []; this.cacheImage('dead', this.DEAD_ANIMATION); delete this.DEAD_ANIMATION;
         this.position.x = Math.ceil(Math.random() * (canvasWidth * worldSize));
-        if (this.position.x < 300) {
-            this.position.x = 300;
+        if (this.position.x < 450) {
+            this.position.x = 450;
         }
         this.position.y = 370; this.position.ground = this.position.y;
         this.velocity.xMax = 0.75 + Math.random() * 0.25; this.acceleration.x = 0.1 + Math.random() * 0.125;

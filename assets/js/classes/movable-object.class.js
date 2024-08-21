@@ -125,6 +125,12 @@ class MovableObject extends Physics {
             this.setAppearanceTo('startJump', 0);
             const sound = world.audio.playRandomVariant(this.sounds.jumping, this);
             Audioplayer.clearSound(sound);
+        } else if (this.iFrames.active && !document.getElementById('jump-error').classList.contains('jump-error--active')) {
+            const target = document.getElementById('jump-error');
+            target.classList.add('jump-error--active');
+            setTimeout(() => {
+                target.classList.remove('jump-error--active');
+            }, 1000);
         }
     }
 
@@ -187,7 +193,7 @@ class MovableObject extends Physics {
      */
     frameUpdateRequired() {
         if (this instanceof Player) {
-            if (this.abilities.run && this.currentAppearance() === 'walking') {
+            if (this.requiresFastUpdate()) {
                 return this.fasterRefreshRate();
             } else {
                 return this.regularRefreshRate();
