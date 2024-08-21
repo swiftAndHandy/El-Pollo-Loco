@@ -1,3 +1,6 @@
+:not(:root):fullscreen::backdrop {
+    background-image: url(../assets/img/background.webp);
+}
 
 .movement-controls {
     display: flex;
@@ -40,8 +43,9 @@
 .jump-error {
     align-self: center;
     color: #a72b2b;
+    -webkit-text-stroke: 1px black;
     opacity: 0;
-    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-size: clamp(2rem, 5vw, 2.5rem);
     transform: translateY(100%);
 }
 
@@ -54,10 +58,12 @@
         opacity: 0;
         transform: translateY(100%) scale(0.5);
     }
+
     25% {
         opacity: 1;
         transform: translateY(100%) scale(1);
     }
+
     100% {
         opacity: 0;
         transform: translateY(100%) scale(1);

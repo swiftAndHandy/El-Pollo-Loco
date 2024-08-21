@@ -23,6 +23,9 @@ class Character extends MovableObject {
             this.stats.health -= amount;
             if (this instanceof Player) {
                 world.gamepad.triggerRumble(0, 200, 0.5, 0.5);
+                if (this.currentAppearance() === 'jumpStart') {
+                    showJumpError();
+                }
             } else if (this instanceof Enemy) {
                 world.gamepad.triggerRumble(0, 100, 0.25, 0.25);
             }

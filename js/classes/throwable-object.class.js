@@ -63,6 +63,8 @@ class ThrowableObject extends MovableObject {
             world.level.throwableObjects.push(new ThrowableObject(x, y));
             world.player.stats.bottles--;
             Bottle.addBottles(1, world.level, world.player.position.x);
+            world.player.appearance.currentStyle = 'idle';
+            world.player.startIdle();
         }
     }
 
@@ -92,7 +94,7 @@ class ThrowableObject extends MovableObject {
     animate() {
         const animationType = this.appearance.currentStyle;
         const updateRequired = this.playAnimation(animationType);
-        if (this.generatedAtFrame + 1 < world.framerate.frame) {
+        if (this.generatedAtFrame + 2 < world.framerate.frame) {
             if (this.appearance.currentStyle !== 'splash') {
                 this.moveBottle();
             } else {

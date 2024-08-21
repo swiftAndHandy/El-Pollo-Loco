@@ -172,7 +172,7 @@ class Player extends Character {
         this.isFalling();
         this.velocity.y = this.abilities.isFalling || this.abilities.isJumping ? this.velocity.y : 0;
         if (this.abilities.isFalling) {
-            this.position.y += this.velocity.y * 1.2;
+            this.position.y += this.velocity.y + (this.acceleration.y * 1.9);
             this.position.y = this.isTouchingGround() ? this.position.ground : this.position.y;
         } else if (this.abilities.isJumping) {
             this.position.y -= this.velocity.y;
@@ -182,7 +182,7 @@ class Player extends Character {
     }
 
     requiresFastUpdate() {
-        return (this.abilities.run && this.currentAppearance() === 'walking') || this.currentAppearance() === 'jumpStart' || this.currentAppearance() === 'landing';
+        return (this.abilities.run && this.currentAppearance() === 'walking') || this.currentAppearance() === 'startJump' || this.currentAppearance() === 'landing';
     }
 
     

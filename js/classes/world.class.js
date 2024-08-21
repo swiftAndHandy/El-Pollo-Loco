@@ -159,7 +159,7 @@ class World {
             this.drawWorld();
             this.getInputs();
             this.animateWorld();
-            this.framerate.frame % (this.framerate.fps / (this.framerate.fps * 0.2)) === 0 && this.checkCollisions();
+            this.checkCollisions();
         } else if (this.camera.cutscenePlays) {
             this.updateTime();
             this.drawCutscene();

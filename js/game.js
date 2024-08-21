@@ -49,19 +49,27 @@ function setupMenu() {
 }
 
 function newGame() {
-    MUSIC.title.pause();
-    world.draw();
-    document.getElementById('title-screen').classList.add('d-none');
-    document.getElementById('highscores').classList.add('d-none');
-    document.getElementById('howtoplay').classList.add('d-none');
-    document.getElementById('imprint-link').classList.add('d-none');
-    document.getElementById('controls').classList.remove('d-none');
-    document.getElementById('touch-control').classList.remove('d-none');
-    document.getElementById('win-screen').classList.add('d-none');
-    document.getElementById('gameover-screen').classList.add('d-none');
-    MUSIC.regular.volume = 0.1;
-    MUSIC.boss.volume = 0;
-    Audioplayer.startSFX('', MUSIC.regular, true);
+    try {
+        MUSIC.title.pause();
+        world.draw();
+        document.getElementById('title-screen').classList.add('d-none');
+        document.getElementById('highscores').classList.add('d-none');
+        document.getElementById('howtoplay').classList.add('d-none');
+        document.getElementById('imprint-link').classList.add('d-none');
+        document.getElementById('controls').classList.remove('d-none');
+        document.getElementById('touch-control').classList.remove('d-none');
+        document.getElementById('win-screen').classList.add('d-none');
+        document.getElementById('gameover-screen').classList.add('d-none');
+        MUSIC.regular.volume = 0.1;
+        MUSIC.boss.volume = 0;
+        Audioplayer.startSFX('', MUSIC.regular, true);
+    } catch (error) {
+        console.warn('Game is loading.');
+        setTimeout(() => {
+            newGame();
+        }, 500);
+        
+    }
 }
 
 function resetGame() {
@@ -248,4 +256,12 @@ async function postData(data = {}, path = "") {
     } catch (error) {
         console.error(`Submit highscore to Server failed.`)
     }
+}
+
+function showJumpError() {
+    const target = document.getElementById('jump-error');
+    target.classList.add('jump-error--active');
+    setTimeout(() => {
+        target.classList.remove('jump-error--active');
+    }, 1000);
 }
