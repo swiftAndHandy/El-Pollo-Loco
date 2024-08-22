@@ -30,19 +30,19 @@ class Collisions {
         });
     }
 
-/**
- * 
- * @param {Object} instance - instance of a object, that is able to collide.
- * @param {Number} hitbox - width of an Hitbox-Object, that is assigned to that instance.
- * @returns 
- */
-static calculateCollisionOffset(instance, hitbox) {
-    if (instance.appearance.mirrored) {
-        return hitbox - 8;
-    } else {
-        return hitbox;
+    /**
+     * 
+     * @param {Object} instance - instance of a object, that is able to collide.
+     * @param {Number} hitbox - width of an Hitbox-Object, that is assigned to that instance.
+     * @returns 
+     */
+    static calculateCollisionOffset(instance, hitbox) {
+        if (instance.appearance.mirrored) {
+            return hitbox - 8;
+        } else {
+            return hitbox;
+        }
     }
-}
 
 
     /**
@@ -89,7 +89,7 @@ static calculateCollisionOffset(instance, hitbox) {
                         if (this.isColliding(bottle, enemy) && !enemy.isDead) {
                             enemy.reciveDamage(100);
                             if (enemy instanceof ElGallonatorBoss) {
-                                enemy.velocity.xMax +=  0.3;
+                                enemy.velocity.xMax += 0.3;
                             }
                             bottle.setAppearanceTo('splash', 0)
                         }

@@ -70,6 +70,11 @@ function updateControls() {
     } else if (pauseButton) {
         pauseButton.remove();
     }
+    if (controlIndex === 1) {
+        document.getElementById('run-button-description').innerText = '(Shift Key)';
+    } else {
+        document.getElementById('run-button-description').innerText = '';
+    }
 
 }
 

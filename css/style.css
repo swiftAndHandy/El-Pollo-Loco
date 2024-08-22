@@ -299,6 +299,9 @@ form {
     width: 50%;
     border-right: 1px solid black;
     padding-right: 16px;
+    gap: 3px;
+    display: flex;
+    flex-direction: column;
 }
 
 .manual__right-page {
@@ -318,6 +321,10 @@ form {
 
 .manual__button {
     flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    gap: 8px;
 }
 
 .control-type {
