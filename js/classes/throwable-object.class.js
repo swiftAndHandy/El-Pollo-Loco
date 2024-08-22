@@ -63,8 +63,10 @@ class ThrowableObject extends MovableObject {
             world.level.throwableObjects.push(new ThrowableObject(x, y));
             world.player.stats.bottles--;
             Bottle.addBottles(1, world.level, world.player.position.x);
-            world.player.appearance.currentStyle = 'idle';
-            world.player.startIdle();
+            if (world.player.currentAppearance() === 'longIdle') {
+                world.player.appearance.currentStyle = 'idle';
+                world.player.startIdle();
+            }
         }
     }
 

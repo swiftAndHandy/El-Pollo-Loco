@@ -9,7 +9,7 @@ class Collisions {
     static isColliding(self, obj) {
         return self.hitboxes.some(hitbox => {
             const leftArea = self.position.x + hitbox.x;
-            const rightArea = leftArea + self.appearance.width - hitbox.width;
+            const rightArea = leftArea + self.appearance.width - Collisions.calculateCollisionOffset(self, hitbox.width);
             const topArea = self.position.y + hitbox.y;
             const bottomArea = topArea + self.appearance.height - hitbox.height;
             return obj.hitboxes.some(objHitbox => {
@@ -30,6 +30,20 @@ class Collisions {
         });
     }
 
+/**
+ * 
+ * @param {Object} instance - instance of a object, that is able to collide.
+ * @param {Number} hitbox - width of an Hitbox-Object, that is assigned to that instance.
+ * @returns 
+ */
+static calculateCollisionOffset(instance, hitbox) {
+    if (instance.appearance.mirrored) {
+        return hitbox - 8;
+    } else {
+        return hitbox;
+    }
+}
+
 
     /**
      * Compares the players hitboxes with every enemy. 
@@ -39,7 +53,7 @@ class Collisions {
     static enemyCollisions(self) {
         self.level.enemies.forEach(enemy => {
             if (this.isColliding(self.player, enemy) && !enemy.isDead) {
-                if (self.player.appearance.currentStyle !== 'falling' || enemy instanceof ElGallonatorBoss) {
+                if (!self.player.abilities.jump.isAttacking || enemy instanceof ElGallonatorBoss) {
                     self.player.reciveDamage(1);
                 } else {
                     if (!(enemy instanceof ElGallonatorBoss)) {

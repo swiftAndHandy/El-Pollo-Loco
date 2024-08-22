@@ -267,7 +267,7 @@ class World {
             this.ctx.scale(-1, 1);
             mo.position.x *= -1;
         } else if (mo.appearance.mirrored && !flip) {
-            mo.position.x *= - 1;
+            mo.position.x *= -1;
             this.ctx.restore();
         }
     }

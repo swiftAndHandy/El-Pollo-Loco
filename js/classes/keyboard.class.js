@@ -157,11 +157,11 @@ class Keyboard extends InputDevice {
 
             if (this.keys.direction.at(-1) === 'KeyA') {
                 const player = world.player.moveLeft();
-                this.noImportantStyle() && player.setAppearanceTo('walking');
+                Player.canChangeAppearance() && player.setAppearanceTo('walking');
                 player.appearance.mirrored = true;
             } else if (this.keys.direction.at(-1) === 'KeyD') {
                 const player = world.player.moveRight();
-                this.noImportantStyle() && player.setAppearanceTo('walking');
+                Player.canChangeAppearance() && player.setAppearanceTo('walking');
                 player.appearance.mirrored = false;
             } else {
                 if (world.gamepad.unallowedLatency()) {

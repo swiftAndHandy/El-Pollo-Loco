@@ -31,6 +31,7 @@ main {
     background-image: url(../assets/img/background.webp);
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 dialog {
@@ -107,7 +108,7 @@ canvas {
 
     canvas,
     .overlay {
-        width: 100%;
+        width: 100dvw;
     }
 }
 

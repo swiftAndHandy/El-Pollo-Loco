@@ -15,6 +15,7 @@ class Player extends Character {
             cooldown: false,
             peak: 45,
             bouncePeak: 0,
+            isAttacking: false,
         },
         throw: {
             cooldown: false,
@@ -89,6 +90,7 @@ class Player extends Character {
     allowJumping() {
         if (this.abilities.isFalling) {
             this.endSpecialAnimations();
+            this.abilities.jump.isAttacking = false;
         }
     }
 
@@ -115,6 +117,19 @@ class Player extends Character {
     }
 
     /**
+     * if the current style is one of the allowed styles, there is no reason to block the appearance switch
+     * @returns {boolean}
+     */
+    static canChangeAppearance() {
+        const allowedStyles = [
+            'longIdle',
+            'idle',
+            'walking',
+        ];
+        return allowedStyles.includes(world.player.appearance.currentStyle);
+    }
+
+    /**
      * @returns {boolean} - true if character isn't idleing, otherwise false
      */
     isntIdeling() {
@@ -127,7 +142,7 @@ class Player extends Character {
     stopMovement() {
         this.velocity.x = 0;
         if (this.isntIdeling()) {
-            world.keyboard.noImportantStyle() && this.setAppearanceTo('idle', 0);
+            Player.canChangeAppearance() && this.setAppearanceTo('idle', 0);
             Audioplayer.stopSFX(this, 'walking');
         }
     }
@@ -138,7 +153,7 @@ class Player extends Character {
      */
     checkForLongIdle(animationType) {
         if (this.timeToEnterLongIdle()) {
-            if (animationType !== 'longIdle' && world.keyboard.noImportantStyle()) { //here
+            if (animationType !== 'longIdle' && Player.canChangeAppearance()) { //here
                 this.setAppearanceTo('longIdle');
             }
         }
@@ -185,7 +200,7 @@ class Player extends Character {
         return (this.abilities.run && this.currentAppearance() === 'walking') || this.currentAppearance() === 'startJump' || this.currentAppearance() === 'landing';
     }
 
-    
+
     animate() {
         const animationType = this.appearance.currentStyle;
         this.checkForLongIdle(animationType);

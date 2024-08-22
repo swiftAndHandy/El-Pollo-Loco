@@ -76,7 +76,7 @@ class Character extends MovableObject {
             Audioplayer.startSFX(this, `dying${sourceModificator}`, false);
             if (this instanceof Enemy && !(this instanceof ElGallonatorBoss)) {
                 setTimeout(() => {
-                        Level.remove(this);
+                    Level.remove(this);
                 }, 500);
             }
             this.isDead = true;

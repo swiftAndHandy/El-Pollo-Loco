@@ -137,9 +137,9 @@ class Gamepad extends InputDevice {
     handleJumping(buttons, leftStickUpDown) {
         if (buttons[0].pressed && !this.buttonsWithCooldown.jump && this.jumpIsntBlocked()) {
             world.player.jump();
-            this.buttonsWithCooldown.jump = true;
+            this.buttonsWithCooldowndown.jump = true;
         } else if (leftStickUpDown >= -0.7 && !buttons[0].pressed) {
-            this.buttonsWithCooldown.jump = false;
+            this.buttonsWithCooldowndown.jump = false;
         }
     }
 
@@ -187,12 +187,12 @@ class Gamepad extends InputDevice {
         if (leftStickLeftRight < -0.5 || buttons[14].pressed) {
             this.setDirectionBuffer();
             const player = world.player.moveLeft();
-            this.noImportantStyle() && player.setAppearanceTo('walking');
+            Player.canChangeAppearance() && player.setAppearanceTo('walking');
             player.appearance.mirrored = true;
         } else if (leftStickLeftRight > 0.5 || buttons[15].pressed) {
             this.setDirectionBuffer();
             const player = world.player.moveRight();
-            this.noImportantStyle() && player.setAppearanceTo('walking');
+            Player.canChangeAppearance() && player.setAppearanceTo('walking');
             player.appearance.mirrored = false;
         } else {
             world.player.getCurrentVelocityX();

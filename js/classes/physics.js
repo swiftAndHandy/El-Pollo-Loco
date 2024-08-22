@@ -31,12 +31,17 @@ class Physics {
     isFalling() {
         const peak = this.calculatePeak();
         if (this.position.y <= peak || this.isAirstucked()) {
+            if (this.canPerformJumpAttack(peak)) { this.abilities.jump.isAttacking = true; };            
             this.abilities.isFalling = true;
             !this.isDead && this instanceof Player && this.setAppearanceTo('falling', 0);
             this.abilities.isJumping = false;
         } else if (this.position.y >= this.position.ground) {
             this.isLanding();
         }
+    }
+
+    canPerformJumpAttack(peak) {
+        return this.position.y <= peak && this.abilities.jump.isAttacking !== undefined;
     }
 
     isLanding() {
