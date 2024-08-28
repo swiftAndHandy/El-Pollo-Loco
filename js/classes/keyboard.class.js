@@ -117,11 +117,6 @@ class Keyboard extends InputDevice {
             this.keys.enter = true;
         }
 
-        if (event.code === 'Escape') {
-            !this.keys.esc &&toggleFullscreen();
-            this.keys.esc = true;
-        }
-
     }
 
     removeInput(event) {

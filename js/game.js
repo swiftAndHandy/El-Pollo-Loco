@@ -45,7 +45,7 @@ function setupMenu() {
 
     });
 
-    document.getElementById('fullscreen').addEventListener('click', toggleFullscreen);
+    document.getElementById('fullscreen-switch').addEventListener('click', toggleFullscreen);
 }
 
 function newGame() {

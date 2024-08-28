@@ -37,7 +37,6 @@ class Gamepad extends InputDevice {
                 gamepad.buttons[9].pressed && world.pause();
                 this.setPausePrevention();
             }
-            this.handleFullscreen(gamepad.buttons);
             return true;
         } else {
             return false;

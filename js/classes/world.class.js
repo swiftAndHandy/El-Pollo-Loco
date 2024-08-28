@@ -155,7 +155,7 @@ class World {
         if (this.time.msPassed < this.framerate.msPerFrame) return;
         if (!this.time.paused && !this.camera.cutscenePlays) {
             this.updateTime();
-            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             this.drawWorld();
             this.getInputs();
             this.animateWorld();
@@ -171,7 +171,7 @@ class World {
 
     drawCutscene() {
         const boss = Level.getBoss();
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         this.drawWorld();
         this.ctx.drawImage(this.VSIMAGE.vs, 20, 100);
         this.ctx.drawImage(this.VSIMAGE.player.image, this.VSIMAGE.player.x, -100);
