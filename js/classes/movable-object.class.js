@@ -121,12 +121,10 @@ class MovableObject extends Physics {
     * Allows die MO to jump.
     */
     jump() {
-        if (!this.abilities.isJumping && !this.isDead && !this.iFrames.active) {
+        if (!this.abilities.isJumping && !this.isDead) {
             this.setAppearanceTo('startJump', 0);
             const sound = world.audio.playRandomVariant(this.sounds.jumping, this);
             Audioplayer.clearSound(sound);
-        } else if (this.iFrames.active && !document.getElementById('jump-error').classList.contains('jump-error--active')) {
-            showJumpError();
         }
     }
 
